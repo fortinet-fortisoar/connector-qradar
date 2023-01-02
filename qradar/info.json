@@ -1,0 +1,1241 @@
+{
+  "name": "qradar",
+  "label": "IBM QRadar",
+  "version": "1.6.0",
+  "description": "IBM QRadar is an enterprise security information and event management (SIEM) product. Fortinet FortiSOSR connector for IBM QRadar allows user to invoke QRadar API, perform Ariel Queries and operations like Get Offense,related events,update and close offenses.",
+  "publisher": "Fortinet",
+  "cs_approved": false,
+  "cs_compatible": true,
+  "category": "Analytics and SIEM",
+  "icon_small_name": "small.png",
+  "icon_large_name": "large.png",
+  "ingestion_supported": true,
+  "ingestion_modes": [
+    "scheduled"
+  ],
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.6.0/ibm-qradar/319/ibm-qradar-v1-6-0",
+  "configuration": {
+    "fields": [
+      {
+        "title": "Address",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "name": "address",
+        "value": "",
+        "description": "IP address of the QRadar server from where the connector gets offenses information and to which you connect and perform automated operations."
+      },
+      {
+        "title": "API Token",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "password",
+        "name": "token",
+        "description": "API token to access the QRadar server to which you connect and perform automated operations."
+      },
+      {
+        "title": "API Version",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "name": "api_version",
+        "value": "6.0",
+        "description": "Version of the QRadar API to be used for performing automated operations."
+      },
+      {
+        "title": "Verify SSL",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "checkbox",
+        "name": "verify_ssl",
+        "value": true,
+        "description": "Specifies whether the SSL certificate for the server is to be verified or not.Defaults to True."
+      }
+    ]
+  },
+  "operations": [
+    {
+      "operation": "get_offenses",
+      "title": "Get Offenses from QRadar",
+      "description": "Retrieves a list of offenses from the QRadar server based on the filter string that you have specified.",
+      "category": "investigation",
+      "annotation": "get_offenses",
+      "output_schema": [
+        {
+          "credibility": "",
+          "source_address_ids": [],
+          "remote_destination_count": "",
+          "local_destination_address_ids": [],
+          "assigned_to": "",
+          "local_destination_count": "",
+          "source_count": "",
+          "start_time": "",
+          "id": "",
+          "destination_networks": [],
+          "inactive": "",
+          "protected": "",
+          "policy_category_count": "",
+          "description": "",
+          "category_count": "",
+          "domain_id": "",
+          "relevance": "",
+          "device_count": "",
+          "security_category_count": "",
+          "flow_count": "",
+          "event_count": "",
+          "offense_source": "",
+          "status": "",
+          "magnitude": "",
+          "severity": "",
+          "username_count": "",
+          "closing_user": "",
+          "follow_up": "",
+          "closing_reason_id": "",
+          "close_time": "",
+          "source_network": "",
+          "last_updated_time": "",
+          "categories": [],
+          "offense_type": ""
+        }
+      ],
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Query/Filter",
+          "description": "Defaults to last 5 min",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "filter_string",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "operation": "query_qradar",
+      "title": "Make an Ariel Query to QRadar",
+      "description": "Executes an Ariel query on the QRadar server. QRadar uses the Ariel Query Language (AQL) to search for offenses or events based on query parameters.",
+      "category": "investigation",
+      "annotation": "run_query",
+      "output_schema": {},
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Ariel Search String",
+          "description": "Ariel query that you want to be run on the QRadar server.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "search_string",
+          "value": null
+        }
+      ]
+    },
+    {
+      "operation": "get_closing_reasons",
+      "title": "Get Offense Closing Reasons",
+      "description": "Retrieves a list of closing reasons associated with all offenses from the QRadar server.",
+      "category": "remediation",
+      "annotation": "get_offense_closing_reasons",
+      "output_schema": [
+        {
+          "is_deleted": "",
+          "id": "",
+          "is_reserved": "",
+          "text": ""
+        }
+      ],
+      "enabled": true,
+      "parameters": []
+    },
+    {
+      "operation": "get_offense_type",
+      "title": "Get Offense Types",
+      "description": "Retrieves a list containing IDs of all the offense types from the QRadar server.",
+      "category": "investigation",
+      "annotation": "get_offense_type",
+      "output_schema": [
+        {
+          "property_name": "",
+          "database_type": "",
+          "id": "",
+          "name": "",
+          "custom": ""
+        }
+      ],
+      "enabled": true,
+      "parameters": []
+    },
+    {
+      "operation": "get_notes",
+      "title": "Get Offense Notes",
+      "description": "Retrieves a list of notes associated with a specified offense in QRadar based on the offense ID you have specified.",
+      "category": "remediation",
+      "annotation": "get_notes",
+      "output_schema": [
+        {
+          "id": "",
+          "note_text": "",
+          "create_time": "",
+          "username": ""
+        }
+      ],
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Offense ID",
+          "description": "ID of the offense whose associated notes you want to retrieve from the QRadar server.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "offense_id",
+          "value": null
+        }
+      ]
+    },
+    {
+      "operation": "close_offense",
+      "title": "Close Offense",
+      "description": "Closes an offense on the QRadar server based on the offense ID that you have specified.",
+      "category": "remediation",
+      "annotation": "close_offense",
+      "output_schema": {
+        "credibility": "",
+        "source_address_ids": [],
+        "remote_destination_count": "",
+        "local_destination_address_ids": [],
+        "assigned_to": "",
+        "local_destination_count": "",
+        "source_count": "",
+        "start_time": "",
+        "id": "",
+        "destination_networks": [],
+        "inactive": "",
+        "protected": "",
+        "policy_category_count": "",
+        "description": "",
+        "category_count": "",
+        "domain_id": "",
+        "relevance": "",
+        "device_count": "",
+        "security_category_count": "",
+        "flow_count": "",
+        "event_count": "",
+        "offense_source": "",
+        "status": "",
+        "magnitude": "",
+        "severity": "",
+        "username_count": "",
+        "closing_user": "",
+        "follow_up": "",
+        "closing_reason_id": "",
+        "close_time": "",
+        "source_network": "",
+        "last_updated_time": "",
+        "categories": [],
+        "offense_type": ""
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Offense ID",
+          "description": "ID of the offense that you want to close on the QRadar server.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "offense_id",
+          "value": null
+        },
+        {
+          "title": "Offense Closing Reason - ID",
+          "description": "ID of the offense closing reason using which you want to close the offense on the QRadar server.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "offense_close_id",
+          "value": null
+        },
+        {
+          "title": "Closure Note",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "textarea",
+          "name": "closure_note",
+          "value": null,
+          "description": "(Optional) Note that you want to associate with the offense that you want to close on the QRadar server."
+        }
+      ]
+    },
+    {
+      "operation": "add_notes",
+      "title": "Create Note",
+      "description": "Creates a note for a specified offense in QRadar based on the offense ID you have specified.",
+      "category": "remediation",
+      "annotation": "add_notes",
+      "output_schema": {
+        "id": "",
+        "note_text": "",
+        "create_time": "",
+        "username": ""
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Offense ID",
+          "description": "ID of the offense for which you want to create a note on the QRadar server.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "offense_id",
+          "value": null
+        },
+        {
+          "title": "Closure Note",
+          "description": "Text of the closure note that you want to create for the specified offense on the QRadar server.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "textarea",
+          "name": "closure_note",
+          "value": null
+        }
+      ]
+    },
+    {
+      "operation": "get_events_related_to_offense",
+      "title": "Get Events Related to an Offense",
+      "description": "Retrieves details of events associated with a QRadar offense, from the QRadar server, based on the QRadar offense ID that you have specified.",
+      "category": "investigation",
+      "annotation": "get_events",
+      "output_schema": {
+        "events": [
+          {
+            "qid": "",
+            "category": "",
+            "sourceip": "",
+            "username": "",
+            "magnitude": "",
+            "starttime": "",
+            "eventcount": "",
+            "identityip": "",
+            "protocolid": "",
+            "sourceport": "",
+            "logsourceid": "",
+            "destinationip": "",
+            "destinationport": ""
+          }
+        ]
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "QRadar Offense ID",
+          "description": "Offense ID based on which you want to retrieve events from QRadar.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "offense_id",
+          "value": ""
+        },
+        {
+          "title": "Offense Start Time",
+          "description": "Number of milliseconds since epoch since the offense was started.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "datetime",
+          "name": "start_time",
+          "value": ""
+        },
+        {
+          "title": "Offense Last Update Time",
+          "description": "Number of milliseconds since epoch since the offense was last modified.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "datetime",
+          "name": "last_updated_time",
+          "value": ""
+        },
+        {
+          "title": "Maximum Number of Events to return",
+          "description": "Maximum Number of events to return from QRadar.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "max_results",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "operation": "get_source_ip",
+      "title": "Get Source IP Addresses",
+      "description": "Retrieves IP address details associated with a source address IDs from the QRadar server, based on the source address IDs that you have specified",
+      "output_schema": {
+        "id": "",
+        "source_ip": "",
+        "network": "",
+        "magnitude": ""
+      },
+      "category": "investigation",
+      "annotation": "ip_details",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Source Address Ids (eg, [3,4,5])",
+          "description": "Provide the source address ids to get the details of source IP Address from QRadar",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "source_address_ids"
+        }
+      ]
+    },
+    {
+      "operation": "get_destination_ip",
+      "title": "Get Destination IP Addresses",
+      "description": "Retrieves IP address details associated with a destination address IDs from the QRadar server, based on the destination address IDs that you have specified",
+      "category": "investigation",
+      "annotation": "ip_details",
+      "output_schema": {
+        "id": "",
+        "local_destination_ip": "",
+        "network": "",
+        "magnitude": ""
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Destination Address Ids (eg, [1])",
+          "description": "Provide the destination address ids to get the details of destination IP Address from QRadar",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "destination_address_ids"
+        }
+      ]
+    },
+    {
+      "operation": "invoke_api",
+      "title": "Invoke QRadar REST API",
+      "annotation": "api_call",
+      "description": "Invokes a function to Get or Post an API endpoint on the QRadar server.",
+      "output_schema": {},
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Endpoint",
+          "required": true,
+          "description": "Provide the endpoint for which you want to invoke",
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "placeholder": "eg /siem/offenses",
+          "name": "endpoint"
+        },
+        {
+          "title": "Request Method",
+          "required": true,
+          "description": "Select the request method. You can choose between GET, POST, or PATCH.If you select GET, then you should specify the Request Parameters parameter. In the Request parameters parameter, specify the request parameters for the specified endpoint.If you select POST or PATCH, then you can specify either the Request Parameters in JSON Format or the Request Payload in JSON Format parameter. In these parameters, specify either the request parameters or request JSON payload for the specified endpoint.",
+          "editable": true,
+          "visible": true,
+          "type": "select",
+          "name": "method",
+          "value": "GET",
+          "options": [
+            "GET",
+            "POST",
+            "PATCH"
+          ],
+          "onchange": {
+            "GET": [
+              {
+                "title": "Request Parameters",
+                "required": false,
+                "description": "Provide the request parameters for the above endpoint that you have specified",
+                "editable": true,
+                "visible": true,
+                "type": "json",
+                "name": "request_parameters"
+              }
+            ],
+            "POST": [
+              {
+                "options": [
+                  "Request Parameters",
+                  "Request Payload"
+                ],
+                "type": "multiselect",
+                "name": "post_payload",
+                "title": "Provide Parameters",
+                "visible": true,
+                "editable": true,
+                "required": true,
+                "onchange": {
+                  "Request Parameters": [
+                    {
+                      "title": "Request Parameters in JSON Format",
+                      "required": false,
+                      "description": "Provide the request parameters for the above endpoint that you have specified",
+                      "editable": true,
+                      "visible": true,
+                      "type": "json",
+                      "name": "request_parameters"
+                    }
+                  ],
+                  "Request Payload": [
+                    {
+                      "title": "Request Payload in JSON Format",
+                      "required": false,
+                      "description": "Provide the request json payload for the above endpoint that you have specified",
+                      "editable": true,
+                      "visible": true,
+                      "type": "json",
+                      "name": "request_payload"
+                    }
+                  ]
+                }
+              }
+            ],
+            "PATCH": [
+              {
+                "options": [
+                  "Request Parameters",
+                  "Request Payload"
+                ],
+                "type": "multiselect",
+                "name": "patch_payload",
+                "title": "Provide Parameters",
+                "visible": true,
+                "editable": true,
+                "required": true,
+                "onchange": {
+                  "Request Parameters": [
+                    {
+                      "title": "Request Parameters in JSON Format",
+                      "required": false,
+                      "description": "Provide the request parameters for the above endpoint that you have specified",
+                      "editable": true,
+                      "visible": true,
+                      "type": "json",
+                      "name": "request_parameters"
+                    }
+                  ],
+                  "Request Payload": [
+                    {
+                      "title": "Request Payload in JSON Format",
+                      "required": false,
+                      "description": "Provide the request json payload for the above endpoint that you have specified",
+                      "editable": true,
+                      "visible": true,
+                      "type": "json",
+                      "name": "request_payload"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "title": "Headers in json format",
+          "required": false,
+          "description": "(Optional) Additional JSON formatted headers.Following headers are already added by the connector:'Accept': 'application/JSON','Content-Type': 'application/JSON','SEC': <token>,'Version': <api_version>,",
+          "editable": true,
+          "visible": true,
+          "type": "json",
+          "name": "headers"
+        }
+      ]
+    },
+    {
+      "operation": "handle_reference_set_value",
+      "title": "Manipulate Reference Set Content",
+      "annotation": "handle_reference_set_value",
+      "description": "Adds or deletes the content that you have specified from a specified reference set on QRadar.",
+      "conditional_output_schema": [
+        {
+          "condition": "{{method === 'Retrieves Value'}}",
+          "output_schema": {
+            "data": [
+              {
+                "first_seen": "",
+                "last_seen": "",
+                "source": "",
+                "value": ""
+              }
+            ],
+            "message": "",
+            "element_type": "",
+            "timeout_type": "",
+            "name": "",
+            "number_of_elements": "",
+            "creation_time": ""
+          }
+        },
+        {
+          "condition": "{{(method === 'Add Value' || method === 'Delete Value')}}",
+          "output_schema": {
+            "message": "",
+            "element_type": "",
+            "timeout_type": "",
+            "name": "",
+            "number_of_elements": "",
+            "creation_time": ""
+          }
+        }
+      ],
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Request Method",
+          "description": "Select the request method option of the operation that you want to perform on the specified reference set in QRadar. You can choose from Retrieves Value, Add Value, or Delete Value.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "select",
+          "name": "method",
+          "options": [
+            "Retrieves Value",
+            "Add Value",
+            "Delete Value"
+          ],
+          "value": "Retrieves Value",
+          "onchange": {
+            "Retrieves Value": [
+              {
+                "title": "Reference Set Name",
+                "required": true,
+                "tooltip": "Name of the reference set in which you want manipulate the content",
+                "description": "Specify the name of the reference set to be used for this operation based on the option you have specified in the Request Method. If you choose Add Value as the Request Method, then this operation will add the specified value to the reference set you have specified in this field. If you choose Delete Value as the Request Method, then this operation will delete the specified value from the reference set you have specified in this field. If you choose Retrieves Value as the Request Method, then this operation will retrieve the values of the reference set you have specified in this field.",
+                "editable": true,
+                "visible": true,
+                "type": "text",
+                "name": "name"
+              }
+            ],
+            "Add Value": [
+              {
+                "title": "Reference Set Name",
+                "required": true,
+                "tooltip": "Name of the reference set in which you want manipulate the content",
+                "description": "Specify the name of the reference set to be used for this operation based on the option you have specified in the Request Method. If you choose Add Value as the Request Method, then this operation will add the specified value to the reference set you have specified in this field. If you choose Delete Value as the Request Method, then this operation will delete the specified value from the reference set you have specified in this field. If you choose Retrieves Value as the Request Method, then this operation will retrieve the values of the reference set you have specified in this field.",
+                "editable": true,
+                "visible": true,
+                "type": "text",
+                "name": "name"
+              },
+              {
+                "title": "Value",
+                "required": true,
+                "tooltip": "Value that you want to add or remove from the specified reference set. You must specify the value in this field if you have chosen Add Value or Delete Value as the Request Method.",
+                "description": "Specify the value that you want to add or remove from the specified reference set. You must specify the value in this field if you have chosen Add Value or Delete Value as the Request Method.",
+                "editable": true,
+                "visible": true,
+                "type": "text",
+                "name": "value"
+              }
+            ],
+            "Delete Value": [
+              {
+                "title": "Reference Set Name",
+                "required": true,
+                "tooltip": "Name of the reference set in which you want manipulate the content",
+                "description": "Specify the name of the reference set to be used for this operation based on the option you have specified in the Request Method. If you choose Add Value as the Request Method, then this operation will add the specified value to the reference set you have specified in this field. If you choose Delete Value as the Request Method, then this operation will delete the specified value from the reference set you have specified in this field. If you choose Retrieves Value as the Request Method, then this operation will retrieve the values of the reference set you have specified in this field.",
+                "editable": true,
+                "visible": true,
+                "type": "text",
+                "name": "name"
+              },
+              {
+                "title": "Value",
+                "required": true,
+                "tooltip": "Value that you want to add or remove from the specified reference set. You must specify the value in this field if you have chosen Add Value or Delete Value as the Request Method.",
+                "description": "Specify the value that you want to add or remove from the specified reference set. You must specify the value in this field if you have chosen Add Value or Delete Value as the Request Method.",
+                "editable": true,
+                "visible": true,
+                "type": "text",
+                "name": "value"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "operation": "get_assets_properties",
+      "title": "Get Assets Properties",
+      "description": "Get a list of available asset property types that can be used with assets update operation.",
+      "category": "enrichment",
+      "annotation": "get_assets_properties",
+      "output_schema": [
+    {
+        "data_type":"",
+        "display":"",
+        "custom":"",
+        "name":"",
+        "id":"",
+        "state":""
+    }
+],
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Maximum Number of Attributes to return",
+          "description": "Maximum Number of attributes to return from QRadar.",
+          "tooltip": "Maximum Number of attributes to return from QRadar.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "max_results",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "operation": "get_assets",
+      "title": "Get Assets",
+      "description": "Get a list of available assets",
+      "category": "enrichment",
+      "annotation": "get_assets",
+      "output_schema": [
+   {
+      "vulnerability_count":"",
+      "interfaces":[
+         {
+            "mac_address":"",
+            "last_seen_profiler":"",
+            "created":"",
+            "last_seen_scanner":"",
+            "first_seen_scanner":"",
+            "ip_addresses":[
+               {
+                  "last_seen_profiler":"",
+                  "created":"",
+                  "last_seen_scanner":"",
+                  "first_seen_scanner":"",
+                  "network_id":"",
+                  "id":"",
+                  "type":"",
+                  "first_seen_profiler":"",
+                  "value":""
+               }
+            ],
+            "id":"",
+            "first_seen_profiler":""
+         }
+      ],
+      "risk_score_sum":"",
+      "hostnames":"",
+      "id":"",
+      "users":"",
+      "domain_id":"",
+      "properties":[
+         {
+            "last_reported":"",
+            "name":"",
+            "type_id":"",
+            "id":"",
+            "last_reported_by":"",
+            "value":""
+         }
+      ],
+      "products":""
+   }
+],
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Filter",
+          "description": "Filter assets to return by any asset property",
+          "tooltip": "Filter assets to return by any asset property",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "filter_string",
+          "placeholder": "field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
+          "value": ""
+        },
+        {
+          "title": "Maximum Number of Assets to return",
+          "description": "Maximum Number of Assets to return from QRadar.",
+          "tooltip": "Maximum Number of Assets to return from QRadar.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "max_results",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "operation": "update_asset",
+      "title": "Update Asset",
+      "description": "Update one or multiple attributes of a specific asset defined by Asset ID",
+      "category": "enrichment",
+      "annotation": "update_asset",
+      "output_schema": "",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Asset ID",
+          "description": "ID of the asset to update",
+          "tooltip": "ID of the asset to update",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.asset_id",
+          "placeholder": "2001",
+          "value": ""
+        },
+        {
+          "title": "Asset Properties",
+          "description": "JSON dictionary with the properties to update",
+          "tooltip": "JSON dictionary with the properties values to update",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "json",
+          "name": "body.asset",
+          "placeholder": "{'properties':[{'type_id':1001,'value':'felixrobotron'},{'type_id':1002,'value':'felix.robot.terminus'}]}",
+          "value": ""
+        },
+        {
+          "title": "Content Type",
+          "description": "System field",
+          "tooltip": "System field, cannot be edited",
+          "required": false,
+          "editable": false,
+          "visible": true,
+          "type": "text",
+          "name": "content_type",
+          "value": "text/plain"
+        }
+      ]
+    },
+    {
+      "operation": "get_cases",
+      "title": "Get Cases",
+      "description": "Get a list of Qradar cases",
+      "category": "enrichment",
+      "annotation": "get_cases",
+      "output_schema": [
+   {
+      "assigned_to":[
+
+      ],
+      "id":"",
+      "name":""
+   }
+],
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Filter",
+          "description": "Filter cases to return by any case property",
+          "tooltip": "Filter cases to return by any case property",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "filter_string",
+          "placeholder": "field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
+          "value": ""
+        },
+        {
+          "title": "Maximum Number of Cases to return",
+          "description": "Maximum Number of Cases to return from QRadar.",
+          "tooltip": "Maximum Number of Cases to return from QRadar.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "max_results",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "operation": "create_case",
+      "title": "Create Case",
+      "description": "Create a new case on Qradar",
+      "category": "enrichment",
+      "annotation": "create_case",
+      "output_schema": {
+   "case_id":"",
+   "name":"",
+   "id":"",
+   "state":"",
+   "assigned_to":[
+
+   ]
+},
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Case Properties",
+          "description": "JSON dictionary with the properties of the case to create",
+          "tooltip": "JSON dictionary with the properties of the case to create",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "json",
+          "name": "body.case",
+          "placeholder": "{'assigned_to':['admin'],'name':'case1'}",
+          "value": ""
+        },
+        {
+          "title": "Content Type",
+          "description": "System field",
+          "tooltip": "System field, cannot be edited",
+          "required": false,
+          "editable": false,
+          "visible": true,
+          "type": "text",
+          "name": "content_type",
+          "value": "application/json"
+        } 
+      ]
+    },
+    {
+      "operation": "get_reference_tables",
+      "title": "Get Reference Tables",
+      "description": "Get a list of Reference Tables",
+      "category": "enrichment",
+      "annotation": "get_reference_tables",
+      "output_schema": [
+   {
+      "timeout_type":"",
+      "number_of_elements":"",
+      "creation_time":"",
+      "name":"",
+      "key_name_types":{
+         "port":"",
+         "source_ip":"",
+         "timestamp":""
+      },
+      "element_type":""
+   }
+],
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Filter",
+          "description": "Filter reference tables to return by any table property",
+          "tooltip": "Filter reference tables to return by any table property",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "filter_string",
+          "placeholder": "field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
+          "value": ""
+        },
+        {
+          "title": "Maximum Number of Reference Tables to return",
+          "description": "Maximum Number of Reference Tables to return from QRadar.",
+          "tooltip": "Maximum Number of Reference Tables to return from QRadar.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "max_results",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "operation": "delete_reference_table",
+      "title": "Delete/Purge Reference Table",
+      "description": "Delete a Reference Table or Purge its content",
+      "category": "enrichment",
+      "annotation": "delete_reference_table",
+      "output_schema": {
+   "created_by":"",
+   "created":"",
+   "name":"",
+   "modified":"",
+   "started":"",
+   "completed":"",
+   "id":"",
+   "message":"",
+   "status":""
+},
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Reference Table Name",
+          "description": "The name of the reference table to delete or purge",
+          "tooltip": "The name of the reference table to delete or purge",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.name",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Purge Table",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "select",
+          "description": "Purges the Reference Table instead of deleting it",
+          "tooltip": "Purges the Reference Table instead of deleting it",
+          "options": ["true", "false"],
+          "name": "query.purge_only",
+          "value": "true"
+
+        }
+      ]
+    },
+    {
+      "operation": "get_table_elements",
+      "title": "Get Table Elements",
+      "description": "Get records details of a reference table defined by name",
+      "category": "enrichment",
+      "annotation": "get_table_elements",
+      "output_schema":{
+   "timeout_type":"",
+   "number_of_elements":"",
+   "data":{
+      "outer_key":{
+         "inner_key":{
+            "last_seen":"",
+            "first_seen":"",
+            "source":"",
+            "value":""
+         }
+      }
+   },
+   "creation_time":"",
+   "name":"",
+   "key_name_types":"",
+   "element_type":""
+},
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Reference Table Name",
+          "description": "Name of the reference table to fetch",
+          "tooltip": "Name of the reference table to fetch",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.name",
+          "placeholder":"field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
+          "value": ""
+        },
+        {
+          "title": "Maximum Number of Reference Tables to return",
+          "description": "Maximum Number of Reference Tables to return from QRadar.",
+          "tooltip": "Maximum Number of Reference Tables to return from QRadar.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "max_results",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "operation": "add_table_element",
+      "title": "Add/Update Table Element",
+      "description": "Add or update an element in a reference table",
+      "category": "enrichment",
+      "annotation": "add_table_element",
+      "output_schema": {
+   "timeout_type":"",
+   "number_of_elements":"",
+   "creation_time":"",
+   "name":"",
+   "key_name_types":"",
+   "element_type":""
+},
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Reference Table Name",
+          "description": "The name of the reference table to add or update an element in",
+          "tooltip": "The name of the reference table to add or update an element in",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.name",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Outer Key",
+          "description": "The outer key for the element  to add or update",
+          "tooltip": "The outer key for the element  to add or update",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.outer_key",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Inner Key",
+          "description": "The inner key for the element to add or update",
+          "tooltip": "The inner key for the element to add or update",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.inner_key",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "value",
+          "description": "The value to add or update in the reference table. Note: Date values must be represented in Unix Epoch milliseconds.",
+          "tooltip": "The value to add or update in the reference table. Note: Date values must be represented in Unix Epoch milliseconds, ex: 1671706076483",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.value",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Domain ID",
+          "description": "Sets the domain id for the value to be specified. If null, the shared domain will be used.",
+          "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.domain_id",
+          "value": ""
+        },
+        {
+          "title": "Element Source",
+          "description": "An indication of where the data originated. The default value is 'FortiSOAR'",
+          "tooltip": "An indication of where the data originated. The default value is 'FortiSOAR'",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.source",
+          "value": "FortiSOAR"
+        }
+      ]
+    },
+    {
+      "operation": "delete_table_element",
+      "title": "Delete Table Element",
+      "description": "Delete element from a reference table",
+      "category": "enrichment",
+      "annotation": "delete_table_element",
+      "output_schema": {
+   "timeout_type":"",
+   "number_of_elements":"",
+   "creation_time":"",
+   "name":"",
+   "key_name_types":"",
+   "element_type":""
+},
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Reference Table Name",
+          "description": "The name of the reference table to remove element from",
+          "tooltip": "The name of the reference table to remove element from",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.name",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Outer Key",
+          "description": "The outer key of the element to delete",
+          "tooltip": "The outer key of element to delete",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.outer_key",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Inner Key",
+          "description": "The inner key of the element to delete",
+          "tooltip": "The inner key of the element to delete",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.inner_key",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "value",
+          "description": "The value of the element to delete. Note: Date values must be represented in Epoch milliseconds",
+          "tooltip": "The value of the element to delete. Note: Date values must be represented in Epoch milliseconds",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.value",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Domain ID",
+          "description": "Sets the domain id for the value to be specified. If null, the shared domain will be used.",
+          "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.domain_id",
+          "value": ""
+        },
+        {
+          "title": "Element Source",
+          "description": "An indication of where the data originated. The default value is 'FortiSOAR'",
+          "tooltip": "An indication of where the data originated. The default value is 'FortiSOAR'",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.source",
+          "value": "FortiSOAR"
+        }
+      ]
+    }
+  ]
+}
