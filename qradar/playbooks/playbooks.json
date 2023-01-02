@@ -292,7 +292,7 @@
         {
           "@type": "Workflow",
           "triggerLimit": null,
-          "name": "B Update Asset",
+          "name": "Update Asset",
           "aliasName": null,
           "tag": "#qradar",
           "description": "Update one or multiple attributes of a specific asset defined by Asset ID",
