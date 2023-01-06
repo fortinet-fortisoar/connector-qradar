@@ -1,0 +1,41 @@
+{
+  "version": "1.1.0",
+  "name": "CyberSponse Integration",
+  "description": "CyberSponse Integration",
+  "uuid": "7c40a5da-932a-4c3c-b058-8bd752866b06",
+  "debugging": true,
+  "configuration_pages": [
+    {
+      "description": "CyberSponse",
+      "icon": "static/images/CS_Logo1.png",
+      "required_capabilities": [
+        "ADMIN"
+      ],
+      "text": "CyberSponse",
+      "url": "cs_config"
+    }
+  ],
+  "gui_actions": [
+    {
+      "description": "Create a CyOPs alert with details from this offense - requires QRadar Connector deployed on CyOPs ",
+      "groups": [
+        "OffenseSummaryToolbar"
+      ],
+      "icon": "static/images/CS_Logo_Black.png",
+      "id": "createCyOPsAlert",
+      "rest_method": "offenseToCyOPsAlert",
+      "javascript":"alert(result.message)",
+      "text": "Create CyOPs Alert"
+    }
+  ],
+  "rest_methods": [
+    {
+      "argument_names": [
+        "context"
+      ],
+      "method": "GET",
+      "name": "offenseToCyOPsAlert",
+      "url": "/offense_to_cyops_alert"
+    }
+  ]
+}

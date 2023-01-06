@@ -1,0 +1,2690 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "@type": "WorkflowCollection",
+      "name": "Sample - IBM QRadar - 1.5.1",
+      "description": "IBM QRadar is an enterprise security information and event management (SIEM) product. Fortinet FortiSOAR Connector for IBM QRadar allows user to invoke QRadar API, perform Ariel Queries and operations like Get Offense,related events,update and close offenses.",
+      "visible": true,
+      "image": null,
+      "uuid": "d129e8bf-32f1-410d-8807-343693acde71",
+      "id": 488,
+      "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+      "createDate": 1657270455.808023,
+      "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+      "modifyDate": 1657270455.808023,
+      "deletedAt": null,
+      "importedBy": [],
+      "recordTags": [],
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "IBM QRadar > Ingest",
+          "aliasName": null,
+          "tag": "#qradar #ingest #dataingestion",
+          "description": "This playbook demonstrates Get Offense Operation.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1657284948,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/f63d8750-ff67-427f-bf84-874f5cf55c9e",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Create Alert",
+              "description": null,
+              "arguments": {
+                "when": "{{( vars.steps.Fetch_Offenses.data!= None) and ( vars.steps.Fetch_Offenses.data| length > 0)}}",
+                "for_each": {
+                  "item": "{{ vars.steps.Fetch_Offenses.data}}",
+                  "parallel": false,
+                  "condition": ""
+                },
+                "arguments": {
+                  "sourcedata": "{{vars.item}}",
+                  "qradar_pull_time": "{{vars.qradar_pull_time}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "/api/3/workflows/0abc2445-cf11-45fc-863c-c7dae89b43d2"
+              },
+              "status": null,
+              "top": "360",
+              "left": "700",
+              "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+              "uuid": "2774d9b5-0328-4899-ad00-987b64f44fd0"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Configuration",
+              "description": null,
+              "arguments": {
+                "qradar_timezone": "{{vars.steps.Fetch_Offenses.QRadarTimeZoneMacro}}",
+                "qradar_pull_time": "{{vars.steps.Fetch_Offenses.QRadarPullTimeMacro}}",
+                "qradar_event_limit": "{{vars.steps.Fetch_Offenses.QRadarLimitMacro}}"
+              },
+              "status": null,
+              "top": "260",
+              "left": "400",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "44b202e1-a4c5-4698-ae55-f88e9e2cf759"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Fetch Related Events of Offense",
+              "description": null,
+              "arguments": {
+                "when": "{{vars.steps.Create_Alert}}",
+                "for_each": {
+                  "item": "{{vars.steps.Create_Alert}}",
+                  "parallel": false,
+                  "condition": ""
+                },
+                "arguments": {
+                  "alertRecord": "{{vars.item}}",
+                  "qradar_timezone": "{{vars.qradar_timezone}}",
+                  "qradar_event_limit": "{{vars.qradar_event_limit}}"
+                },
+                "apply_async": true,
+                "step_variables": [],
+                "workflowReference": "/api/3/workflows/a0f9a5b4-c8d9-418c-a703-4acb02066346"
+              },
+              "status": null,
+              "top": "520",
+              "left": "1340",
+              "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+              "uuid": "81a6700d-f7b8-4d4f-be42-fe1d41c2ab72"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Fetch Offenses",
+              "description": null,
+              "arguments": {
+                "arguments": [],
+                "step_variables": [],
+                "workflowReference": "/api/3/workflows/125d079a-13f1-44fa-a75f-4294aafc643b"
+              },
+              "status": null,
+              "top": "140",
+              "left": "240",
+              "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+              "uuid": "a1d384da-5cdb-474b-bbea-988cd481632d"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Update Last Offense Pull Time",
+              "description": null,
+              "arguments": {
+                "name": "Utilities",
+                "params": {
+                  "macro": "{{vars.qradar_pull_time}}",
+                  "value": "{{ vars.steps.Fetch_Offenses.curr_timestamp}}"
+                },
+                "version": "3.2.1",
+                "connector": "cyops_utilities",
+                "operation": "updatemacro",
+                "operationTitle": "CyOPs: Update Macro",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "440",
+              "left": "1020",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "cc5c10e1-d0ad-4892-a2e7-6bc2e5e29923"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "3095f149-1c11-4259-98da-091cbb6db79b",
+                "title": "QRadar > Fetch Offenses Now",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  },
+                  "incidents": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "20",
+              "left": "40",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "f63d8750-ff67-427f-bf84-874f5cf55c9e"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Fetch Offenses",
+              "targetStep": "/api/3/workflow_steps/a1d384da-5cdb-474b-bbea-988cd481632d",
+              "sourceStep": "/api/3/workflow_steps/f63d8750-ff67-427f-bf84-874f5cf55c9e",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "7e50d117-57a0-4279-884d-9deaba13eb4e"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Create Alert -> Update Last Offense Pull Time",
+              "targetStep": "/api/3/workflow_steps/cc5c10e1-d0ad-4892-a2e7-6bc2e5e29923",
+              "sourceStep": "/api/3/workflow_steps/2774d9b5-0328-4899-ad00-987b64f44fd0",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "99bb5b2d-e822-4a7a-a5e1-a9c43770f6a5"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Update Last Offense Pull Time -> Fetch Related Events of Offense",
+              "targetStep": "/api/3/workflow_steps/81a6700d-f7b8-4d4f-be42-fe1d41c2ab72",
+              "sourceStep": "/api/3/workflow_steps/cc5c10e1-d0ad-4892-a2e7-6bc2e5e29923",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "0e571726-027b-4b4a-a415-94fe679a2e87"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Fetch Offenses -> Configuration",
+              "targetStep": "/api/3/workflow_steps/44b202e1-a4c5-4698-ae55-f88e9e2cf759",
+              "sourceStep": "/api/3/workflow_steps/a1d384da-5cdb-474b-bbea-988cd481632d",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "66c5fe20-ec03-4bcc-aaf2-ebb98c60d733"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configuration -> Create Alert",
+              "targetStep": "/api/3/workflow_steps/2774d9b5-0328-4899-ad00-987b64f44fd0",
+              "sourceStep": "/api/3/workflow_steps/44b202e1-a4c5-4698-ae55-f88e9e2cf759",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "4d44a5ca-b549-48a8-a0cc-0a727908ece7"
+            }
+          ],
+          "priority": null,
+          "uuid": "036abd4c-66c3-477e-8cec-1934ea66cd3f",
+          "id": 4584,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.809898,
+          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "modifyDate": 1657284946.561792,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "dataingestion",
+            "ingest",
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "> IBM QRadar > Create Alert",
+          "aliasName": null,
+          "tag": "#qradar #dataingestion #create",
+          "description": "This playbook creates the offense as an alert in CyOPs.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [
+            "sourcedata",
+            "qradar_pull_time"
+          ],
+          "synchronous": false,
+          "lastModifyDate": 1657284327,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/ed236455-af84-4b80-98af-47592751294d",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Configuration",
+              "description": null,
+              "arguments": {
+                "offense_data": "{ 'offense_data':  {{vars.input.params.sourcedata}},\n'events_data': []\n}",
+                "alerts_status_map": "{'OPEN': {{'AlertStatus'| picklist('Open') }}, 'CLOSED': {{'AlertStatus'| picklist('Closed') }}}",
+                "alerts_severity_map": "{'1,2': {{'Severity'| picklist('Minimal') }}, '3,4': {{'Severity'| picklist('Low') }}, '5,6': {{'Severity'| picklist('Medium') }}, '7,8': {{'Severity'| picklist('High') }}, '9,10': {{'Severity'| picklist('Critical') }}}"
+              },
+              "status": null,
+              "top": "100",
+              "left": "220",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "3d2e1316-8264-4c85-8935-2e76cb9a1c95"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create Record",
+              "description": null,
+              "arguments": {
+                "resource": {
+                  "name": "{{vars.sourcedata['description']}}",
+                  "type": "/api/3/picklists/574a6ee2-7265-4701-815e-cff83b053bce",
+                  "state": "/api/3/picklists/a1bac09b-1441-45aa-ad1b-c88744e48e72",
+                  "source": "QRadar",
+                  "status": "{{ vars.sourcedata[\"status\"]  | resolveRange(vars.alerts_status_map)}}",
+                  "comments": "[\"{{vars.steps.Add_a_note_of_offense_update['@id']}}\"]",
+                  "severity": "{{ vars.sourcedata[\"severity\"]  | resolveRange(vars.alerts_severity_map)}}",
+                  "sourceId": "{{vars.sourcedata['id']}}",
+                  "__replace": "true",
+                  "sourcedata": "{{vars.offense_data | toJSON }}",
+                  "description": "<p>{% if vars.sourcedata.source_address_details | length !=0 %}</p>\n<p>{{ vars.sourcedata.source_address_details | json2html }}</p>\n<p>{% endif %}{% if vars.sourcedata.destination_address_details | length != 0 %}</p>\n<p>{{ vars.sourcedata.destination_address_details | json2html }}</p>\n<p>{% endif %}</p>",
+                  "ackSlaStatus": "/api/3/picklists/72979f64-e8b9-4888-a965-957e0ec24818",
+                  "respSlaStatus": "/api/3/picklists/72979f64-e8b9-4888-a965-957e0ec24818",
+                  "priorityWeight": 1,
+                  "escalatedtoincident": "/api/3/picklists/2128a09c-153d-4db3-985d-de6be33deae5",
+                  "alertRemainingAckSLA": 0
+                },
+                "_showJson": false,
+                "is_upsert": true,
+                "operation": "Overwrite",
+                "collection": "/api/3/upsert/alerts",
+                "__recommend": [],
+                "fieldOperation": {
+                  "recordTags": "Overwrite"
+                },
+                "step_variables": []
+              },
+              "status": null,
+              "top": "320",
+              "left": "560",
+              "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
+              "uuid": "bd67873d-2382-44b9-9791-0e6f4f05497e"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": {
+                      "sourcedata": "{{ vars.sourcedata }}",
+                      "qradar_pull_time": "{{ vars.qradar_pull_time }}"
+                    }
+                  }
+                }
+              },
+              "status": null,
+              "top": "20",
+              "left": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+              "uuid": "ed236455-af84-4b80-98af-47592751294d"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Add a note of offense update",
+              "description": null,
+              "arguments": {
+                "when": "{{vars.sourcedata.start_time > ((vars.input.params['qradar_pull_time']| int)*1000) or vars.sourcedata.last_updated_time > ((vars.input.params['qradar_pull_time']| int)*1000)}}",
+                "resource": {
+                  "type": "/api/3/picklists/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                  "people": [],
+                  "content": "<p>Below is the latest summary:</p>\n<p>status: {{vars.sourcedata.status}}<br />inactive: {{vars.sourcedata.inactive}}<br />severity: {{vars.sourcedata.severity}}<br />magnitude: {{vars.sourcedata.magnitude}}<br />relevance: {{vars.sourcedata.relevance}}<br />categories: {{vars.sourcedata.categories}}<br />assigned_to: {{vars.sourcedata.assigned_to}}<br />event_count: {{vars.sourcedata.event_count}}<br />closing_user: {{vars.sourcedata.closing_user}}<br />offense_type: {{vars.sourcedata.offense_type}}</p>",
+                  "__replace": "",
+                  "isImportant": false,
+                  "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "/api/3/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                  "recordTags": "Overwrite"
+                },
+                "step_variables": []
+              },
+              "status": null,
+              "top": "200",
+              "left": "380",
+              "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
+              "uuid": "fcb9b6ef-76e1-422a-8018-e4c544c2068d"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Configuration",
+              "targetStep": "/api/3/workflow_steps/3d2e1316-8264-4c85-8935-2e76cb9a1c95",
+              "sourceStep": "/api/3/workflow_steps/ed236455-af84-4b80-98af-47592751294d",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "f8effce8-693c-4a90-b28c-7921a7ece2e5"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configuration -> Add a note of offense update",
+              "targetStep": "/api/3/workflow_steps/fcb9b6ef-76e1-422a-8018-e4c544c2068d",
+              "sourceStep": "/api/3/workflow_steps/3d2e1316-8264-4c85-8935-2e76cb9a1c95",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "5ec76e2c-c540-44f6-956a-b6b17d8946f8"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Add a note of offense update -> Create Record",
+              "targetStep": "/api/3/workflow_steps/bd67873d-2382-44b9-9791-0e6f4f05497e",
+              "sourceStep": "/api/3/workflow_steps/fcb9b6ef-76e1-422a-8018-e4c544c2068d",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "1b174cf6-8bd2-40af-b479-acc32eec407b"
+            }
+          ],
+          "priority": null,
+          "uuid": "0abc2445-cf11-45fc-863c-c7dae89b43d2",
+          "id": 4585,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.81106,
+          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "modifyDate": 1657284322.081089,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "dataingestion",
+            "create",
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "> IBM QRadar > Fetch",
+          "aliasName": null,
+          "tag": "#qradar #fetch #dataingestion",
+          "description": "This playbook fetches the Offenses.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1657518685,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/9ad8a0ff-ad4c-46ca-8c6a-c253c673547a",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Calculate QRadar Epoch Time",
+              "description": null,
+              "arguments": {
+                "qradar_epoch": "{{ ( arrow.get(vars.curr_timestamp).shift(minutes=-vars.time_diff_min).int_timestamp) * 1000}}"
+              },
+              "status": null,
+              "top": "760",
+              "left": "680",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "0c594fee-eb79-49c4-b2de-7a5344fb3535"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Configuration",
+              "description": null,
+              "arguments": {
+                "macro_name": "{{vars['audit_info']['cyops_playbook_iri'].split('/')[-1].replace('-','_')}}",
+                "filter_string": "status=\"OPEN\"",
+                "qradar_timezone": "UTC",
+                "event_record_limit": "50",
+                "Pull_Sample_Offense_in_Past_X_Minutes": "10"
+              },
+              "status": null,
+              "top": "180",
+              "left": "80",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "0eb20961-72b5-43ed-ab8b-0f7969e74420"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Offenses",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "filter_string": "{{vars.filter_string}} and (start_time > '{{vars.qradar_epoch}}' or last_updated_time > '{{vars.qradar_epoch}}' )"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "get_offenses",
+                "operationTitle": "Get Offenses from QRadar",
+                "step_variables": {
+                  "all_offenses": "{{ vars.result.data }}"
+                }
+              },
+              "status": null,
+              "top": "860",
+              "left": "840",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "123aa4a6-84f8-45df-b02b-97e12e3575a9"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Set Time Configuration",
+              "description": null,
+              "arguments": {
+                "curr_timestamp": "{{arrow.utcnow().int_timestamp}}",
+                "last_pull_time": "{% if (vars.steps.Get_Macro_Value.data[\"hydra:member\"] | length) > 0%}{{vars.steps.Get_Macro_Value.data[\"hydra:member\"][0].value}}{% else %}{{ (arrow.utcnow().int_timestamp) - (vars.Pull_Sample_Offense_in_Past_X_Minutes| int)  *60 }}{% endif %}"
+              },
+              "status": null,
+              "top": "520",
+              "left": "480",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "2c655558-0d8a-4c63-a892-7d2f8a281c09"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Update Offenses With IP Details",
+              "description": null,
+              "arguments": {
+                "_dummy_for_src_addrs": "{% for each_offense in vars.all_offenses %}\n {% set offense_src_ips = [] %}\n {% for each_ip in vars.steps.Get_Source_Address_Details.data %}\n {% if each_ip.id in each_offense.source_address_ids %}\n {% set _temp =  offense_src_ips.append(each_ip) %}\n {% endif %}\n{% endfor %}\n{% set _temp2 = each_offense.update({\"source_address_details\": offense_src_ips}) %}\n {% endfor %}",
+                "_dummy_for_dest_addrs": "{% for each_offense in vars.all_offenses %}\n {% set offense_dest_ips = [] %}\n {% for each_ip in vars.steps.Get_Destination_Address_Details.data %}\n {% if each_ip.id in each_offense.local_destination_address_ids %}\n {% set _temp =  offense_dest_ips.append(each_ip) %}\n{% endif %}\n{% endfor %}\n{% set _temp2 = each_offense.update({\"destination_address_details\": offense_dest_ips}) %}\n {% endfor %}"
+              },
+              "status": null,
+              "top": "1320",
+              "left": "1040",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "48ced67d-46fe-477e-a543-b8d098cfec62"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Destination Address Details",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "when": "{{(vars.all_offenses | length > 0) and (vars.destinations_ips | length > 0)}}",
+                "config": "",
+                "params": {
+                  "destination_address_ids": "{{vars.destinations_ips}}"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "get_destination_ip",
+                "operationTitle": "Get Destination IP Addresses",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "1200",
+              "left": "1040",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "55ece40e-65d8-4545-a980-af5f040fba98"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create Macro List",
+              "description": null,
+              "arguments": {
+                "macro_list": "[{\"macro_name\": \"QRadarLastOffensePullTime_{{vars.macro_name}}\" , \"macro_value\": 0, \"override\": false},{\"macro_name\": \"QRadarTimeZone_{{vars.macro_name}}\" , \"macro_value\": \"{{vars.qradar_timezone}}\", \"override\": true},{\"macro_name\": \"QRadarEventLimit_{{vars.macro_name}}\" , \"macro_value\": \"{{vars.event_record_limit}}\", \"override\": true}]"
+              },
+              "status": null,
+              "top": "280",
+              "left": "80",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "5f25e4fa-629c-45cc-a52e-c4644365e709"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Collect IP ids",
+              "description": null,
+              "arguments": {
+                "src_ips": "{{ vars.steps.Get_Offenses.data | json_query('[*].source_address_ids[]') }}",
+                "destinations_ips": "{{ vars.steps.Get_Offenses.data | json_query('[*].local_destination_address_ids[]') }}"
+              },
+              "status": null,
+              "top": "980",
+              "left": "840",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "72e112f1-4352-4c7a-b7ee-53b72430bcdf"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Calculate Diff in min",
+              "description": null,
+              "arguments": {
+                "time_diff_min": "{{ (vars.curr_timestamp - vars.last_pull_time) / 60 | round }}"
+              },
+              "status": null,
+              "top": "620",
+              "left": "680",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "73897d90-5ec2-4ac5-8b47-c9f31750df3d"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Set Result",
+              "description": null,
+              "arguments": {
+                "data": "{{vars.all_offenses}}",
+                "curr_timestamp": "{{vars.curr_timestamp}}",
+                "QRadarLimitMacro": "{{vars.macro_list[2].get(\"macro_value\")}}",
+                "QRadarPullTimeMacro": "{{vars.macro_list[0].get(\"macro_name\")}}",
+                "QRadarTimeZoneMacro": "{{vars.macro_list[1].get(\"macro_value\")}}"
+              },
+              "status": null,
+              "top": "1460",
+              "left": "1040",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "8ac65c82-5d9b-4ab5-b46a-b10da98fc83b"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": []
+                  },
+                  "_configuration_schema": "[{\n\t\t\"title\": \"Search Query\",\n\t\t\"tooltip\": \"The Query to be run on QRadar to fetch offenses\",\n\t\t\"required\": true,\n\t\t\"editable\": true,\n\t\t\"visible\": true,\n\t\t\"type\": \"text\",\n\t\t\"name\": \"filter_string\",\n\t\t\"value\": \"status=\\\"OPEN\\\"\"\n\t}, {\n\t\t\"title\": \"Pull Offenses in the last X minutes\",\n\t\t\"tooltip\": \"Limit the search query specified above to filter the offenses created or modified in the last X minutes\",\n\t\t\"required\": true,\n\t\t\"editable\": true,\n\t\t\"visible\": true,\n\t\t\"type\": \"text\",\n\t\t\"name\": \"Pull_Sample_Offense_in_Past_X_Minutes\",\n\t\t\"value\": 10\n\n\t},\n\t{\n\t\t\"title\": \"Timezone of the QRadar server\",\n\t\t\"tooltip\": \"Required for the time conversion to pull events since the last X minutes for an offense\",\n\t\t\"required\": true,\n\t\t\"editable\": true,\n\t\t\"visible\": true,\n\t\t\"type\": \"text\",\n\t\t\"name\": \"qradar_timezone\",\n\t\t\"value\": \"UTC\"\n\n\t},\n\t{\n\t\t\"title\": \"Event Record Limit\",\n\t\t\"tooltip\": \"Pull number of events for an offense\",\n\t\t\"required\": true,\n\t\t\"editable\": true,\n\t\t\"visible\": true,\n\t\t\"type\": \"integer\",\n\t\t\"name\": \"event_record_limit\",\n\t\t\"value\": 50\n\t}\n]"
+                }
+              },
+              "status": null,
+              "top": "60",
+              "left": "80",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+              "uuid": "9ad8a0ff-ad4c-46ca-8c6a-c253c673547a"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Macro Value",
+              "description": null,
+              "arguments": {
+                "params": {
+                  "iri": "/api/wf/api/dynamic-variable/?name={{vars.macro_list[0].get(\"macro_name\")}}",
+                  "body": "",
+                  "method": "GET"
+                },
+                "version": "3.2.1",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "FSR: Make FortiSOAR API Call",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "400",
+              "left": "480",
+              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "uuid": "9db9dfe8-870e-4062-a32a-37f8363db301"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Environment Setup",
+              "description": null,
+              "arguments": {
+                "when": "{{vars.request.env_setup}}",
+                "for_each": {
+                  "item": "{{vars.macro_list}}",
+                  "__bulk": false,
+                  "parallel": true,
+                  "condition": ""
+                },
+                "arguments": {
+                  "QRadarMacroName": "{{vars.item.macro_name}}",
+                  "QRadarMacroValue": "{{vars.item.macro_value}}",
+                  "overrideIfNoMatch": "{{vars.item.override}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "/api/3/workflows/159e8dee-32b3-4eef-9b29-d8acea484d36"
+              },
+              "status": null,
+              "top": "280",
+              "left": "480",
+              "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+              "uuid": "a8e6f06e-c952-4ebe-9fb2-41e04eced179"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Source Address Details",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "when": "{{(vars.all_offenses | length > 0) and (vars.src_ips | length > 0)}}",
+                "config": "",
+                "params": {
+                  "source_address_ids": "{{vars.src_ips}}"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "get_source_ip",
+                "operationTitle": "Get Source IP Addresses",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "1080",
+              "left": "1040",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "ececad13-f5f2-4dcd-847b-065cd2a34578"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Collect IP ids -> Get Source IP Details",
+              "targetStep": "/api/3/workflow_steps/ececad13-f5f2-4dcd-847b-065cd2a34578",
+              "sourceStep": "/api/3/workflow_steps/72e112f1-4352-4c7a-b7ee-53b72430bcdf",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "1c769df0-a565-4619-ab46-d6dc0983d341"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Set Time Configuration -> Calculate Diff in min",
+              "targetStep": "/api/3/workflow_steps/73897d90-5ec2-4ac5-8b47-c9f31750df3d",
+              "sourceStep": "/api/3/workflow_steps/2c655558-0d8a-4c63-a892-7d2f8a281c09",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "2c611703-99cc-4f74-b203-e5ce8c602dfc"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Create QRadar Last Offense Pull Time Macro -> Get Macro Value",
+              "targetStep": "/api/3/workflow_steps/9db9dfe8-870e-4062-a32a-37f8363db301",
+              "sourceStep": "/api/3/workflow_steps/a8e6f06e-c952-4ebe-9fb2-41e04eced179",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "3d1f95a4-99f7-4184-a668-e21314c9431d"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configuration -> Copy of Configuration",
+              "targetStep": "/api/3/workflow_steps/5f25e4fa-629c-45cc-a52e-c4644365e709",
+              "sourceStep": "/api/3/workflow_steps/0eb20961-72b5-43ed-ab8b-0f7969e74420",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "4a2d216c-f37d-4bfb-8b59-0d7101d7940a"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Calculate QRadar Epoch Time -> Get Offenses",
+              "targetStep": "/api/3/workflow_steps/123aa4a6-84f8-45df-b02b-97e12e3575a9",
+              "sourceStep": "/api/3/workflow_steps/0c594fee-eb79-49c4-b2de-7a5344fb3535",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "4eebd60b-b4db-4c60-87f5-44afebd7703a"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Create Macro List -> Create QRadar Last Offense Pull Time Macro",
+              "targetStep": "/api/3/workflow_steps/a8e6f06e-c952-4ebe-9fb2-41e04eced179",
+              "sourceStep": "/api/3/workflow_steps/5f25e4fa-629c-45cc-a52e-c4644365e709",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "50fc6e76-30f9-4cb2-9f3a-50b4be02db59"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Calculate Diff in min -> Calculate QRadar Epoch Time",
+              "targetStep": "/api/3/workflow_steps/0c594fee-eb79-49c4-b2de-7a5344fb3535",
+              "sourceStep": "/api/3/workflow_steps/73897d90-5ec2-4ac5-8b47-c9f31750df3d",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "5c104931-de5d-4684-8f4f-397dc29ee598"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Update Offenses With IP Details -> Set Result",
+              "targetStep": "/api/3/workflow_steps/8ac65c82-5d9b-4ab5-b46a-b10da98fc83b",
+              "sourceStep": "/api/3/workflow_steps/48ced67d-46fe-477e-a543-b8d098cfec62",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "70d18d42-7f5a-4ab2-8b97-0a553216b5fe"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Offenses -> Collect IP ids",
+              "targetStep": "/api/3/workflow_steps/72e112f1-4352-4c7a-b7ee-53b72430bcdf",
+              "sourceStep": "/api/3/workflow_steps/123aa4a6-84f8-45df-b02b-97e12e3575a9",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "92d8817b-2f25-401f-a11a-3335caf738cf"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Configuration",
+              "targetStep": "/api/3/workflow_steps/0eb20961-72b5-43ed-ab8b-0f7969e74420",
+              "sourceStep": "/api/3/workflow_steps/9ad8a0ff-ad4c-46ca-8c6a-c253c673547a",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "97aa4447-8165-423d-8de8-311d22e1c1b1"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Macro Value -> Set Time Configuration",
+              "targetStep": "/api/3/workflow_steps/2c655558-0d8a-4c63-a892-7d2f8a281c09",
+              "sourceStep": "/api/3/workflow_steps/9db9dfe8-870e-4062-a32a-37f8363db301",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "d7e4ec20-280e-4456-bcf4-b14842e90bbf"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Destination Address Details -> Update Offenses With IP Details",
+              "targetStep": "/api/3/workflow_steps/48ced67d-46fe-477e-a543-b8d098cfec62",
+              "sourceStep": "/api/3/workflow_steps/55ece40e-65d8-4545-a980-af5f040fba98",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "ea9c20de-9c80-456e-aa3f-9b45e180ac5a"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Source IP Details -> Get Destination Address Details",
+              "targetStep": "/api/3/workflow_steps/55ece40e-65d8-4545-a980-af5f040fba98",
+              "sourceStep": "/api/3/workflow_steps/ececad13-f5f2-4dcd-847b-065cd2a34578",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "ec85c421-29b7-4561-be59-9cbf0954a6db"
+            }
+          ],
+          "priority": null,
+          "uuid": "125d079a-13f1-44fa-a75f-4294aafc643b",
+          "id": 4586,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.811823,
+          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "modifyDate": 1657518678.667567,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "dataingestion",
+            "fetch",
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Run Ariel Query",
+          "aliasName": null,
+          "tag": "#qradar",
+          "description": "This playbook demonstrate Make an Ariel Query To QRadar Operation",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/2116f5ce-136f-4bcb-b2b6-cc5c6e8201a0",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "79833840-153e-4deb-8034-81abc4cfaba2",
+                "title": "IBM QRadar: Run Ariel Query",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "60",
+              "left": "86",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "2116f5ce-136f-4bcb-b2b6-cc5c6e8201a0"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Search Result",
+              "description": null,
+              "arguments": {
+                "resultData": "{{vars.result}}"
+              },
+              "status": null,
+              "top": "271",
+              "left": "448",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "cc21b3ef-2f38-4055-b443-2340d73d60f9"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Run Ariel Query",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "search_string": "show tables"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "query_qradar",
+                "operationTitle": "Make an Ariel Query to QRadar",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "147",
+              "left": "220",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "e26041d9-a8a1-449d-a870-4d508588b58f"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Run Ariel Query -> SearchResult",
+              "targetStep": "/api/3/workflow_steps/cc21b3ef-2f38-4055-b443-2340d73d60f9",
+              "sourceStep": "/api/3/workflow_steps/e26041d9-a8a1-449d-a870-4d508588b58f",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "4902679c-8f4c-4b22-96b1-af75c7190c13"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Run Ariel Query",
+              "targetStep": "/api/3/workflow_steps/e26041d9-a8a1-449d-a870-4d508588b58f",
+              "sourceStep": "/api/3/workflow_steps/2116f5ce-136f-4bcb-b2b6-cc5c6e8201a0",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "8ea5ed49-820c-411b-9b3d-4ffcc9023b83"
+            }
+          ],
+          "priority": null,
+          "uuid": "14c16ccd-369f-4c27-a541-65381eefc190",
+          "id": 4587,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.812791,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.812791,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": ">> IBM QRadar > Init Macros",
+          "aliasName": null,
+          "tag": "#qradar #dataingestion",
+          "description": "This playbook creates IBM QRadar macros if not exist.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [
+            "QRadarMacroName",
+            "QRadarMacroValue",
+            "overrideIfNoMatch"
+          ],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/750e983a-c444-4cf0-b0ab-cf326f48bbfa",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Get QRadar Macros",
+              "description": null,
+              "arguments": {
+                "name": "Utilities",
+                "params": {
+                  "iri": "/api/wf/api/dynamic-variable/?format=json&name={{vars.QRadarMacroName}}",
+                  "body": "",
+                  "method": "GET"
+                },
+                "version": "2.5.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "120",
+              "left": "171",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "294c5a66-d2c4-475e-8244-531971aeff7f"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": {
+                      "QRadarMacroName": "{{ vars.QRadarMacroName }}",
+                      "QRadarMacroValue": "{{ vars.QRadarMacroValue }}",
+                      "overrideIfNoMatch": "{{ vars.overrideIfNoMatch }}"
+                    }
+                  }
+                }
+              },
+              "status": null,
+              "top": "20",
+              "left": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+              "uuid": "750e983a-c444-4cf0-b0ab-cf326f48bbfa"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Update Macro If Required",
+              "description": null,
+              "arguments": {
+                "when": "{{(vars.input.params.overrideIfNoMatch  == true) and (vars.macroExistingRecord.value != vars.QRadarMacroValue)}}",
+                "params": {
+                  "iri": "/api/wf/api/dynamic-variable/{{ vars.macroExistingRecord.id }}/",
+                  "body": "{ 'name': '{{vars.QRadarMacroName}}'   , 'value': '{{vars.QRadarMacroValue}}' }",
+                  "method": "PUT"
+                },
+                "version": "2.7.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "147",
+              "left": "952",
+              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "uuid": "8c4fa95c-544b-4ec0-b9f9-792040fe77c0"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "QRadar Macro Exists",
+              "description": null,
+              "arguments": {
+                "conditions": [
+                  {
+                    "option": "Not Exist",
+                    "step_iri": "/api/3/workflow_steps/fb844f9e-7a8b-4de3-bcf4-a82321234151",
+                    "condition": "{{ vars.steps.Get_QRadar_Macros.data['hydra:totalItems'] == 0 }}"
+                  },
+                  {
+                    "option": "Exist",
+                    "default": true,
+                    "step_iri": "/api/3/workflow_steps/ceaf2781-7e4c-42c1-af3e-7617a864daa8"
+                  }
+                ]
+              },
+              "status": null,
+              "top": "228",
+              "left": "320",
+              "stepType": "/api/3/workflow_step_types/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+              "uuid": "becd0217-79e3-4550-a4a9-ddb54f785dcd"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Fetch Macro Current Value",
+              "description": null,
+              "arguments": {
+                "macroExistingRecord": "{{vars.steps.Get_QRadar_Macros.data['hydra:member'][0]}}"
+              },
+              "status": null,
+              "top": "147",
+              "left": "651",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "ceaf2781-7e4c-42c1-af3e-7617a864daa8"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create IBM QRadar Macro",
+              "description": null,
+              "arguments": {
+                "params": {
+                  "iri": "/api/wf/api/dynamic-variable/?format=json",
+                  "body": "{ 'name': '{{vars.QRadarMacroName}}'   , 'value': '{{vars.QRadarMacroValue}}' }",
+                  "method": "POST"
+                },
+                "version": "2.5.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "306",
+              "left": "651",
+              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "uuid": "fb844f9e-7a8b-4de3-bcf4-a82321234151"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Check IBM QRadar Macro -> Create IBM QRadar Macro",
+              "targetStep": "/api/3/workflow_steps/fb844f9e-7a8b-4de3-bcf4-a82321234151",
+              "sourceStep": "/api/3/workflow_steps/becd0217-79e3-4550-a4a9-ddb54f785dcd",
+              "label": "Not Exist",
+              "isExecuted": false,
+              "uuid": "1d0e5ab9-0999-4bf6-aaa2-693afb0a21b1"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Fetch Macro Current Value -> Update Macro If Required",
+              "targetStep": "/api/3/workflow_steps/8c4fa95c-544b-4ec0-b9f9-792040fe77c0",
+              "sourceStep": "/api/3/workflow_steps/ceaf2781-7e4c-42c1-af3e-7617a864daa8",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "669fb159-8505-425a-b5c4-1959a1a6bb53"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get All Macros -> Check IBM QRadar Macro",
+              "targetStep": "/api/3/workflow_steps/becd0217-79e3-4550-a4a9-ddb54f785dcd",
+              "sourceStep": "/api/3/workflow_steps/294c5a66-d2c4-475e-8244-531971aeff7f",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "9197a4b1-c99d-4299-a96e-6c7d5b7cccca"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Get All Macros",
+              "targetStep": "/api/3/workflow_steps/294c5a66-d2c4-475e-8244-531971aeff7f",
+              "sourceStep": "/api/3/workflow_steps/750e983a-c444-4cf0-b0ab-cf326f48bbfa",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "b7194a25-1f13-4c4c-85e2-f92b4cb70dc1"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "QRadar Macro Exists -> Fetch Macro Current Value",
+              "targetStep": "/api/3/workflow_steps/ceaf2781-7e4c-42c1-af3e-7617a864daa8",
+              "sourceStep": "/api/3/workflow_steps/becd0217-79e3-4550-a4a9-ddb54f785dcd",
+              "label": "Exist",
+              "isExecuted": false,
+              "uuid": "b82fea57-244a-4bf4-b751-611814a089e6"
+            }
+          ],
+          "priority": null,
+          "uuid": "159e8dee-32b3-4eef-9b29-d8acea484d36",
+          "id": 4588,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.813438,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.813438,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "dataingestion",
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Offense Notes",
+          "aliasName": null,
+          "tag": "#qradar",
+          "description": "Retrieve a list of notes for an offense from QRadar.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/8d8fcdff-c7ce-46cb-b5f8-f50edaa6f8a8",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Offense Notes",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "offense_id": "286"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "get_notes",
+                "operationTitle": "Get Offense Notes",
+                "step_variables": {
+                  "output_data": "{{vars.result.data}}"
+                }
+              },
+              "status": null,
+              "top": "113",
+              "left": "200",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "01c44335-60aa-4cfa-b78d-8f34921c2987"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "14e8b7ac-3156-4b1c-b3fc-07ca5112edff",
+                "title": "IBM QRadar: Get Offense Notes",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "20",
+              "left": "200",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "8d8fcdff-c7ce-46cb-b5f8-f50edaa6f8a8"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Get Reasons",
+              "targetStep": "/api/3/workflow_steps/01c44335-60aa-4cfa-b78d-8f34921c2987",
+              "sourceStep": "/api/3/workflow_steps/8d8fcdff-c7ce-46cb-b5f8-f50edaa6f8a8",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "dc9628dd-d3a9-41b0-8886-7d69982a2795"
+            }
+          ],
+          "priority": null,
+          "uuid": "211e816f-3d3c-40f3-a929-a768963b7750",
+          "id": 4589,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.814143,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.814143,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Create Note",
+          "aliasName": null,
+          "tag": "#qradar",
+          "description": "Create a note on specified offense id on QRadar.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/420f7f4c-6939-4d6d-b873-d09dd2c44eac",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "64d91c70-f421-4026-b06e-9b2e660322bb",
+                "title": "IBM QRadar: Create Note",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "20",
+              "left": "200",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "420f7f4c-6939-4d6d-b873-d09dd2c44eac"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create Note",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "offense_id": "286",
+                  "closure_note": "Add note from FortiSOAR."
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "add_notes",
+                "operationTitle": "Create Note",
+                "step_variables": {
+                  "output_data": "{{vars.result.data}}"
+                }
+              },
+              "status": null,
+              "top": "114",
+              "left": "200",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "430b0134-f964-4af2-b063-467eb0a13454"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Get Reasons",
+              "targetStep": "/api/3/workflow_steps/430b0134-f964-4af2-b063-467eb0a13454",
+              "sourceStep": "/api/3/workflow_steps/420f7f4c-6939-4d6d-b873-d09dd2c44eac",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "293779bf-c1c1-490b-b03c-f4cc8c0ab081"
+            }
+          ],
+          "priority": null,
+          "uuid": "22fa8308-f0df-4ca7-aef3-c778943c8795",
+          "id": 4590,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.81475,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.81475,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Source IP Addresses",
+          "aliasName": null,
+          "tag": "#qradar",
+          "description": "Get Details for the given source IP Address Ids",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/4e07b653-2d62-4e04-a1cd-eec6ff8b643d",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Source IP Addresses",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "source_address_ids": "[4]"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "get_source_ip",
+                "operationTitle": "Get Source IP Addresses",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "084ccd28-7ad1-49f6-a1af-0b0ec73c939b"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Alerts",
+              "description": null,
+              "arguments": {
+                "route": "bc69b525-b45c-4e42-9002-c74fdc945d63",
+                "title": "IBM QRadar: Get Source IP Addresses",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "4e07b653-2d62-4e04-a1cd-eec6ff8b643d"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Alerts -> Get Source IP Addresses",
+              "targetStep": "/api/3/workflow_steps/084ccd28-7ad1-49f6-a1af-0b0ec73c939b",
+              "sourceStep": "/api/3/workflow_steps/4e07b653-2d62-4e04-a1cd-eec6ff8b643d",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "8bfe73d0-66e3-46f8-8bcc-9d0d9395223c"
+            }
+          ],
+          "priority": null,
+          "uuid": "4bc511e2-0e54-49e6-a23f-7cb525ee5941",
+          "id": 4591,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.815294,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.815294,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Events Related to an Offense",
+          "aliasName": null,
+          "tag": "#qradar",
+          "description": "Get Events Related to an Offense",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/33069f37-6286-435f-9c64-2d4654778ab3",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Alerts",
+              "description": null,
+              "arguments": {
+                "route": "7ad32b48-ce7b-431c-bac4-c809f135f6ed",
+                "title": "IBM QRadar: Get Events Related to an Offense",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "20",
+              "left": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "33069f37-6286-435f-9c64-2d4654778ab3"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Events Related to an Offense",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "offense_id": "41",
+                  "start_time": "2019-06-03T18:30:00.000Z",
+                  "max_results": 100,
+                  "last_updated_time": "2019-07-02T18:30:00.000Z"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "get_events_related_to_offense",
+                "operationTitle": "Get Events Related to an Offense",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "107",
+              "left": "200",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "4d9809c3-f8ae-4652-b33d-5968fc6172c4"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Alerts -> Get Events Related to an Offense",
+              "targetStep": "/api/3/workflow_steps/4d9809c3-f8ae-4652-b33d-5968fc6172c4",
+              "sourceStep": "/api/3/workflow_steps/33069f37-6286-435f-9c64-2d4654778ab3",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "9a60eee1-987e-4669-b349-7f1152f80251"
+            }
+          ],
+          "priority": null,
+          "uuid": "63feb438-821e-4f2a-8980-d57708b88559",
+          "id": 4592,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.815855,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.815855,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Offense Type",
+          "aliasName": null,
+          "tag": "#qradar",
+          "description": "This playbook demonstrate Get Offense Type. Offense Type can be used with Get Offense operation as a filter",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/3b0c2051-ce6c-4822-8468-4b51209e1a63",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "b37b0ce8-fa11-4a76-8fde-7cb6a8992414",
+                "title": "IBM QRadar: Get Offense Type",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "108",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "3b0c2051-ce6c-4822-8468-4b51209e1a63"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Offenses Type",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": [],
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "get_offense_type",
+                "operationTitle": "Get Offense Types",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "135",
+              "left": "250",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "8092d633-7277-4301-91cc-745b9db05d14"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Get Offenses Type",
+              "targetStep": "/api/3/workflow_steps/8092d633-7277-4301-91cc-745b9db05d14",
+              "sourceStep": "/api/3/workflow_steps/3b0c2051-ce6c-4822-8468-4b51209e1a63",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "a3fc62f0-15d0-42ef-8754-b51c099a8af6"
+            }
+          ],
+          "priority": null,
+          "uuid": "6994be04-bc37-4be6-b47a-d5f82a05728b",
+          "id": 4593,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.816383,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.816383,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Invoke QRadar REST API",
+          "aliasName": null,
+          "tag": "#qradar",
+          "description": "This playbook demonstrate Invoke QRadar API operation",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/62a0b5ed-96d2-426d-bc18-acde94db8479",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Invoke QRadar API",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "method": "GET",
+                  "headers": "{\n  \"Version\": \"6.0\",\n  \"Accept\": \"application/json\",\n  \"Content-Type\": \"application/json\"\n}",
+                  "endpoint": "/siem/offenses/13",
+                  "request_parameters": "{}"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "invoke_api",
+                "operationTitle": "Invoke QRadar API",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "128",
+              "left": "218",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "1157ca39-b283-4740-8474-057b3afe65cb"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "1581cd2d-f0f2-4d2c-a987-5794a541646a",
+                "title": "IBM QRadar: Invoke QRadar REST API",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "40",
+              "left": "71",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "62a0b5ed-96d2-426d-bc18-acde94db8479"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Invoke QRadar API",
+              "targetStep": "/api/3/workflow_steps/1157ca39-b283-4740-8474-057b3afe65cb",
+              "sourceStep": "/api/3/workflow_steps/62a0b5ed-96d2-426d-bc18-acde94db8479",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "ed4e3489-0798-48e7-ae5d-daf9e8c911ea"
+            }
+          ],
+          "priority": null,
+          "uuid": "7c735b54-2e7b-4735-a27c-c210094b1ca0",
+          "id": 4594,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.816937,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.816937,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "API - Push Offense From QRadar",
+          "aliasName": null,
+          "tag": "#qradar app",
+          "description": "This playbook demonstrate the QRadar App. You need have QRadar CyberSponse App installed on QRadar.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/719a5136-bfe7-4404-8980-a37760e7f7c3",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "qradar",
+                "authentication_methods": [
+                  ""
+                ]
+              },
+              "status": null,
+              "top": "53",
+              "left": "234",
+              "stepType": "/api/3/workflow_step_types/df26c7a2-4166-4ca5-91e5-548e24c01b5f",
+              "uuid": "719a5136-bfe7-4404-8980-a37760e7f7c3"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Offense Details",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "filter_string": "id={{ vars.request.data.Offense_ID }}"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "get_offenses",
+                "operationTitle": "Get Offenses from QRadar",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "160",
+              "left": "400",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "82a0e2f5-2bd9-4fa3-9cd2-511844f03b99"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Get Offense Details",
+              "targetStep": "/api/3/workflow_steps/82a0e2f5-2bd9-4fa3-9cd2-511844f03b99",
+              "sourceStep": "/api/3/workflow_steps/719a5136-bfe7-4404-8980-a37760e7f7c3",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "bf687be1-6d02-424e-9045-544715001703"
+            }
+          ],
+          "priority": null,
+          "uuid": "9127d727-d722-48a9-99d6-86e34e9931ed",
+          "id": 4596,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.818207,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.818207,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar app"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Manipulate Reference Set Content",
+          "aliasName": null,
+          "tag": "#qradar",
+          "description": "Add, retrieve or delete the content from specified reference set",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/b75e1af3-e287-4457-a2d2-4df52217e433",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Manipulate Reference Set Content",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "name": "FortiSOAR RFC",
+                  "method": "Retrieves Value"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "handle_reference_set_value",
+                "operationTitle": "Manipulate Reference Set Content",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "152",
+              "left": "253",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "a6e87616-393d-43d5-b348-3bfaf4fe1c55"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Alerts",
+              "description": null,
+              "arguments": {
+                "route": "d09802ae-f975-4c61-b669-6554bc2df7eb",
+                "title": "IBM QRadar: Manipulate Reference Set Content",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "20",
+              "left": "80",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "b75e1af3-e287-4457-a2d2-4df52217e433"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Alerts -> Manipulate Reference Set Content",
+              "targetStep": "/api/3/workflow_steps/a6e87616-393d-43d5-b348-3bfaf4fe1c55",
+              "sourceStep": "/api/3/workflow_steps/b75e1af3-e287-4457-a2d2-4df52217e433",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "9ae81bf2-fbd7-4ae7-b5ed-fc8eefcbd39e"
+            }
+          ],
+          "priority": null,
+          "uuid": "9d77bf32-a65d-4074-b8b2-651a6214325f",
+          "id": 4597,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.818772,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.818772,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "IBM QRadar > Post Create Alert > Fetch Events",
+          "aliasName": null,
+          "tag": "#qradar #dataingestion",
+          "description": "Fetch events, source and destination ip address of an offense.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [
+            "qradar_timezone",
+            "qradar_event_limit",
+            "alertRecord"
+          ],
+          "synchronous": false,
+          "lastModifyDate": 1657284391,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/cfab1be9-0e61-493b-9629-cf196f21dc95",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Fetch Events For an Offense",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "search_string": "SELECT  {{vars.event_query_params}} FROM EVENTS WHERE INOFFENSE({{vars.alertSourceData.offense_data['id']}}) ORDER BY starttime DESC LIMIT {{vars.event_record_limit}} START  '{{vars.offense_start_time}}' STOP '{{vars.current_time}}'"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "query_qradar",
+                "operationTitle": "Make an Ariel Query to QRadar",
+                "step_variables": {
+                  "offense_details": "{\n\"offense_data\": {{vars.alertSourceData.offense_data}},\n\"events_data\": {{vars.result.data.events}}\n}"
+                }
+              },
+              "status": null,
+              "top": "271",
+              "left": "649",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "43ed2c03-23ea-4279-a43f-0288113214f8"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Set Source Data",
+              "description": null,
+              "arguments": {
+                "alertSourceData": "{{vars.input.params.alertRecord.sourcedata | from_json}}"
+              },
+              "status": null,
+              "top": "111",
+              "left": "189",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "a6d9b8a3-95bc-4311-b0cf-c66a4161d8da"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Configuration",
+              "description": null,
+              "arguments": {
+                "current_time": "{{arrow.now(vars.input.params['qradar_timezone']).format('YYYY-MM-DD HH:mm:ss')}}",
+                "event_query_params": "starttime,sourceip,destinationip,username,QIDNAME(qid) as 'Event_Name',CATEGORYNAME(category) AS 'Category_Name',LOGSOURCENAME(logsourceid) as 'Log_Source'",
+                "event_record_limit": "{% if vars.input.params['qradar_event_limit']%}{{vars.input.params['qradar_event_limit']}}{% else %}50{% endif %}",
+                "offense_start_time": "{{arrow.get((vars.alertSourceData.offense_data.start_time | int )/1000).to(vars.input.params['qradar_timezone']).format('YYYY-MM-DD HH:mm:ss')}}"
+              },
+              "status": null,
+              "top": "200",
+              "left": "340",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "c6d28001-f1a4-4110-af03-51c962f97c68"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Update Alert",
+              "description": null,
+              "arguments": {
+                "resource": {
+                  "sourcedata": "{{vars.offense_details | toJSON }}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.params.alertRecord['@id']}}",
+                "__recommend": [],
+                "collectionType": "/api/3/alerts",
+                "fieldOperation": {
+                  "recordTags": "Append"
+                },
+                "step_variables": []
+              },
+              "status": null,
+              "top": "353",
+              "left": "840",
+              "stepType": "/api/3/workflow_step_types/b593663d-7d13-40ce-a3a3-96dece928722",
+              "uuid": "c83b8d69-d683-47c4-b63f-c51623f17e43"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": []
+                  }
+                }
+              },
+              "status": null,
+              "top": "20",
+              "left": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+              "uuid": "cfab1be9-0e61-493b-9629-cf196f21dc95"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Set Source Data",
+              "targetStep": "/api/3/workflow_steps/a6d9b8a3-95bc-4311-b0cf-c66a4161d8da",
+              "sourceStep": "/api/3/workflow_steps/cfab1be9-0e61-493b-9629-cf196f21dc95",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "8aa4ddbc-a21c-40a8-ab53-39c2a320c638"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Set Source Data -> Configuration",
+              "targetStep": "/api/3/workflow_steps/c6d28001-f1a4-4110-af03-51c962f97c68",
+              "sourceStep": "/api/3/workflow_steps/a6d9b8a3-95bc-4311-b0cf-c66a4161d8da",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "63543482-f6c2-4023-baab-323c799f73a2"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configuration -> Fetch Events For an Offense",
+              "targetStep": "/api/3/workflow_steps/43ed2c03-23ea-4279-a43f-0288113214f8",
+              "sourceStep": "/api/3/workflow_steps/c6d28001-f1a4-4110-af03-51c962f97c68",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "960e36d5-aab9-41a2-b2e0-9a4e5cb3cb42"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Fetch Events For an Offense -> Update Alert",
+              "targetStep": "/api/3/workflow_steps/c83b8d69-d683-47c4-b63f-c51623f17e43",
+              "sourceStep": "/api/3/workflow_steps/43ed2c03-23ea-4279-a43f-0288113214f8",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "a116765d-533a-4935-a70b-f8fcac2f621f"
+            }
+          ],
+          "priority": null,
+          "uuid": "a0f9a5b4-c8d9-418c-a703-4acb02066346",
+          "id": 4598,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.819362,
+          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "modifyDate": 1657284385.683855,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "dataingestion",
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Close QRadar Offenses",
+          "aliasName": null,
+          "tag": "#qradar",
+          "description": "This playbook demonstrate Get Offense Closing Reasons Operation.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/cb265745-55a3-4999-ab37-016a770db348",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Found a matching reason",
+              "description": null,
+              "arguments": {
+                "conditions": [
+                  {
+                    "step_iri": "/api/3/workflow_steps/b7966a0c-ccad-438d-aaa9-78545ba12d77",
+                    "condition": "{{ vars.reason_id_list is defined and vars.reason_id_list|length > 0 }}"
+                  },
+                  {
+                    "default": true,
+                    "step_iri": "/api/3/workflow_steps/b1e11aea-b8eb-49b9-8902-a55733936077"
+                  }
+                ]
+              },
+              "status": null,
+              "top": "340",
+              "left": "200",
+              "stepType": "/api/3/workflow_step_types/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+              "uuid": "0da8ac19-b85b-4122-8ef7-34bc22c84e8f"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Check Reason Ids",
+              "description": null,
+              "arguments": {
+                "reason_id_list": "{{ vars.result.data| selectattr(\"text\", \"equalto\", \"Policy Violation\")|list }}"
+              },
+              "status": null,
+              "top": "234",
+              "left": "200",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "2080a109-2ae6-438a-a765-bc30b9796867"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Reasons",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": [],
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "get_closing_reasons",
+                "operationTitle": "Get Offense Closing Reasons",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "113",
+              "left": "200",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "3dae073e-48a2-496d-a475-b1e1d59360d1"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Do Nothing",
+              "description": null,
+              "arguments": {
+                "params": [],
+                "version": "2.4.1",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "475",
+              "left": "47",
+              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "uuid": "b1e11aea-b8eb-49b9-8902-a55733936077"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Set Reason Id",
+              "description": null,
+              "arguments": {
+                "reason_id": "{{ vars.reason_id_list [0]['id'] }}"
+              },
+              "status": null,
+              "top": "480",
+              "left": "380",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "b7966a0c-ccad-438d-aaa9-78545ba12d77"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "ede2b655-8557-49de-9a09-a4263e007ee7",
+                "title": "IBM QRadar: Close QRadar Offense",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+              },
+              "status": null,
+              "top": "20",
+              "left": "200",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "cb265745-55a3-4999-ab37-016a770db348"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Close Off",
+              "description": null,
+              "arguments": {
+                "for_each": {
+                  "item": "{{ vars.request.data.records }}",
+                  "condition": ""
+                },
+                "arguments": {
+                  "reasonID": "{{vars.reason_id}}",
+                  "offenseID": "{{vars.item}}"
+                },
+                "step_variables": [],
+                "workflowReference": "/api/3/workflows/e5f0e962-7563-4946-abb7-3cd2c9abe871"
+              },
+              "status": null,
+              "top": "614",
+              "left": "420",
+              "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+              "uuid": "f6b015d1-d1e5-49e9-ae7f-3f8fe0ddd596"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Set Reason Id -> Close Off",
+              "targetStep": "/api/3/workflow_steps/f6b015d1-d1e5-49e9-ae7f-3f8fe0ddd596",
+              "sourceStep": "/api/3/workflow_steps/b7966a0c-ccad-438d-aaa9-78545ba12d77",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "5b10b09a-e7c8-4f22-8101-993833c93080"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Found a matching reason -> yay",
+              "targetStep": "/api/3/workflow_steps/b7966a0c-ccad-438d-aaa9-78545ba12d77",
+              "sourceStep": "/api/3/workflow_steps/0da8ac19-b85b-4122-8ef7-34bc22c84e8f",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "6b55340d-1b2b-4300-884f-5ce997d683a5"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Found a matching reason -> Do Nothing",
+              "targetStep": "/api/3/workflow_steps/b1e11aea-b8eb-49b9-8902-a55733936077",
+              "sourceStep": "/api/3/workflow_steps/0da8ac19-b85b-4122-8ef7-34bc22c84e8f",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "7a54d5ad-db08-4f5d-bf93-524f8a2c5857"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Set Reason Id -> Found a matching reason",
+              "targetStep": "/api/3/workflow_steps/0da8ac19-b85b-4122-8ef7-34bc22c84e8f",
+              "sourceStep": "/api/3/workflow_steps/2080a109-2ae6-438a-a765-bc30b9796867",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "8d5ed686-1861-4ded-a78a-4f58b4f9236f"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Reasons -> Check Reason Ids",
+              "targetStep": "/api/3/workflow_steps/2080a109-2ae6-438a-a765-bc30b9796867",
+              "sourceStep": "/api/3/workflow_steps/3dae073e-48a2-496d-a475-b1e1d59360d1",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "95004a7c-5772-4738-94b0-950e5171899e"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Get Reasons",
+              "targetStep": "/api/3/workflow_steps/3dae073e-48a2-496d-a475-b1e1d59360d1",
+              "sourceStep": "/api/3/workflow_steps/cb265745-55a3-4999-ab37-016a770db348",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "a7c6f74b-d44d-42f6-82ad-9e7c81e0c0cb"
+            }
+          ],
+          "priority": null,
+          "uuid": "a5544a1b-8580-450d-9b85-9ef824c6e0e7",
+          "id": 4599,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.820018,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.820018,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Offenses",
+          "aliasName": null,
+          "tag": "#qradar",
+          "description": "Get Offenses from QRadar.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1657518837,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/688f13f7-e086-4b0b-b78e-6cc0ec035c3d",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Offenses",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "filter_string": "status=\"OPEN\""
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "get_offenses",
+                "operationTitle": "Get Offenses from QRadar",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "21cd0e9d-815f-4cd5-9de9-90c6f02d75eb"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "9a6444b0-8c61-414b-bf2e-ba848d5c9888",
+                "title": "IBM QRadar: Get Offenses",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "688f13f7-e086-4b0b-b78e-6cc0ec035c3d"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Get Offenses",
+              "targetStep": "/api/3/workflow_steps/21cd0e9d-815f-4cd5-9de9-90c6f02d75eb",
+              "sourceStep": "/api/3/workflow_steps/688f13f7-e086-4b0b-b78e-6cc0ec035c3d",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "b1b3b5f4-6873-44ab-a228-c96eb430abe2"
+            }
+          ],
+          "priority": null,
+          "uuid": "cc310faa-bf20-4450-aaba-a9cf26fc358c",
+          "id": 4600,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.820741,
+          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "modifyDate": 1657518830.635925,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "> Close Offense",
+          "aliasName": null,
+          "tag": "#qradar",
+          "description": "This playbook is continuation of sample playbook for Operation- Get Offense Closing Reasons",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [
+            "offenseID",
+            "reasonID"
+          ],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/c5120425-36fc-4593-8c6f-6a700e431f64",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": {
+                      "reasonID": "{{ vars.reasonID }}",
+                      "offenseID": "{{ vars.offenseID }}"
+                    }
+                  }
+                }
+              },
+              "status": null,
+              "top": "40",
+              "left": "240",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+              "uuid": "c5120425-36fc-4593-8c6f-6a700e431f64"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Close Offense",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "offense_id": "{{ vars.offense_id }}",
+                  "closure_note": "",
+                  "offense_close_id": "{{ vars.reason_id }}"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "close_offense",
+                "operationTitle": "Close Offense",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "260",
+              "left": "240",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "deafb24c-f772-4c46-8095-94ea02c642ad"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Set Offense Id",
+              "description": null,
+              "arguments": {
+                "reason_id": "{{vars.reasonID}}",
+                "offense_id": "{{vars.offenseID.sourceId}}"
+              },
+              "status": null,
+              "top": "149",
+              "left": "240",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "ec1daee2-b0e4-4ade-9eb1-76f30057ccad"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Set Offense Id -> Close",
+              "targetStep": "/api/3/workflow_steps/deafb24c-f772-4c46-8095-94ea02c642ad",
+              "sourceStep": "/api/3/workflow_steps/ec1daee2-b0e4-4ade-9eb1-76f30057ccad",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "367b74c5-a3a7-48ba-9d68-3e51f20c96f5"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Set Offense Id",
+              "targetStep": "/api/3/workflow_steps/ec1daee2-b0e4-4ade-9eb1-76f30057ccad",
+              "sourceStep": "/api/3/workflow_steps/c5120425-36fc-4593-8c6f-6a700e431f64",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "6e5183a3-2ccc-4e40-b4cc-44f9813bd779"
+            }
+          ],
+          "priority": null,
+          "uuid": "e5f0e962-7563-4946-abb7-3cd2c9abe871",
+          "id": 4601,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.821272,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.821272,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Destination IP Addresses",
+          "aliasName": null,
+          "tag": "#qradar",
+          "description": "Get Details for the given destination IP Address Ids",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655276892,
+          "collection": "/api/3/workflow_collections/d129e8bf-32f1-410d-8807-343693acde71",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/410cfa73-ebf9-4362-979d-c9fdd8d56273",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Alerts",
+              "description": null,
+              "arguments": {
+                "route": "4d594c28-61c0-4a6a-a292-7e33422ad478",
+                "title": "IBM QRadar: Get Destination IP Addresses",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "20",
+              "left": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "410cfa73-ebf9-4362-979d-c9fdd8d56273"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Destination IP Addresses",
+              "description": null,
+              "arguments": {
+                "name": "IBM QRadar",
+                "config": "",
+                "params": {
+                  "destination_address_ids": "[10]"
+                },
+                "version": "1.5.1",
+                "connector": "qradar",
+                "operation": "get_destination_ip",
+                "operationTitle": "Get Destination IP Addresses",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "121",
+              "left": "163",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "9e4bedb2-b1ae-43c7-86d1-e2b62a2f0ce4"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Alerts -> Get Destination IP Addresses",
+              "targetStep": "/api/3/workflow_steps/9e4bedb2-b1ae-43c7-86d1-e2b62a2f0ce4",
+              "sourceStep": "/api/3/workflow_steps/410cfa73-ebf9-4362-979d-c9fdd8d56273",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "307c0b53-797b-4d97-ab8e-0bd200cb5fc5"
+            }
+          ],
+          "priority": null,
+          "uuid": "f06f0978-26e6-4b12-b694-3c51df268c2c",
+          "id": 4602,
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1657270455.821856,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1657270455.821856,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "qradar"
+          ]
+        }
+      ]
+    }
+  ],
+  "exported_tags": [
+    "dataingestion",
+    "ingest",
+    "qradar",
+    "create",
+    "fetch",
+    "qradar app"
+  ]
+}

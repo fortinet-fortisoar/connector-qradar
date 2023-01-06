@@ -1,0 +1,32 @@
+site_name: CyberSponse QRadar Connector
+site_favicon: favicon.ico
+
+pages:
+  - Home: index.md
+use_directory_urls: false
+theme: null
+theme_dir: '../../connectors/online-docs/custom_themes/material-latest'
+copyright: © 2012-2018, CyberSponse, Inc. All Rights Reserved.
+
+
+# Options
+extra:
+  version: 1.2.0
+  logo: 'CyberSponse_Logo_Color.png'
+  palette:
+    primary: 'blue grey'
+
+markdown_extensions:
+  - codehilite(css_class=code)
+  - admonition
+  - footnotes
+  - pymdownx.betterem(smart_enable=all)
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist(custom_checkbox=true)
+  - pymdownx.tilde

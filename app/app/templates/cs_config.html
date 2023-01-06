@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>CyberSponse - Configuration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-light bg-faded">
+    <a class="navbar-brand" href="#" style="background-color: black; width: 100%">
+        <img src="static/images/CS_Banner.png" alt="CyberSponse" title="CyberSponse">
+    </a>
+</nav>
+<div class="container">
+    <form method="post">
+        <h3 id="section_instance_config">Server Configuration</h3>
+        <p>&nbsp;</p>
+        <div class="form-group">
+            <label for="instance">Address</label>
+            <input type="text" value="{{ form.cyops_url }}" class="form-control" id="instance" name="cyops_url">
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" value="{{ form.username }}" class="form-control" id="username" name="username"
+                   placeholder="Username">
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" value="{{ form.password }}" class="form-control" id="password" name="password"
+                   placeholder="Password">
+        </div>
+        <hr>
+        <input type="submit" id="btn_save" class="btn btn-primary" value="Save" onclick="alert('Configuration saved successfully')">
+        <input type="reset" id="btn_reset" class="btn btn-default" value="Reset">
+    </form>
+</div>
+
+</body>
+</html>
