@@ -492,7 +492,7 @@
               "description": null,
               "arguments": {
                 "curr_timestamp": "{{arrow.utcnow().int_timestamp}}",
-                "last_pull_time": "{% if (vars.steps.Get_Macro_Value.data[\"hydra:member\"] | length) > 0%}{{vars.steps.Get_Macro_Value.data[\"hydra:member\"][0].value}}{% else %}{{ (arrow.utcnow().int_timestamp) - (vars.Pull_Sample_Offense_in_Past_X_Minutes| int)  *60 }}{% endif %}"
+                "last_pull_time": "{% if (vars.steps.Get_Macro_Value.data[\"hydra:member\"] | length) > 0 and vars.steps.Get_Macro_Value.data[\"hydra:member\"][0].value | int  > 0 %}{{vars.steps.Get_Macro_Value.data[\"hydra:member\"][0].value}}{% else %}{{ (arrow.utcnow().int_timestamp) - (vars.Pull_Sample_Offense_in_Past_X_Minutes| int)  *60 }}{% endif %}"
               },
               "status": null,
               "top": "520",
