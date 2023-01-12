@@ -130,7 +130,19 @@ def get_notes(config, params, *args, **kwargs):
     offense_id = params['offense_id']
     qradar_connection = QradarConnection(**config)
     return qradar_connection.getNote(offense_id)
+#1.6.0
 
+def get_record(config, params, *args, **kwargs):
+    qradar_connection = QradarConnection(**config)
+    return qradar_connection.get_record(params)
+
+def update_record(config, params, *args, **kwargs):
+    qradar_connection = QradarConnection(**config)
+    return qradar_connection.update_record(params)
+
+def delete_record(config, params, *args, **kwargs):
+    qradar_connection = QradarConnection(**config)
+    return qradar_connection.delete_record(params)
 
 operations = {
     'get_offenses': get_offenses,
@@ -144,5 +156,15 @@ operations = {
     'get_offense_type': get_offense_type,
     'handle_reference_set_value': handle_reference_set_value,
     'add_notes': add_notes,
-    'get_notes': get_notes
+    'get_notes': get_notes,
+    'get_assets_properties':get_record,
+    'get_assets': get_record,
+    'update_asset': update_record,
+    'get_cases': get_record,
+    'create_case': update_record,
+    'get_reference_tables':get_record,
+    'delete_reference_table': delete_record,
+    'get_table_elements': get_record,
+    'add_table_element': update_record,
+    'delete_table_element': delete_record
 }

@@ -4,16 +4,31 @@
   FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
   Copyright end """
 import requests
+import json
 from time import sleep
 import logging
 from connectors.core.connector import ConnectorError
+from requests_toolbelt.utils import dump
 
 logger = logging.getLogger(__name__)
 
 
 class QradarConnection(object):
     MAX_ALLOW_SEARCH_SECS = 600
+    MAX_RESULTS = 100
+    endpoints = {
+        'get_assets_properties': 'asset_model/properties',
+        'get_assets': 'asset_model/assets',
+        'update_asset': 'asset_model/assets/{asset_id}',
+        'get_cases': 'forensics/case_management/cases',
+        'create_case': 'forensics/case_management/cases',
+        'get_reference_tables': 'reference_data/tables',
+        'get_table_elements': 'reference_data/tables/{name}',
+        'add_table_element': 'reference_data/tables/{name}',
+        'delete_table_element': 'reference_data/tables/{name}/{outer_key}/{inner_key}',
+        'delete_reference_table': 'reference_data/tables/{name}'
 
+    }
     def __init__(self, address, token, verify_ssl=True, api_version='6.0', **kwargs):
         self.address = address
         if not address.startswith('https://') and not address.startswith('http://'):
@@ -44,34 +59,44 @@ class QradarConnection(object):
         self.log.debug('Return Status Code: {}'.format(results.status_code))
         self.log.debug('Return Text: {}'.format(results.text))
         if len(results.text) > 0:
-            self.log.debug('Returning assumed json.')
-            return results.json()
+            if results.status_code in [200, 201, 202, 204]:
+                try:
+                    json.loads(results.content)
+                    self.log.debug('Returning assumed json.')
+                    return results.json()
+                except ValueError as e:
+                    self.log.debug('Returning assumed text.')
+                    return results.content
         else:
             self.log.warning('Warning returning empty list... ')
             return []
 
-    def __postUrl(self, endpoint, params={}, headers={}, data={}):
+    def __postUrl(self, endpoint, params={}, headers={}, data={}, json={}):
         url = '{}/{}'.format(self.base_url, endpoint)
         self.log.debug('POST to URL: {}'.format(url))
-        res = self.session.post(url, params=params, headers=headers, data=data)
+        res = self.session.post(url, params=params, headers=headers, data=data, json=json)
+        logger.debug('\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:\n{0}\n'.format(dump.dump_all(res).decode('utf-8')))
         return self.__parseRequestResult(res)
 
     def __patchUrl(self, endpoint, params={}, headers={}, data={}):
         url = '{}/{}'.format(self.base_url, endpoint)
         self.log.debug('PATCH to URL: {}'.format(url))
         res = self.session.patch(url, params=params, headers=headers, data=data)
+        logger.debug('\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:\n{0}\n'.format(dump.dump_all(res).decode('utf-8')))
         return self.__parseRequestResult(res)
 
     def __getUrl(self, endpoint, params={}, headers={}):
         url = '{}/{}'.format(self.base_url, endpoint)
         self.log.debug('GET to URL: {}'.format(url))
         res = self.session.get(url, params=params, headers=headers)
+        logger.debug('\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:\n{0}\n'.format(dump.dump_all(res).decode('utf-8')))
         return self.__parseRequestResult(res)
 
     def __deleteUrl(self, endpoint, params={}, headers={}, data={}):
         url = '{}/{}'.format(self.base_url, endpoint)
         self.log.debug('GET to URL: {}'.format(url))
         res = self.session.delete(url, params=params, headers=headers, data=data)
+        logger.debug('\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:\n{0}\n'.format(dump.dump_all(res).decode('utf-8')))
         return self.__parseRequestResult(res)
 
     def __getArielResults(self, searchId):
@@ -98,6 +123,12 @@ class QradarConnection(object):
             return variable
         elif isinstance(variable, bytes):
             return variable.decode("utf-8")
+        elif isinstance(variable, dict):
+            return json.dumps(variable)
+        elif isinstance(variable, bool):
+            return str(variable).lower()
+        elif isinstance(variable, int):
+            return variable
         else:
             raise TypeError('Cant convert type({}) to string'.format(type(variable)))
 
@@ -237,3 +268,84 @@ class QradarConnection(object):
         endpoint = 'siem/offense_types'
         res = self.__getUrl(endpoint)
         return res
+
+#1.6.0
+    def __args_parser(self, params):
+        """
+        Builds url_params, headers and POST payloads from params
+        :param params: info.json Params
+        :return: url_params, headers, json data ready for requests
+        """
+        data = {}
+        url_params = {}
+        headers = {}
+        for key, value in params.items():
+            if key == 'filter_string':
+                url_params = {'filter': self.__ensureStr(value)} if value else {}
+            elif key == 'max_results':
+                max_results = str(value) if value else str(self.MAX_RESULTS)
+                headers.update({'Range': 'items=0-' + str(max_results)})
+            elif 'body' in key:
+                kv_input = key.split('.')
+                if isinstance(value, dict):
+                    logger.debug('Request JSON data: {}'.format(value))
+                    data = value
+                    headers.update({'Content-type': 'application/json', 'Accept': params.get('content_type','application/json')})
+                else:
+                    data.update({kv_input[1]:value})
+            elif 'query' in key:
+                if value is not None:
+                    url_params.update({key.split('.')[1]:self.__ensureStr(value)})
+        return url_params, headers, data
+
+
+    def __build_endpoint(self,params):
+        """
+        Formats endpoint string
+        :param endpoint: endpoint string
+        :return: formatted endpoint string
+        """
+        endpoint = self.endpoints[params.get('operation')]
+        for key, value in params.items():
+            if value is not None and 'path' in key:
+                param_name = key.split('.')[1]
+                endpoint = endpoint.replace('{' + param_name + '}', str(value))
+            elif value is None and 'path' in key:
+                raise ConnectorError('Path parameters cannot be null')
+        logger.debug('Building endpoint: {}'.format(endpoint))
+        return endpoint
+
+    def get_record(self, params):
+        """
+        Run GET operations
+        :param params: info.json Params
+        :return: API call response content
+        """
+        endpoint = self.__build_endpoint(params)
+        url_params, headers, data = self.__args_parser(params)
+        self.log.debug('Getting Records. \nParams: {0}, \nHeaders: {1}'.format(url_params, headers))
+        return self.__getUrl(endpoint, params=url_params, headers=headers)
+
+
+    def update_record(self, params):
+        """
+        Run POST operations
+        :param params: info.json Params
+        :return: API call response content
+        """
+        endpoint = self.__build_endpoint(params)
+        url_params, headers, data = self.__args_parser(params)
+        self.log.debug('Updating Record. \nParams: {0} \nHeaders: {1} \nData: {2}'.format(url_params, headers, data))
+        return self.__postUrl(endpoint, headers=headers, params=url_params, json=data)
+
+
+    def delete_record(self, params):
+        """
+        Run DELETE operations
+        :param params: info.json Params
+        :return: API call response content
+        """
+        endpoint = self.__build_endpoint(params)
+        url_params, headers, data = self.__args_parser(params)
+        self.log.debug('Deleting Record. \nParams: {0} \nHeaders: {1}'.format(url_params, headers))
+        return self.__deleteUrl(endpoint, headers=headers, params=url_params)
