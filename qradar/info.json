@@ -4,7 +4,7 @@
   "version": "1.6.0",
   "description": "IBM QRadar is an enterprise security information and event management (SIEM) product. Fortinet FortiSOSR connector for IBM QRadar allows user to invoke QRadar API, perform Ariel Queries and operations like Get Offense,related events,update and close offenses.",
   "publisher": "Fortinet",
-  "cs_approved": false,
+  "cs_approved": true,
   "cs_compatible": true,
   "category": "Analytics and SIEM",
   "icon_small_name": "small.png",
@@ -13,7 +13,7 @@
   "ingestion_modes": [
     "scheduled"
   ],
-  "help_online": "https://docs.fortinet.com/document/fortisoar/1.6.0/ibm-qradar/319/ibm-qradar-v1-6-0",
+  "help_online": "",
   "configuration": {
     "fields": [
       {
@@ -42,7 +42,7 @@
         "visible": true,
         "type": "text",
         "name": "api_version",
-        "value": "6.0",
+        "value": "14.0",
         "description": "Version of the QRadar API to be used for performing automated operations."
       },
       {
