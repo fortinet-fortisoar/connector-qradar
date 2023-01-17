@@ -14,6 +14,7 @@ class qradar(Connector):
     def execute(self, config, operation, params, **kwargs):
         logger.debug('execute(): Input is %s' % operations.get(operation))
         try:
+            params.update({'operation':operation})
             operation = operations.get(operation)
         except Exception:
             return ['messagePROBLEM']

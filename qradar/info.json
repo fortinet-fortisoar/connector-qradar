@@ -1,7 +1,7 @@
 {
   "name": "qradar",
   "label": "IBM QRadar",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "IBM QRadar is an enterprise security information and event management (SIEM) product. Fortinet FortiSOSR connector for IBM QRadar allows user to invoke QRadar API, perform Ariel Queries and operations like Get Offense,related events,update and close offenses.",
   "publisher": "Fortinet",
   "cs_approved": true,
@@ -13,7 +13,7 @@
   "ingestion_modes": [
     "scheduled"
   ],
-  "help_online": "https://docs.fortinet.com/document/fortisoar/1.5.1/ibm-qradar/319/ibm-qradar-v1-5-1",
+  "help_online": "",
   "configuration": {
     "fields": [
       {
@@ -42,7 +42,7 @@
         "visible": true,
         "type": "text",
         "name": "api_version",
-        "value": "6.0",
+        "value": "14.0",
         "description": "Version of the QRadar API to be used for performing automated operations."
       },
       {
@@ -675,6 +675,560 @@
               }
             ]
           }
+        }
+      ]
+    },
+    {
+      "operation": "get_assets_properties",
+      "title": "Get Assets Properties",
+      "description": "Get a list of available asset property types that can be used with assets update operation.",
+      "category": "investigation",
+      "annotation": "get_assets_properties",
+      "output_schema": [
+        {
+          "data_type":"",
+          "display":"",
+          "custom":"",
+          "name":"",
+          "id":"",
+          "state":""
+        }
+      ],
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Maximum Number of Attributes to return",
+          "description": "Maximum Number of attributes to return from QRadar.",
+          "tooltip": "Maximum Number of attributes to return from QRadar.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "max_results",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "operation": "get_assets",
+      "title": "Get Assets",
+      "description": "Get a list of available assets",
+      "category": "investigation",
+      "annotation": "get_assets",
+      "output_schema": [
+        {
+          "vulnerability_count":"",
+          "interfaces":[
+            {
+              "mac_address":"",
+              "last_seen_profiler":"",
+              "created":"",
+              "last_seen_scanner":"",
+              "first_seen_scanner":"",
+              "ip_addresses":[
+                {
+                  "last_seen_profiler":"",
+                  "created":"",
+                  "last_seen_scanner":"",
+                  "first_seen_scanner":"",
+                  "network_id":"",
+                  "id":"",
+                  "type":"",
+                  "first_seen_profiler":"",
+                  "value":""
+                }
+              ],
+              "id":"",
+              "first_seen_profiler":""
+            }
+          ],
+          "risk_score_sum":"",
+          "hostnames":"",
+          "id":"",
+          "users":"",
+          "domain_id":"",
+          "properties":[
+            {
+              "last_reported":"",
+              "name":"",
+              "type_id":"",
+              "id":"",
+              "last_reported_by":"",
+              "value":""
+            }
+          ],
+          "products":""
+        }
+      ],
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Filter",
+          "description": "Filter assets to return by any asset property",
+          "tooltip": "Filter assets to return by any asset property",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "filter_string",
+          "placeholder": "field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
+          "value": ""
+        },
+        {
+          "title": "Maximum Number of Assets to return",
+          "description": "Maximum Number of Assets to return from QRadar.",
+          "tooltip": "Maximum Number of Assets to return from QRadar.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "max_results",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "operation": "update_asset",
+      "title": "Update Asset",
+      "description": "Update one or multiple attributes of a specific asset defined by Asset ID",
+      "category": "investigation",
+      "annotation": "update_asset",
+      "output_schema": "",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Asset ID",
+          "description": "ID of the asset to update",
+          "tooltip": "ID of the asset to update",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.asset_id",
+          "placeholder": "2001",
+          "value": ""
+        },
+        {
+          "title": "Asset Properties",
+          "description": "JSON dictionary with the properties to update",
+          "tooltip": "JSON dictionary with the properties values to update",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "json",
+          "name": "body.asset",
+          "placeholder": "{'properties':[{'type_id':1001,'value':'felixrobotron'},{'type_id':1002,'value':'felix.robot.terminus'}]}",
+          "value": ""
+        },
+        {
+          "title": "Content Type",
+          "description": "System field",
+          "tooltip": "System field, cannot be edited",
+          "required": false,
+          "editable": false,
+          "visible": true,
+          "type": "text",
+          "name": "content_type",
+          "value": "text/plain"
+        }
+      ]
+    },
+    {
+      "operation": "get_cases",
+      "title": "Get Cases",
+      "description": "Get a list of Qradar cases",
+      "category": "investigation",
+      "annotation": "get_cases",
+      "output_schema": [
+        {
+          "assigned_to":[],
+          "id":"",
+          "name":""
+        }
+      ],
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Filter",
+          "description": "Filter cases to return by any case property",
+          "tooltip": "Filter cases to return by any case property",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "filter_string",
+          "placeholder": "field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
+          "value": ""
+        },
+        {
+          "title": "Maximum Number of Cases to return",
+          "description": "Maximum Number of Cases to return from QRadar.",
+          "tooltip": "Maximum Number of Cases to return from QRadar.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "max_results",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "operation": "create_case",
+      "title": "Create Case",
+      "description": "Create a new case on Qradar",
+      "category": "investigation",
+      "annotation": "create_case",
+      "output_schema": {
+         "case_id":"",
+         "name":"",
+         "id":"",
+         "state":"",
+         "assigned_to":[]
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Case Properties",
+          "description": "JSON dictionary with the properties of the case to create",
+          "tooltip": "JSON dictionary with the properties of the case to create",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "json",
+          "name": "body.case",
+          "placeholder": "{'assigned_to':['admin'],'name':'case1'}",
+          "value": ""
+        },
+        {
+          "title": "Content Type",
+          "description": "System field",
+          "tooltip": "System field, cannot be edited",
+          "required": false,
+          "editable": false,
+          "visible": true,
+          "type": "text",
+          "name": "content_type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "operation": "get_reference_tables",
+      "title": "Get Reference Tables",
+      "description": "Get a list of Reference Tables",
+      "category": "investigation",
+      "annotation": "get_reference_tables",
+      "output_schema": [
+         {
+            "timeout_type":"",
+            "number_of_elements":"",
+            "creation_time":"",
+            "name":"",
+            "key_name_types":{
+               "port":"",
+               "source_ip":"",
+               "timestamp":""
+            },
+            "element_type":""
+         }
+      ],
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Filter",
+          "description": "Filter reference tables to return by any table property",
+          "tooltip": "Filter reference tables to return by any table property",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "filter_string",
+          "placeholder": "field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
+          "value": ""
+        },
+        {
+          "title": "Maximum Number of Reference Tables to return",
+          "description": "Maximum Number of Reference Tables to return from QRadar.",
+          "tooltip": "Maximum Number of Reference Tables to return from QRadar.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "max_results",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "operation": "delete_reference_table",
+      "title": "Delete/Purge Reference Table",
+      "description": "Delete a Reference Table or Purge its content",
+      "category": "investigation",
+      "annotation": "delete_reference_table",
+      "output_schema": {
+         "created_by":"",
+         "created":"",
+         "name":"",
+         "modified":"",
+         "started":"",
+         "completed":"",
+         "id":"",
+         "message":"",
+         "status":""
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Reference Table Name",
+          "description": "The name of the reference table to delete or purge",
+          "tooltip": "The name of the reference table to delete or purge",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.name",
+          "value": ""
+        },
+        {
+          "title": "Purge Table",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "select",
+          "description": "Purges the Reference Table instead of deleting it",
+          "tooltip": "Purges the Reference Table instead of deleting it",
+          "options": ["true", "false"],
+          "name": "query.purge_only",
+          "value": "true"
+
+        }
+      ]
+    },
+    {
+      "operation": "get_table_elements",
+      "title": "Get Table Elements",
+      "description": "Get records details of a reference table defined by name",
+      "category": "investigation",
+      "annotation": "get_table_elements",
+      "output_schema":{
+         "timeout_type":"",
+         "number_of_elements":"",
+         "data":{
+            "outer_key":{
+               "inner_key":{
+                  "last_seen":"",
+                  "first_seen":"",
+                  "source":"",
+                  "value":""
+               }
+            }
+         },
+         "creation_time":"",
+         "name":"",
+         "key_name_types":"",
+         "element_type":""
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Reference Table Name",
+          "description": "Name of the reference table to fetch",
+          "tooltip": "Name of the reference table to fetch",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.name",
+          "placeholder":"field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
+          "value": ""
+        },
+        {
+          "title": "Maximum Number of Reference Tables to return",
+          "description": "Maximum Number of Reference Tables to return from QRadar.",
+          "tooltip": "Maximum Number of Reference Tables to return from QRadar.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "max_results",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "operation": "add_table_element",
+      "title": "Add/Update Table Element",
+      "description": "Add or update an element in a reference table",
+      "category": "investigation",
+      "annotation": "add_table_element",
+      "output_schema": {
+         "timeout_type":"",
+         "number_of_elements":"",
+         "creation_time":"",
+         "name":"",
+         "key_name_types":"",
+         "element_type":""
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Reference Table Name",
+          "description": "The name of the reference table to add or update an element in",
+          "tooltip": "The name of the reference table to add or update an element in",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.name",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Outer Key",
+          "description": "The outer key for the element  to add or update",
+          "tooltip": "The outer key for the element  to add or update",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.outer_key",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Inner Key",
+          "description": "The inner key for the element to add or update",
+          "tooltip": "The inner key for the element to add or update",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.inner_key",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "value",
+          "description": "The value to add or update in the reference table. Note: Date values must be represented in Unix Epoch milliseconds.",
+          "tooltip": "The value to add or update in the reference table. Note: Date values must be represented in Unix Epoch milliseconds, ex: 1671706076483",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.value",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Domain ID",
+          "description": "Sets the domain id for the value to be specified. If null, the shared domain will be used.",
+          "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.domain_id",
+          "value": ""
+        },
+        {
+          "title": "Element Source",
+          "description": "An indication of where the data originated. The default value is 'FortiSOAR'",
+          "tooltip": "An indication of where the data originated. The default value is 'FortiSOAR'",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.source",
+          "value": "FortiSOAR"
+        }
+      ]
+    },
+    {
+      "operation": "delete_table_element",
+      "title": "Delete Table Element",
+      "description": "Delete element from a reference table",
+      "category": "investigation",
+      "annotation": "delete_table_element",
+      "output_schema": {
+         "timeout_type":"",
+         "number_of_elements":"",
+         "creation_time":"",
+         "name":"",
+         "key_name_types":"",
+         "element_type":""
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Reference Table Name",
+          "description": "The name of the reference table to remove element from",
+          "tooltip": "The name of the reference table to remove element from",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.name",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Outer Key",
+          "description": "The outer key of the element to delete",
+          "tooltip": "The outer key of element to delete",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.outer_key",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Inner Key",
+          "description": "The inner key of the element to delete",
+          "tooltip": "The inner key of the element to delete",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "path.inner_key",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "value",
+          "description": "The value of the element to delete. Note: Date values must be represented in Epoch milliseconds",
+          "tooltip": "The value of the element to delete. Note: Date values must be represented in Epoch milliseconds",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.value",
+          "placeholder": "",
+          "value": ""
+        },
+        {
+          "title": "Domain ID",
+          "description": "Sets the domain id for the value to be specified. If null, the shared domain will be used.",
+          "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.domain_id",
+          "value": ""
+        },
+        {
+          "title": "Element Source",
+          "description": "An indication of where the data originated. The default value is 'FortiSOAR'",
+          "tooltip": "An indication of where the data originated. The default value is 'FortiSOAR'",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.source",
+          "value": "FortiSOAR"
         }
       ]
     }

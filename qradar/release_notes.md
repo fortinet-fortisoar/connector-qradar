@@ -1,4 +1,13 @@
-#### What's Fixed
-  
-- Updated jinja .timestamp to .int_timestamp in the data ingestion playbooks.
-- Added the "PATCH" option to the "Request Method" parameter of the "Invoke QRadar REST API" operation.
+#### What's Improved
+
+- Added the following new operations and playbooks:
+    - Get assets properties
+    - Get assets
+    - Update asset
+    - Get cases
+    - Create case
+    - Get reference tables
+    - Get table elements
+    - Add table element
+    - Delete table element
+    - Delete reference table
