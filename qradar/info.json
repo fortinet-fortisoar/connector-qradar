@@ -682,18 +682,18 @@
       "operation": "get_assets_properties",
       "title": "Get Assets Properties",
       "description": "Get a list of available asset property types that can be used with assets update operation.",
-      "category": "enrichment",
+      "category": "investigation",
       "annotation": "get_assets_properties",
       "output_schema": [
-    {
-        "data_type":"",
-        "display":"",
-        "custom":"",
-        "name":"",
-        "id":"",
-        "state":""
-    }
-],
+        {
+          "data_type":"",
+          "display":"",
+          "custom":"",
+          "name":"",
+          "id":"",
+          "state":""
+        }
+      ],
       "enabled": true,
       "parameters": [
         {
@@ -713,20 +713,20 @@
       "operation": "get_assets",
       "title": "Get Assets",
       "description": "Get a list of available assets",
-      "category": "enrichment",
+      "category": "investigation",
       "annotation": "get_assets",
       "output_schema": [
-   {
-      "vulnerability_count":"",
-      "interfaces":[
-         {
-            "mac_address":"",
-            "last_seen_profiler":"",
-            "created":"",
-            "last_seen_scanner":"",
-            "first_seen_scanner":"",
-            "ip_addresses":[
-               {
+        {
+          "vulnerability_count":"",
+          "interfaces":[
+            {
+              "mac_address":"",
+              "last_seen_profiler":"",
+              "created":"",
+              "last_seen_scanner":"",
+              "first_seen_scanner":"",
+              "ip_addresses":[
+                {
                   "last_seen_profiler":"",
                   "created":"",
                   "last_seen_scanner":"",
@@ -736,30 +736,30 @@
                   "type":"",
                   "first_seen_profiler":"",
                   "value":""
-               }
-            ],
-            "id":"",
-            "first_seen_profiler":""
-         }
+                }
+              ],
+              "id":"",
+              "first_seen_profiler":""
+            }
+          ],
+          "risk_score_sum":"",
+          "hostnames":"",
+          "id":"",
+          "users":"",
+          "domain_id":"",
+          "properties":[
+            {
+              "last_reported":"",
+              "name":"",
+              "type_id":"",
+              "id":"",
+              "last_reported_by":"",
+              "value":""
+            }
+          ],
+          "products":""
+        }
       ],
-      "risk_score_sum":"",
-      "hostnames":"",
-      "id":"",
-      "users":"",
-      "domain_id":"",
-      "properties":[
-         {
-            "last_reported":"",
-            "name":"",
-            "type_id":"",
-            "id":"",
-            "last_reported_by":"",
-            "value":""
-         }
-      ],
-      "products":""
-   }
-],
       "enabled": true,
       "parameters": [
         {
@@ -791,7 +791,7 @@
       "operation": "update_asset",
       "title": "Update Asset",
       "description": "Update one or multiple attributes of a specific asset defined by Asset ID",
-      "category": "enrichment",
+      "category": "investigation",
       "annotation": "update_asset",
       "output_schema": "",
       "enabled": true,
@@ -837,17 +837,15 @@
       "operation": "get_cases",
       "title": "Get Cases",
       "description": "Get a list of Qradar cases",
-      "category": "enrichment",
+      "category": "investigation",
       "annotation": "get_cases",
       "output_schema": [
-   {
-      "assigned_to":[
-
+        {
+          "assigned_to":[],
+          "id":"",
+          "name":""
+        }
       ],
-      "id":"",
-      "name":""
-   }
-],
       "enabled": true,
       "parameters": [
         {
@@ -879,17 +877,15 @@
       "operation": "create_case",
       "title": "Create Case",
       "description": "Create a new case on Qradar",
-      "category": "enrichment",
+      "category": "investigation",
       "annotation": "create_case",
       "output_schema": {
-   "case_id":"",
-   "name":"",
-   "id":"",
-   "state":"",
-   "assigned_to":[
-
-   ]
-},
+         "case_id":"",
+         "name":"",
+         "id":"",
+         "state":"",
+         "assigned_to":[]
+      },
       "enabled": true,
       "parameters": [
         {
@@ -921,22 +917,22 @@
       "operation": "get_reference_tables",
       "title": "Get Reference Tables",
       "description": "Get a list of Reference Tables",
-      "category": "enrichment",
+      "category": "investigation",
       "annotation": "get_reference_tables",
       "output_schema": [
-   {
-      "timeout_type":"",
-      "number_of_elements":"",
-      "creation_time":"",
-      "name":"",
-      "key_name_types":{
-         "port":"",
-         "source_ip":"",
-         "timestamp":""
-      },
-      "element_type":""
-   }
-],
+         {
+            "timeout_type":"",
+            "number_of_elements":"",
+            "creation_time":"",
+            "name":"",
+            "key_name_types":{
+               "port":"",
+               "source_ip":"",
+               "timestamp":""
+            },
+            "element_type":""
+         }
+      ],
       "enabled": true,
       "parameters": [
         {
@@ -968,19 +964,19 @@
       "operation": "delete_reference_table",
       "title": "Delete/Purge Reference Table",
       "description": "Delete a Reference Table or Purge its content",
-      "category": "enrichment",
+      "category": "investigation",
       "annotation": "delete_reference_table",
       "output_schema": {
-   "created_by":"",
-   "created":"",
-   "name":"",
-   "modified":"",
-   "started":"",
-   "completed":"",
-   "id":"",
-   "message":"",
-   "status":""
-},
+         "created_by":"",
+         "created":"",
+         "name":"",
+         "modified":"",
+         "started":"",
+         "completed":"",
+         "id":"",
+         "message":"",
+         "status":""
+      },
       "enabled": true,
       "parameters": [
         {
@@ -992,7 +988,6 @@
           "visible": true,
           "type": "text",
           "name": "path.name",
-          "placeholder": "",
           "value": ""
         },
         {
@@ -1014,26 +1009,26 @@
       "operation": "get_table_elements",
       "title": "Get Table Elements",
       "description": "Get records details of a reference table defined by name",
-      "category": "enrichment",
+      "category": "investigation",
       "annotation": "get_table_elements",
       "output_schema":{
-   "timeout_type":"",
-   "number_of_elements":"",
-   "data":{
-      "outer_key":{
-         "inner_key":{
-            "last_seen":"",
-            "first_seen":"",
-            "source":"",
-            "value":""
-         }
-      }
-   },
-   "creation_time":"",
-   "name":"",
-   "key_name_types":"",
-   "element_type":""
-},
+         "timeout_type":"",
+         "number_of_elements":"",
+         "data":{
+            "outer_key":{
+               "inner_key":{
+                  "last_seen":"",
+                  "first_seen":"",
+                  "source":"",
+                  "value":""
+               }
+            }
+         },
+         "creation_time":"",
+         "name":"",
+         "key_name_types":"",
+         "element_type":""
+      },
       "enabled": true,
       "parameters": [
         {
@@ -1065,16 +1060,16 @@
       "operation": "add_table_element",
       "title": "Add/Update Table Element",
       "description": "Add or update an element in a reference table",
-      "category": "enrichment",
+      "category": "investigation",
       "annotation": "add_table_element",
       "output_schema": {
-   "timeout_type":"",
-   "number_of_elements":"",
-   "creation_time":"",
-   "name":"",
-   "key_name_types":"",
-   "element_type":""
-},
+         "timeout_type":"",
+         "number_of_elements":"",
+         "creation_time":"",
+         "name":"",
+         "key_name_types":"",
+         "element_type":""
+      },
       "enabled": true,
       "parameters": [
         {
@@ -1153,16 +1148,16 @@
       "operation": "delete_table_element",
       "title": "Delete Table Element",
       "description": "Delete element from a reference table",
-      "category": "enrichment",
+      "category": "investigation",
       "annotation": "delete_table_element",
       "output_schema": {
-   "timeout_type":"",
-   "number_of_elements":"",
-   "creation_time":"",
-   "name":"",
-   "key_name_types":"",
-   "element_type":""
-},
+         "timeout_type":"",
+         "number_of_elements":"",
+         "creation_time":"",
+         "name":"",
+         "key_name_types":"",
+         "element_type":""
+      },
       "enabled": true,
       "parameters": [
         {
