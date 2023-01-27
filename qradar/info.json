@@ -681,7 +681,7 @@
     {
       "operation": "get_assets_properties",
       "title": "Get Assets Properties",
-      "description": "Get a list of available asset property types that can be used with assets update operation.",
+      "description": "Retrieves a detailed list of available asset properties from Qradar that can be used with assets update operation.",
       "category": "investigation",
       "annotation": "get_assets_properties",
       "output_schema": [
@@ -697,9 +697,9 @@
       "enabled": true,
       "parameters": [
         {
-          "title": "Maximum Number of Attributes to return",
-          "description": "Maximum Number of attributes to return from QRadar.",
-          "tooltip": "Maximum Number of attributes to return from QRadar.",
+          "title": "Maximum Number of Asset Properties to return",
+          "description": "Specify the maximum count of asset properties that you want this operation to return in the response.",
+          "tooltip": "Helps in limiting response to a specified number of asset properties.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -712,7 +712,7 @@
     {
       "operation": "get_assets",
       "title": "Get Assets",
-      "description": "Get a list of available assets",
+      "description": "Retrieves a detailed list of available assets from Qradar based on input parameters specified.",
       "category": "investigation",
       "annotation": "get_assets",
       "output_schema": [
@@ -764,8 +764,8 @@
       "parameters": [
         {
           "title": "Filter",
-          "description": "Filter assets to return by any asset property",
-          "tooltip": "Filter assets to return by any asset property",
+          "description": "This parameter is used to restrict the list of assets in the response based on the filter query specified.",
+          "tooltip": "This parameter is used to restrict the list of assets in the response based on the filter query specified.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -776,8 +776,8 @@
         },
         {
           "title": "Maximum Number of Assets to return",
-          "description": "Maximum Number of Assets to return from QRadar.",
-          "tooltip": "Maximum Number of Assets to return from QRadar.",
+          "description": "Specify the maximum count of assets that you want this operation to return in the response.",
+          "tooltip": "Helps in limiting response to a specified number of assets.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -790,7 +790,7 @@
     {
       "operation": "update_asset",
       "title": "Update Asset",
-      "description": "Update one or multiple attributes of a specific asset defined by Asset ID",
+      "description": "Updates the attributes of a specific asset on the Qradar server based on the asset ID that you have specified.",
       "category": "investigation",
       "annotation": "update_asset",
       "output_schema": "",
@@ -798,8 +798,8 @@
       "parameters": [
         {
           "title": "Asset ID",
-          "description": "ID of the asset to update",
-          "tooltip": "ID of the asset to update",
+          "description": "Specify the ID of the asset to update on Qradar",
+          "tooltip": "Specify the ID of the asset to update on Qradar",
           "required": true,
           "editable": true,
           "visible": true,
@@ -810,8 +810,8 @@
         },
         {
           "title": "Asset Properties",
-          "description": "JSON dictionary with the properties to update",
-          "tooltip": "JSON dictionary with the properties values to update",
+          "description": "Specify a JSON dictionary with the asset properties to update on Qradar",
+          "tooltip": "Specify a JSON dictionary with the asset properties to update on Qradar",
           "required": true,
           "editable": true,
           "visible": true,
@@ -826,7 +826,7 @@
           "tooltip": "System field, cannot be edited",
           "required": false,
           "editable": false,
-          "visible": true,
+          "visible": false,
           "type": "text",
           "name": "content_type",
           "value": "text/plain"
@@ -836,7 +836,7 @@
     {
       "operation": "get_cases",
       "title": "Get Cases",
-      "description": "Get a list of Qradar cases",
+      "description": "Retrieves a detailed list of cases from Qradar based on input parameters specified",
       "category": "investigation",
       "annotation": "get_cases",
       "output_schema": [
@@ -850,8 +850,8 @@
       "parameters": [
         {
           "title": "Filter",
-          "description": "Filter cases to return by any case property",
-          "tooltip": "Filter cases to return by any case property",
+          "description": "This parameter is used to restrict the list of cases in the response based on the filter query specified.",
+          "tooltip": "This parameter is used to restrict the list of cases in the response based on the filter query specified.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -862,8 +862,8 @@
         },
         {
           "title": "Maximum Number of Cases to return",
-          "description": "Maximum Number of Cases to return from QRadar.",
-          "tooltip": "Maximum Number of Cases to return from QRadar.",
+          "description": "Specify the maximum count of cases that you want this operation to return in the response.",
+          "tooltip": "Helps in limiting response to a specified number of cases.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -890,8 +890,8 @@
       "parameters": [
         {
           "title": "Case Properties",
-          "description": "JSON dictionary with the properties of the case to create",
-          "tooltip": "JSON dictionary with the properties of the case to create",
+          "description": "Specify a JSON dictionary with the case properties to create a case on Qradar",
+          "tooltip": "Specify a JSON dictionary with the case properties to create a case on Qradar",
           "required": true,
           "editable": true,
           "visible": true,
@@ -906,7 +906,7 @@
           "tooltip": "System field, cannot be edited",
           "required": false,
           "editable": false,
-          "visible": true,
+          "visible": false,
           "type": "text",
           "name": "content_type",
           "value": "application/json"
@@ -916,7 +916,7 @@
     {
       "operation": "get_reference_tables",
       "title": "Get Reference Tables",
-      "description": "Get a list of Reference Tables",
+      "description": "Retrieves a detailed list of reference tables from Qradar",
       "category": "investigation",
       "annotation": "get_reference_tables",
       "output_schema": [
@@ -937,8 +937,8 @@
       "parameters": [
         {
           "title": "Filter",
-          "description": "Filter reference tables to return by any table property",
-          "tooltip": "Filter reference tables to return by any table property",
+          "description": "This parameter is used to restrict the list of reference tables in the response based on the filter query specified.",
+          "tooltip": "This parameter is used to restrict the list of reference tables in the response based on the filter query specified.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -949,8 +949,8 @@
         },
         {
           "title": "Maximum Number of Reference Tables to return",
-          "description": "Maximum Number of Reference Tables to return from QRadar.",
-          "tooltip": "Maximum Number of Reference Tables to return from QRadar.",
+          "description": "Specify the maximum count of reference tables that you want this operation to return in the response.",
+          "tooltip": "Helps in limiting response to a specified number of reference tables.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -963,7 +963,7 @@
     {
       "operation": "delete_reference_table",
       "title": "Delete/Purge Reference Table",
-      "description": "Delete a Reference Table or Purge its content",
+      "description": "Delete a reference table or purge its content on Qradar based on the input parameters specified.",
       "category": "investigation",
       "annotation": "delete_reference_table",
       "output_schema": {
@@ -996,19 +996,18 @@
           "editable": true,
           "visible": true,
           "type": "select",
-          "description": "Purges the Reference Table instead of deleting it",
-          "tooltip": "Purges the Reference Table instead of deleting it",
+          "description": "This indicates if the reference table should have its contents purged (if the value is true), keeping the reference table structure. If the value is false, or not specified the reference table is removed completely. The default value is false.",
+          "tooltip": "This indicates if the reference table should have its contents purged (if the value is true), keeping the reference table structure. If the value is false, or not specified the reference table is removed completely.",
           "options": ["true", "false"],
           "name": "query.purge_only",
-          "value": "true"
-
+          "value": "false"
         }
       ]
     },
     {
       "operation": "get_table_elements",
       "title": "Get Table Elements",
-      "description": "Get records details of a reference table defined by name",
+      "description": "Retrieves the record details of a reference table defined by name from Qradar",
       "category": "investigation",
       "annotation": "get_table_elements",
       "output_schema":{
@@ -1033,20 +1032,19 @@
       "parameters": [
         {
           "title": "Reference Table Name",
-          "description": "Name of the reference table to fetch",
-          "tooltip": "Name of the reference table to fetch",
+          "description": "Specify the name of the reference table to fetch from Qradar",
+          "tooltip": "Specify the name of the reference table to fetch from Qradar",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "path.name",
-          "placeholder":"field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
           "value": ""
         },
         {
-          "title": "Maximum Number of Reference Tables to return",
-          "description": "Maximum Number of Reference Tables to return from QRadar.",
-          "tooltip": "Maximum Number of Reference Tables to return from QRadar.",
+          "title": "Maximum Number of Elements to return",
+          "description": "Specify the maximum count of elements of the reference table that you want this operation to return in the response.",
+          "tooltip": "Helps in limiting response to a specified number of elements of the reference table.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1059,7 +1057,7 @@
     {
       "operation": "add_table_element",
       "title": "Add/Update Table Element",
-      "description": "Add or update an element in a reference table",
+      "description": "Specify the element to add or update in the reference table on Qradar based on the input parameters specified.",
       "category": "investigation",
       "annotation": "add_table_element",
       "output_schema": {
@@ -1074,8 +1072,8 @@
       "parameters": [
         {
           "title": "Reference Table Name",
-          "description": "The name of the reference table to add or update an element in",
-          "tooltip": "The name of the reference table to add or update an element in",
+          "description": "Specify the name of the reference table to add or update an element in.",
+          "tooltip": "Specify the name of the reference table to add or update an element in.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1086,8 +1084,8 @@
         },
         {
           "title": "Outer Key",
-          "description": "The outer key for the element  to add or update",
-          "tooltip": "The outer key for the element  to add or update",
+          "description": "Specify the outer key in which you want to add or update the element.",
+          "tooltip": "Specify the outer key in which you want to add or update the element.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1098,8 +1096,8 @@
         },
         {
           "title": "Inner Key",
-          "description": "The inner key for the element to add or update",
-          "tooltip": "The inner key for the element to add or update",
+          "description": "Specify the inner key in which you want to add or update the element.",
+          "tooltip": "Specify the inner key in which you want to add or update the element.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1110,8 +1108,8 @@
         },
         {
           "title": "value",
-          "description": "The value to add or update in the reference table. Note: Date values must be represented in Unix Epoch milliseconds.",
-          "tooltip": "The value to add or update in the reference table. Note: Date values must be represented in Unix Epoch milliseconds, ex: 1671706076483",
+          "description": "Specify the value of the element to add or update in the reference table. Note: Date values must be represented in Unix Epoch milliseconds.",
+          "tooltip": "Specify the value of the element to add or update in the reference table. Note: Date values must be represented in Unix Epoch milliseconds, eg: 1671706076483",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1122,7 +1120,7 @@
         },
         {
           "title": "Domain ID",
-          "description": "Sets the domain id for the value to be specified. If null, the shared domain will be used.",
+          "description": "Sets the domain ID for the value to be specified. If null, the shared domain will be used.",
           "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
           "required": false,
           "editable": true,
@@ -1147,7 +1145,7 @@
     {
       "operation": "delete_table_element",
       "title": "Delete Table Element",
-      "description": "Delete element from a reference table",
+      "description": "Specify the element to be deleted from a reference table on Qradar based on input parameters specified.",
       "category": "investigation",
       "annotation": "delete_table_element",
       "output_schema": {
@@ -1162,8 +1160,8 @@
       "parameters": [
         {
           "title": "Reference Table Name",
-          "description": "The name of the reference table to remove element from",
-          "tooltip": "The name of the reference table to remove element from",
+          "description": "Specify the name of the reference table to remove element from.",
+          "tooltip": "Specify the name of the reference table to remove element from.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1174,8 +1172,8 @@
         },
         {
           "title": "Outer Key",
-          "description": "The outer key of the element to delete",
-          "tooltip": "The outer key of element to delete",
+          "description": "Specify the outer key from which you want to delete the element.",
+          "tooltip": "Specify the outer key in which you want to delete the element.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1186,8 +1184,8 @@
         },
         {
           "title": "Inner Key",
-          "description": "The inner key of the element to delete",
-          "tooltip": "The inner key of the element to delete",
+          "description": "Specify the inner key from which you want to delete the element.",
+          "tooltip": "Specify the inner key from which you want to delete the element.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1198,8 +1196,8 @@
         },
         {
           "title": "value",
-          "description": "The value of the element to delete. Note: Date values must be represented in Epoch milliseconds",
-          "tooltip": "The value of the element to delete. Note: Date values must be represented in Epoch milliseconds",
+          "description": "Specify the value of the element to delete. Note: Date values must be represented in Epoch milliseconds",
+          "tooltip": "Specify the value of the element to delete. Note: Date values must be represented in Epoch milliseconds",
           "required": true,
           "editable": true,
           "visible": true,
