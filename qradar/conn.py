@@ -6,11 +6,10 @@
 import requests
 import json
 from time import sleep
-import logging
-from connectors.core.connector import ConnectorError
+from connectors.core.connector import get_logger, ConnectorError
 from requests_toolbelt.utils import dump
 
-logger = logging.getLogger(__name__)
+logger = get_logger("qradar")
 
 
 class QradarConnection(object):
@@ -280,8 +279,8 @@ class QradarConnection(object):
         url_params = {}
         headers = {}
         for key, value in params.items():
-            if key == 'filter_string':
-                url_params = {'filter': self.__ensureStr(value)} if value else {}
+            if key == 'filter_string' and value:
+                url_params.update({"filter": self.__ensureStr(value)})
             elif key == 'max_results':
                 max_results = str(value) if value else str(self.MAX_RESULTS)
                 headers.update({'Range': 'items=0-' + str(max_results)})
@@ -293,9 +292,8 @@ class QradarConnection(object):
                     headers.update({'Content-type': 'application/json', 'Accept': params.get('content_type','application/json')})
                 else:
                     data.update({kv_input[1]:value})
-            elif 'query' in key:
-                if value is not None:
-                    url_params.update({key.split('.')[1]:self.__ensureStr(value)})
+            elif 'query' in key and value:
+                url_params.update({key.split('.')[1]:self.__ensureStr(value)})
         return url_params, headers, data
 
 
