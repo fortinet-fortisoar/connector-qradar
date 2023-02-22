@@ -107,12 +107,12 @@
         {
           "title": "Query/Filter",
           "description": "Defaults to last 5 min",
-          "required": false,
+          "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "filter_string",
-          "value": ""
+          "value": "status=\"OPEN\""
         }
       ]
     },
@@ -706,6 +706,30 @@
           "type": "integer",
           "name": "max_results",
           "value": 100
+        },
+        {
+          "title": "Filter",
+          "description": "This parameter is used to restrict the list of asset properties in the response based on the filter query specified.",
+          "tooltip": "This parameter is used to restrict the list of asset properties in the response based on the filter query specified.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "filter_string",
+          "placeholder": "field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
+          "value": ""
+        },
+        {
+          "title": "Fields",
+          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.fields",
+          "placeholder": "field_one(sub_field_one,sub_field_two),field_two",
+          "value": ""
         }
       ]
     },
@@ -784,6 +808,30 @@
           "type": "integer",
           "name": "max_results",
           "value": 100
+        },
+        {
+          "title": "Fields",
+          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.fields",
+          "placeholder": "field_one(sub_field_one,sub_field_two),field_two",
+          "value": ""
+        },
+        {
+          "title": "Sort",
+          "description": "Use this parameter to specify on which field you would like to sort the response. Specify negative sign to sort in descending order and positive sign to sort in ascending order.",
+          "tooltip": "Use this parameter to specify on which field you would like to sort the response. Specify negative sign to sort in descending order and positive sign to sort in ascending order.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.sort",
+          "placeholder": "-id",
+          "value": ""
         }
       ]
     },
@@ -817,8 +865,14 @@
           "visible": true,
           "type": "json",
           "name": "body.asset",
-          "placeholder": "{'properties':[{'type_id':1001,'value':'felixrobotron'},{'type_id':1002,'value':'felix.robot.terminus'}]}",
-          "value": ""
+          "value": {
+            "properties": [
+              {
+                "type_id": 1011,
+                "value": "testing"
+              }
+            ]
+          }
         },
         {
           "title": "Content Type",
@@ -848,6 +902,18 @@
       ],
       "enabled": true,
       "parameters": [
+        {
+          "title": "Fields",
+          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.fields",
+          "placeholder": "field_one(sub_field_one,sub_field_two),field_two",
+          "value": ""
+        },
         {
           "title": "Filter",
           "description": "This parameter is used to restrict the list of cases in the response based on the filter query specified.",
@@ -897,8 +963,12 @@
           "visible": true,
           "type": "json",
           "name": "body.case",
-          "placeholder": "{'assigned_to':['admin'],'name':'case1'}",
-          "value": ""
+          "value": {
+            "assigned_to": [
+              "admin"
+            ],
+            "name": "case1"
+          }
         },
         {
           "title": "Content Type",
@@ -957,12 +1027,24 @@
           "type": "integer",
           "name": "max_results",
           "value": 100
+        },
+        {
+          "title": "Fields",
+          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.fields",
+          "placeholder": "field_one(sub_field_one,sub_field_two),field_two",
+          "value": ""
         }
       ]
     },
     {
       "operation": "delete_reference_table",
-      "title": "Delete/Purge Reference Table",
+      "title": "Delete or Purge Reference Table",
       "description": "Delete a reference table or purge its content on Qradar based on the input parameters specified.",
       "category": "investigation",
       "annotation": "delete_reference_table",
@@ -1001,6 +1083,29 @@
           "options": ["true", "false"],
           "name": "query.purge_only",
           "value": "false"
+        },
+        {
+          "title": "Fields",
+          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.fields",
+          "placeholder": "field_one(sub_field_one,sub_field_two),field_two",
+          "value": ""
+        },
+        {
+          "title": "Namespace",
+          "description": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.namespace",
+          "value": ""
         }
       ]
     },
@@ -1051,12 +1156,35 @@
           "type": "integer",
           "name": "max_results",
           "value": 100
+        },
+        {
+          "title": "Fields",
+          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.fields",
+          "placeholder": "field_one(sub_field_one,sub_field_two),field_two",
+          "value": ""
+        },
+        {
+          "title": "Namespace",
+          "description": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.namespace",
+          "value": ""
         }
       ]
     },
     {
       "operation": "add_table_element",
-      "title": "Add/Update Table Element",
+      "title": "Add or Update Table Element",
       "description": "Specify the element to add or update in the reference table on Qradar based on the input parameters specified.",
       "category": "investigation",
       "annotation": "add_table_element",
@@ -1139,6 +1267,29 @@
           "type": "text",
           "name": "query.source",
           "value": "FortiSOAR"
+        },
+        {
+          "title": "Fields",
+          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.fields",
+          "placeholder": "field_one(sub_field_one,sub_field_two),field_two",
+          "value": ""
+        },
+        {
+          "title": "Namespace",
+          "description": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.namespace",
+          "value": ""
         }
       ]
     },
@@ -1218,15 +1369,27 @@
           "value": ""
         },
         {
-          "title": "Element Source",
-          "description": "An indication of where the data originated. The default value is 'FortiSOAR'",
-          "tooltip": "An indication of where the data originated. The default value is 'FortiSOAR'",
+          "title": "Fields",
+          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
           "required": false,
           "editable": true,
           "visible": true,
           "type": "text",
-          "name": "query.source",
-          "value": "FortiSOAR"
+          "name": "query.fields",
+          "placeholder": "field_one(sub_field_one,sub_field_two),field_two",
+          "value": ""
+        },
+        {
+          "title": "Namespace",
+          "description": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.namespace",
+          "value": ""
         }
       ]
     }

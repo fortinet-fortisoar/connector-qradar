@@ -4,7 +4,6 @@
   FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
   Copyright end """
 import json
-import arrow
 from .conn import QradarConnection
 from connectors.core.connector import get_logger, ConnectorError
 
@@ -15,12 +14,6 @@ def get_offenses(config, params, *args, **kwargs):
     # address, token, verify_ssl=False, filter_string=None, *args, **kwargs
     logger.debug('getting offenses from qradar')
     filter_string = str(params.get('filter_string', ''))
-    if not filter_string or filter_string == '':
-        logger.debug('Using default filter string for offenses in the last 5 minutes')
-        t = arrow.utcnow()
-        start_time = t.replace(minutes=-5)
-        filter_string = 'start_time between {!s} and {!s}'.format(start_time.timestamp * 1000, t.timestamp * 1000)
-
     q = QradarConnection(**config)
     return q.getOffenses(filter_string)
 
@@ -130,19 +123,23 @@ def get_notes(config, params, *args, **kwargs):
     offense_id = params['offense_id']
     qradar_connection = QradarConnection(**config)
     return qradar_connection.getNote(offense_id)
-#1.6.0
 
+
+#  1.6.0
 def get_record(config, params, *args, **kwargs):
     qradar_connection = QradarConnection(**config)
     return qradar_connection.get_record(params)
+
 
 def update_record(config, params, *args, **kwargs):
     qradar_connection = QradarConnection(**config)
     return qradar_connection.update_record(params)
 
+
 def delete_record(config, params, *args, **kwargs):
     qradar_connection = QradarConnection(**config)
     return qradar_connection.delete_record(params)
+
 
 operations = {
     'get_offenses': get_offenses,
@@ -162,7 +159,7 @@ operations = {
     'update_asset': update_record,
     'get_cases': get_record,
     'create_case': update_record,
-    'get_reference_tables':get_record,
+    'get_reference_tables': get_record,
     'delete_reference_table': delete_record,
     'get_table_elements': get_record,
     'add_table_element': update_record,
