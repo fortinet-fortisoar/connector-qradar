@@ -144,11 +144,29 @@ class QradarConnection(object):
         return 'Validated connections. However, CyberSponse App is not installed on the QRadar server'
 
     def listVersion(self):
-        endpoint = 'help/versions'
-        response = self.__getUrl(endpoint)
-        if response:
-            logger.info("Check health successful..")
-            return True
+        try:
+            endpoint = 'help/versions'
+            url = '{}/{}'.format(self.base_url, endpoint)
+            res = self.session.get(url)
+            response = self.__parseRequestResult(res)
+            if response:
+                logger.info("Check health successful..")
+                return True
+        except requests.exceptions.SSLError:
+            logger.error('An SSL error occurred')
+            raise ConnectorError('An SSL error occurred')
+        except requests.exceptions.ConnectionError:
+            logger.error('A connection error occurred')
+            raise ConnectorError('A connection error occurred')
+        except requests.exceptions.Timeout:
+            logger.error('The request timed out')
+            raise ConnectorError('The request timed out')
+        except requests.exceptions.RequestException:
+            logger.error('There was an error while handling the request')
+            raise ConnectorError('There was an error while handling the request')
+        except Exception as err:
+            logger.error('Invalid credentials')
+            raise ConnectorError('Invalid credentials')
 
     def arielSearch(self, search_string, **kwargs):
         endpoint = 'ariel/searches'

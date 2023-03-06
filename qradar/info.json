@@ -697,9 +697,9 @@
       "enabled": true,
       "parameters": [
         {
-          "title": "Maximum Number of Asset Properties to return",
-          "description": "Specify the maximum count of asset properties that you want this operation to return in the response.",
-          "tooltip": "Helps in limiting response to a specified number of asset properties.",
+          "title": "Limit",
+          "description": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -799,9 +799,9 @@
           "value": ""
         },
         {
-          "title": "Maximum Number of Assets to return",
-          "description": "Specify the maximum count of assets that you want this operation to return in the response.",
-          "tooltip": "Helps in limiting response to a specified number of assets.",
+          "title": "Limit",
+          "description": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -927,9 +927,9 @@
           "value": ""
         },
         {
-          "title": "Maximum Number of Cases to return",
-          "description": "Specify the maximum count of cases that you want this operation to return in the response.",
-          "tooltip": "Helps in limiting response to a specified number of cases.",
+          "title": "Limit",
+          "description": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1018,9 +1018,9 @@
           "value": ""
         },
         {
-          "title": "Maximum Number of Reference Tables to return",
-          "description": "Specify the maximum count of reference tables that you want this operation to return in the response.",
-          "tooltip": "Helps in limiting response to a specified number of reference tables.",
+          "title": "Limit",
+          "description": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1147,9 +1147,9 @@
           "value": ""
         },
         {
-          "title": "Maximum Number of Elements to return",
-          "description": "Specify the maximum count of elements of the reference table that you want this operation to return in the response.",
-          "tooltip": "Helps in limiting response to a specified number of elements of the reference table.",
+          "title": "Limit",
+          "description": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "required": false,
           "editable": true,
           "visible": true,
