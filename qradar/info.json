@@ -13,7 +13,7 @@
   "ingestion_modes": [
     "scheduled"
   ],
-  "help_online": "",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.6.0/ibm-qradar/498/ibm-qradar-v1-6-0",
   "configuration": {
     "fields": [
       {
@@ -24,7 +24,7 @@
         "type": "text",
         "name": "address",
         "value": "",
-        "description": "IP address of the QRadar server from where the connector gets offenses information and to which you connect and perform automated operations."
+        "description": "Specify the IP address of the QRadar server from where the connector gets offenses information and to which you connect and perform automated operations."
       },
       {
         "title": "API Token",
@@ -33,7 +33,7 @@
         "visible": true,
         "type": "password",
         "name": "token",
-        "description": "API token to access the QRadar server to which you connect and perform automated operations."
+        "description": "Specify the API token to access the QRadar server to which you connect and perform automated operations."
       },
       {
         "title": "API Version",
@@ -43,7 +43,7 @@
         "type": "text",
         "name": "api_version",
         "value": "14.0",
-        "description": "Version of the QRadar API to be used for performing automated operations."
+        "description": "Specify the version of the QRadar API to be used for performing automated operations. By default, this is set to 14.0"
       },
       {
         "title": "Verify SSL",
@@ -53,7 +53,7 @@
         "type": "checkbox",
         "name": "verify_ssl",
         "value": true,
-        "description": "Specifies whether the SSL certificate for the server is to be verified or not.Defaults to True."
+        "description": "Specifies whether the SSL certificate for the server is to be verified or not."
       }
     ]
   },
@@ -127,7 +127,7 @@
       "parameters": [
         {
           "title": "Ariel Search String",
-          "description": "Ariel query that you want to be run on the QRadar server.",
+          "description": "Specify the Ariel query that you want to run on the QRadar server.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -190,7 +190,7 @@
       "parameters": [
         {
           "title": "Offense ID",
-          "description": "ID of the offense whose associated notes you want to retrieve from the QRadar server.",
+          "description": "Specify the ID of the offense whose associated notes you want to retrieve from the QRadar server.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -246,7 +246,7 @@
       "parameters": [
         {
           "title": "Offense ID",
-          "description": "ID of the offense that you want to close on the QRadar server.",
+          "description": "Specify the ID of the offense that you want to close on the QRadar server.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -256,7 +256,7 @@
         },
         {
           "title": "Offense Closing Reason - ID",
-          "description": "ID of the offense closing reason using which you want to close the offense on the QRadar server.",
+          "description": "Specify the ID of the offense closing reason using which you want to close the offense on the QRadar server.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -292,7 +292,7 @@
       "parameters": [
         {
           "title": "Offense ID",
-          "description": "ID of the offense for which you want to create a note on the QRadar server.",
+          "description": "Specify the ID of the offense for which you want to create a note on the QRadar server.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -302,7 +302,7 @@
         },
         {
           "title": "Closure Note",
-          "description": "Text of the closure note that you want to create for the specified offense on the QRadar server.",
+          "description": "Specify the text of the closure note that you want to create for the specified offense on the QRadar server.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -341,7 +341,7 @@
       "parameters": [
         {
           "title": "QRadar Offense ID",
-          "description": "Offense ID based on which you want to retrieve events from QRadar.",
+          "description": "Specify the Offense ID based on which you want to retrieve events from QRadar.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -351,7 +351,7 @@
         },
         {
           "title": "Offense Start Time",
-          "description": "Number of milliseconds since epoch since the offense was started.",
+          "description": "Specify the number of milliseconds since the epoch from the offense was started.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -361,7 +361,7 @@
         },
         {
           "title": "Offense Last Update Time",
-          "description": "Number of milliseconds since epoch since the offense was last modified.",
+          "description": "Specify the number of milliseconds since the epoch from the offense was last modified.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -384,7 +384,7 @@
     {
       "operation": "get_source_ip",
       "title": "Get Source IP Addresses",
-      "description": "Retrieves IP address details associated with a source address IDs from the QRadar server, based on the source address IDs that you have specified",
+      "description": "Retrieves IP address details associated with source address IDs from the QRadar server, based on the source address IDs that you have specified",
       "output_schema": {
         "id": "",
         "source_ip": "",
@@ -409,7 +409,7 @@
     {
       "operation": "get_destination_ip",
       "title": "Get Destination IP Addresses",
-      "description": "Retrieves IP address details associated with a destination address IDs from the QRadar server, based on the destination address IDs that you have specified",
+      "description": "Retrieves IP address details associated with the destination address IDs from the QRadar server, based on the destination address IDs that you have specified",
       "category": "investigation",
       "annotation": "ip_details",
       "output_schema": {
@@ -442,7 +442,7 @@
         {
           "title": "Endpoint",
           "required": true,
-          "description": "Provide the endpoint for which you want to invoke",
+          "description": "Specifies the REST endpoint. For example, /siem/offenses.",
           "editable": true,
           "visible": true,
           "type": "text",
@@ -452,7 +452,7 @@
         {
           "title": "Request Method",
           "required": true,
-          "description": "Select the request method. You can choose between GET, POST, or PATCH.If you select GET, then you should specify the Request Parameters parameter. In the Request parameters parameter, specify the request parameters for the specified endpoint.If you select POST or PATCH, then you can specify either the Request Parameters in JSON Format or the Request Payload in JSON Format parameter. In these parameters, specify either the request parameters or request JSON payload for the specified endpoint.",
+          "description": "Select the request method. You can choose between GET, POST, or PATCH. If you select GET, then you should specify the Request Parameters parameter. In the Request parameters parameter, specify the request parameters for the specified endpoint. If you select POST, then you can specify either the Request Parameters in JSON Format or the Request Payload in JSON Format parameter. In these parameters, specify either the request parameters or the request JSON payload for the specified endpoint. If you select PATCH, then you can specify either the Request Parameters in JSON Format or the Request Payload in JSON Format parameter. In these parameters, specify either the request parameters or the request JSON payload for the specified endpoint.",
           "editable": true,
           "visible": true,
           "type": "select",
@@ -556,7 +556,7 @@
         {
           "title": "Headers in json format",
           "required": false,
-          "description": "(Optional) Additional JSON formatted headers.Following headers are already added by the connector:'Accept': 'application/JSON','Content-Type': 'application/JSON','SEC': <token>,'Version': <api_version>,",
+          "description": "(Optional) Additional JSON formatted headers. The following headers are already added by the connector:\n'Accept': 'application/JSON',\n'Content-Type': 'application/JSON',\n'SEC': <token>,\n'Version': <api_version>,",
           "editable": true,
           "visible": true,
           "type": "json",
@@ -681,24 +681,24 @@
     {
       "operation": "get_assets_properties",
       "title": "Get Assets Properties",
-      "description": "Retrieves a detailed list of available asset properties from Qradar that can be used with assets update operation.",
+      "description": "Retrieves a detailed list of available asset properties or specific available asset properties from QRadar based on input parameters specified.",
       "category": "investigation",
       "annotation": "get_assets_properties",
       "output_schema": [
         {
-          "data_type":"",
-          "display":"",
-          "custom":"",
-          "name":"",
-          "id":"",
-          "state":""
+          "data_type": "",
+          "display": "",
+          "custom": "",
+          "name": "",
+          "id": "",
+          "state": ""
         }
       ],
       "enabled": true,
       "parameters": [
         {
           "title": "Limit",
-          "description": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "description": "Specify the maximum count of asset properties to be returned by this operation in the response. Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "required": false,
           "editable": true,
@@ -709,7 +709,7 @@
         },
         {
           "title": "Filter",
-          "description": "This parameter is used to restrict the list of asset properties in the response based on the filter query specified.",
+          "description": "Specify the parameters to be used to filter (restrict) the list of asset properties to be returned by this operation in the response.",
           "tooltip": "This parameter is used to restrict the list of asset properties in the response based on the filter query specified.",
           "required": false,
           "editable": true,
@@ -721,7 +721,7 @@
         },
         {
           "title": "Fields",
-          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
           "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
           "required": false,
           "editable": true,
@@ -736,59 +736,59 @@
     {
       "operation": "get_assets",
       "title": "Get Assets",
-      "description": "Retrieves a detailed list of available assets from Qradar based on input parameters specified.",
+      "description": "Retrieves a detailed list of all available assets or specific available assets from QRadar based on input parameters specified.",
       "category": "investigation",
       "annotation": "get_assets",
       "output_schema": [
         {
-          "vulnerability_count":"",
-          "interfaces":[
+          "vulnerability_count": "",
+          "interfaces": [
             {
-              "mac_address":"",
-              "last_seen_profiler":"",
-              "created":"",
-              "last_seen_scanner":"",
-              "first_seen_scanner":"",
-              "ip_addresses":[
+              "mac_address": "",
+              "last_seen_profiler": "",
+              "created": "",
+              "last_seen_scanner": "",
+              "first_seen_scanner": "",
+              "ip_addresses": [
                 {
-                  "last_seen_profiler":"",
-                  "created":"",
-                  "last_seen_scanner":"",
-                  "first_seen_scanner":"",
-                  "network_id":"",
-                  "id":"",
-                  "type":"",
-                  "first_seen_profiler":"",
-                  "value":""
+                  "last_seen_profiler": "",
+                  "created": "",
+                  "last_seen_scanner": "",
+                  "first_seen_scanner": "",
+                  "network_id": "",
+                  "id": "",
+                  "type": "",
+                  "first_seen_profiler": "",
+                  "value": ""
                 }
               ],
-              "id":"",
-              "first_seen_profiler":""
+              "id": "",
+              "first_seen_profiler": ""
             }
           ],
-          "risk_score_sum":"",
-          "hostnames":"",
-          "id":"",
-          "users":"",
-          "domain_id":"",
-          "properties":[
+          "risk_score_sum": "",
+          "hostnames": "",
+          "id": "",
+          "users": "",
+          "domain_id": "",
+          "properties": [
             {
-              "last_reported":"",
-              "name":"",
-              "type_id":"",
-              "id":"",
-              "last_reported_by":"",
-              "value":""
+              "last_reported": "",
+              "name": "",
+              "type_id": "",
+              "id": "",
+              "last_reported_by": "",
+              "value": ""
             }
           ],
-          "products":""
+          "products": ""
         }
       ],
       "enabled": true,
       "parameters": [
         {
           "title": "Filter",
-          "description": "This parameter is used to restrict the list of assets in the response based on the filter query specified.",
+          "description": "Specify the parameters to be used to filter (restrict) the list of assets to be returned by this operation in the response.",
           "tooltip": "This parameter is used to restrict the list of assets in the response based on the filter query specified.",
           "required": false,
           "editable": true,
@@ -800,7 +800,7 @@
         },
         {
           "title": "Limit",
-          "description": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "description": "Specify the maximum count of assets to be returned by this operation in the response. Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "required": false,
           "editable": true,
@@ -811,7 +811,7 @@
         },
         {
           "title": "Fields",
-          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
           "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
           "required": false,
           "editable": true,
@@ -823,7 +823,7 @@
         },
         {
           "title": "Sort",
-          "description": "Use this parameter to specify on which field you would like to sort the response. Specify negative sign to sort in descending order and positive sign to sort in ascending order.",
+          "description": "Specify the fields using which you want to sort the response. Specify the negative (-) sign to sort the results in descending order and the positive sign (+) to sort in ascending order.",
           "tooltip": "Use this parameter to specify on which field you would like to sort the response. Specify negative sign to sort in descending order and positive sign to sort in ascending order.",
           "required": false,
           "editable": true,
@@ -838,7 +838,7 @@
     {
       "operation": "update_asset",
       "title": "Update Asset",
-      "description": "Updates the attributes of a specific asset on the Qradar server based on the asset ID that you have specified.",
+      "description": "Updates the attributes of a specific asset on the QRadar server based on the asset ID and asset properties you have specified.\nNote: You can retrieve the list of asset properties using the 'Get Assets Properties' operation.",
       "category": "investigation",
       "annotation": "update_asset",
       "output_schema": "",
@@ -846,7 +846,7 @@
       "parameters": [
         {
           "title": "Asset ID",
-          "description": "Specify the ID of the asset to update on Qradar",
+          "description": "Specify the ID of the asset whose properties you want to update on QRadar.",
           "tooltip": "Specify the ID of the asset to update on Qradar",
           "required": true,
           "editable": true,
@@ -858,7 +858,7 @@
         },
         {
           "title": "Asset Properties",
-          "description": "Specify a JSON dictionary with the asset properties to update on Qradar",
+          "description": "Specify a JSON dictionary with the asset properties that you want to update in the specified asset you want to update on QRadar",
           "tooltip": "Specify a JSON dictionary with the asset properties to update on Qradar",
           "required": true,
           "editable": true,
@@ -876,7 +876,7 @@
         },
         {
           "title": "Content Type",
-          "description": "System field",
+          "description": "This is a system field that cannot be edited.",
           "tooltip": "System field, cannot be edited",
           "required": false,
           "editable": false,
@@ -890,21 +890,21 @@
     {
       "operation": "get_cases",
       "title": "Get Cases",
-      "description": "Retrieves a detailed list of cases from Qradar based on input parameters specified",
+      "description": "Retrieves a detailed list of all cases or specific cases from QRadar based on input parameters specified.\nNote: This action is supported on QRadar API version 7.0 and later.",
       "category": "investigation",
       "annotation": "get_cases",
       "output_schema": [
         {
-          "assigned_to":[],
-          "id":"",
-          "name":""
+          "assigned_to": [],
+          "id": "",
+          "name": ""
         }
       ],
       "enabled": true,
       "parameters": [
         {
           "title": "Fields",
-          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
           "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
           "required": false,
           "editable": true,
@@ -916,7 +916,7 @@
         },
         {
           "title": "Filter",
-          "description": "This parameter is used to restrict the list of cases in the response based on the filter query specified.",
+          "description": "Specify the parameters to be used to filter (restrict) the list of cases to be returned by this operation in the response.",
           "tooltip": "This parameter is used to restrict the list of cases in the response based on the filter query specified.",
           "required": false,
           "editable": true,
@@ -928,7 +928,7 @@
         },
         {
           "title": "Limit",
-          "description": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "description": "Specify the maximum count of cases to be returned by this operation in the response. Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "required": false,
           "editable": true,
@@ -942,21 +942,21 @@
     {
       "operation": "create_case",
       "title": "Create Case",
-      "description": "Create a new case on Qradar",
+      "description": "Creates a new case on QRadar based on the case properties you have specified.\nNote: This action is supported on QRadar API version 7.0 and later.",
       "category": "investigation",
       "annotation": "create_case",
       "output_schema": {
-         "case_id":"",
-         "name":"",
-         "id":"",
-         "state":"",
-         "assigned_to":[]
+        "case_id": "",
+        "name": "",
+        "id": "",
+        "state": "",
+        "assigned_to": []
       },
       "enabled": true,
       "parameters": [
         {
           "title": "Case Properties",
-          "description": "Specify a JSON dictionary with the case properties to create a case on Qradar",
+          "description": "Specify a JSON dictionary with the case properties using which you want to create the case on QRadar.",
           "tooltip": "Specify a JSON dictionary with the case properties to create a case on Qradar",
           "required": true,
           "editable": true,
@@ -972,7 +972,7 @@
         },
         {
           "title": "Content Type",
-          "description": "System field",
+          "description": "This is a system field that cannot be edited.",
           "tooltip": "System field, cannot be edited",
           "required": false,
           "editable": false,
@@ -986,28 +986,28 @@
     {
       "operation": "get_reference_tables",
       "title": "Get Reference Tables",
-      "description": "Retrieves a detailed list of reference tables from Qradar",
+      "description": "Retrieves a detailed list of all reference tables or specific reference tables from QRadar based on input parameters specified.",
       "category": "investigation",
       "annotation": "get_reference_tables",
       "output_schema": [
-         {
-            "timeout_type":"",
-            "number_of_elements":"",
-            "creation_time":"",
-            "name":"",
-            "key_name_types":{
-               "port":"",
-               "source_ip":"",
-               "timestamp":""
-            },
-            "element_type":""
-         }
+        {
+          "timeout_type": "",
+          "number_of_elements": "",
+          "creation_time": "",
+          "name": "",
+          "key_name_types": {
+            "port": "",
+            "source_ip": "",
+            "timestamp": ""
+          },
+          "element_type": ""
+        }
       ],
       "enabled": true,
       "parameters": [
         {
           "title": "Filter",
-          "description": "This parameter is used to restrict the list of reference tables in the response based on the filter query specified.",
+          "description": "Specify the parameters to be used to filter (restrict) the list of reference tables to be returned by this operation in the response.",
           "tooltip": "This parameter is used to restrict the list of reference tables in the response based on the filter query specified.",
           "required": false,
           "editable": true,
@@ -1019,7 +1019,7 @@
         },
         {
           "title": "Limit",
-          "description": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "description": "Specify the maximum count of reference tables to be returned by this operation in the response. Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "required": false,
           "editable": true,
@@ -1030,7 +1030,7 @@
         },
         {
           "title": "Fields",
-          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
           "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
           "required": false,
           "editable": true,
@@ -1045,19 +1045,19 @@
     {
       "operation": "delete_reference_table",
       "title": "Delete or Purge Reference Table",
-      "description": "Delete a reference table or purge its content on Qradar based on the input parameters specified.",
+      "description": "Deletes a specific reference table and optionally purges its content from QRadar based on the reference table name you have specified.\nNote: You can retrieve names and details of reference tables using the 'Get Reference Tables' operation.",
       "category": "investigation",
       "annotation": "delete_reference_table",
       "output_schema": {
-         "created_by":"",
-         "created":"",
-         "name":"",
-         "modified":"",
-         "started":"",
-         "completed":"",
-         "id":"",
-         "message":"",
-         "status":""
+        "created_by": "",
+        "created": "",
+        "name": "",
+        "modified": "",
+        "started": "",
+        "completed": "",
+        "id": "",
+        "message": "",
+        "status": ""
       },
       "enabled": true,
       "parameters": [
@@ -1078,15 +1078,18 @@
           "editable": true,
           "visible": true,
           "type": "select",
-          "description": "This indicates if the reference table should have its contents purged (if the value is true), keeping the reference table structure. If the value is false, or not specified the reference table is removed completely. The default value is false.",
+          "description": "Select the 'true' option from the Purge Table drop-down list if you want to have the contents of the specified reference table to be purged from QRadar, i.e., in this case, the structure of the specified reference table is retained.\nSelect the 'false' (default) option from the Purge Table drop-down list to purge the contents of the specified reference table, i.e., in this case, the specified reference table is completely removed.",
           "tooltip": "This indicates if the reference table should have its contents purged (if the value is true), keeping the reference table structure. If the value is false, or not specified the reference table is removed completely.",
-          "options": ["true", "false"],
+          "options": [
+            "true",
+            "false"
+          ],
           "name": "query.purge_only",
           "value": "false"
         },
         {
           "title": "Fields",
-          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "(Optional) Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
           "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
           "required": false,
           "editable": true,
@@ -1098,7 +1101,7 @@
         },
         {
           "title": "Namespace",
-          "description": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "description": "(Optional) Specify the namespace of the reference table that you want to delete from QRadar. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users.\nNote: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users.",
           "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
@@ -1112,26 +1115,26 @@
     {
       "operation": "get_table_elements",
       "title": "Get Table Elements",
-      "description": "Retrieves the record details of a reference table defined by name from Qradar",
+      "description": "Retrieves the record details (elements) of a specific reference table based on the reference table name you have specified.\nNote: You can retrieve names and details of reference tables using the 'Get Reference Tables' operation.",
       "category": "investigation",
       "annotation": "get_table_elements",
-      "output_schema":{
-         "timeout_type":"",
-         "number_of_elements":"",
-         "data":{
-            "outer_key":{
-               "inner_key":{
-                  "last_seen":"",
-                  "first_seen":"",
-                  "source":"",
-                  "value":""
-               }
+      "output_schema": {
+        "timeout_type": "",
+        "number_of_elements": "",
+        "data": {
+          "outer_key": {
+            "inner_key": {
+              "last_seen": "",
+              "first_seen": "",
+              "source": "",
+              "value": ""
             }
-         },
-         "creation_time":"",
-         "name":"",
-         "key_name_types":"",
-         "element_type":""
+          }
+        },
+        "creation_time": "",
+        "name": "",
+        "key_name_types": "",
+        "element_type": ""
       },
       "enabled": true,
       "parameters": [
@@ -1148,7 +1151,7 @@
         },
         {
           "title": "Limit",
-          "description": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "description": "(Optional) Specify the maximum count of table elements to be returned by this operation in the response. Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
           "required": false,
           "editable": true,
@@ -1159,7 +1162,7 @@
         },
         {
           "title": "Fields",
-          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "(Optional) Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
           "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
           "required": false,
           "editable": true,
@@ -1171,7 +1174,7 @@
         },
         {
           "title": "Namespace",
-          "description": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "description": "(Optional) Specify the namespace of the reference table whose record details (elements) you want to retrieve from QRadar. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users.\nNote: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users.",
           "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
@@ -1185,16 +1188,16 @@
     {
       "operation": "add_table_element",
       "title": "Add or Update Table Element",
-      "description": "Specify the element to add or update in the reference table on Qradar based on the input parameters specified.",
+      "description": "Adds or updates an element in the specified reference table based on the reference table name, outer key, inner key, and other input parameters you have specified.",
       "category": "investigation",
       "annotation": "add_table_element",
       "output_schema": {
-         "timeout_type":"",
-         "number_of_elements":"",
-         "creation_time":"",
-         "name":"",
-         "key_name_types":"",
-         "element_type":""
+        "timeout_type": "",
+        "number_of_elements": "",
+        "creation_time": "",
+        "name": "",
+        "key_name_types": "",
+        "element_type": ""
       },
       "enabled": true,
       "parameters": [
@@ -1212,7 +1215,7 @@
         },
         {
           "title": "Outer Key",
-          "description": "Specify the outer key in which you want to add or update the element.",
+          "description": "Specify the outer key in which you want to add or update the specified element.",
           "tooltip": "Specify the outer key in which you want to add or update the element.",
           "required": true,
           "editable": true,
@@ -1224,7 +1227,7 @@
         },
         {
           "title": "Inner Key",
-          "description": "Specify the inner key in which you want to add or update the element.",
+          "description": "Specify the inner key in which you want to add or update the specified element.",
           "tooltip": "Specify the inner key in which you want to add or update the element.",
           "required": true,
           "editable": true,
@@ -1248,7 +1251,7 @@
         },
         {
           "title": "Domain ID",
-          "description": "Sets the domain ID for the value to be specified. If null, the shared domain will be used.",
+          "description": "(Optional) In the case of MSSP setups, you can specify the domain ID to be set for the 'value' you have specified in the 'Value' field.\nIf the 'Domain ID' field is null, then the shared domain is used.",
           "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
           "required": false,
           "editable": true,
@@ -1259,7 +1262,7 @@
         },
         {
           "title": "Element Source",
-          "description": "An indication of where the data originated. The default value is 'FortiSOAR'",
+          "description": "(Optional) Specify the source of the specified element that you want to add or update in the specified table. By default, this is set to 'FortiSOAR'.",
           "tooltip": "An indication of where the data originated. The default value is 'FortiSOAR'",
           "required": false,
           "editable": true,
@@ -1270,7 +1273,7 @@
         },
         {
           "title": "Fields",
-          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "(Optional) Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
           "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
           "required": false,
           "editable": true,
@@ -1282,7 +1285,7 @@
         },
         {
           "title": "Namespace",
-          "description": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "description": "(Optional) Specify the namespace of the reference table in which you want to add or update the specified element. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users.\nNote: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users",
           "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
@@ -1296,16 +1299,16 @@
     {
       "operation": "delete_table_element",
       "title": "Delete Table Element",
-      "description": "Specify the element to be deleted from a reference table on Qradar based on input parameters specified.",
+      "description": "Specify the element to be deleted from a reference table on Qradar based on the input parameters specified.",
       "category": "investigation",
       "annotation": "delete_table_element",
       "output_schema": {
-         "timeout_type":"",
-         "number_of_elements":"",
-         "creation_time":"",
-         "name":"",
-         "key_name_types":"",
-         "element_type":""
+        "timeout_type": "",
+        "number_of_elements": "",
+        "creation_time": "",
+        "name": "",
+        "key_name_types": "",
+        "element_type": ""
       },
       "enabled": true,
       "parameters": [
@@ -1323,7 +1326,7 @@
         },
         {
           "title": "Outer Key",
-          "description": "Specify the outer key from which you want to delete the element.",
+          "description": "Specify the outer key from which you want to delete the specified element.",
           "tooltip": "Specify the outer key in which you want to delete the element.",
           "required": true,
           "editable": true,
@@ -1335,7 +1338,7 @@
         },
         {
           "title": "Inner Key",
-          "description": "Specify the inner key from which you want to delete the element.",
+          "description": "Specify the inner key from which you want to delete the specified element.",
           "tooltip": "Specify the inner key from which you want to delete the element.",
           "required": true,
           "editable": true,
@@ -1347,7 +1350,7 @@
         },
         {
           "title": "value",
-          "description": "Specify the value of the element to delete. Note: Date values must be represented in Epoch milliseconds",
+          "description": "Specify the value of the element that you want to delete from the specified reference table. \nNote: Date values must be represented in Epoch milliseconds.",
           "tooltip": "Specify the value of the element to delete. Note: Date values must be represented in Epoch milliseconds",
           "required": true,
           "editable": true,
@@ -1359,7 +1362,7 @@
         },
         {
           "title": "Domain ID",
-          "description": "Sets the domain id for the value to be specified. If null, the shared domain will be used.",
+          "description": "(Optional) In the case of MSSP setups, you can specify the domain ID to be set for the 'value' you have specified in the 'Value' field.\nIf the 'Domain ID' field is null, then the shared domain is used.",
           "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
           "required": false,
           "editable": true,
@@ -1370,7 +1373,7 @@
         },
         {
           "title": "Fields",
-          "description": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "(Optional) Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
           "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
           "required": false,
           "editable": true,
@@ -1382,7 +1385,7 @@
         },
         {
           "title": "Namespace",
-          "description": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "description": "(Optional) Specify the namespace of the reference table from which you want to delete the specified element. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users.\nNote: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users",
           "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
