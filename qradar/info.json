@@ -1,7 +1,7 @@
 {
   "name": "qradar",
   "label": "IBM QRadar",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "IBM QRadar is an enterprise security information and event management (SIEM) product. Fortinet FortiSOSR connector for IBM QRadar allows user to invoke QRadar API, perform Ariel Queries and operations like Get Offense,related events,update and close offenses.",
   "publisher": "Fortinet",
   "cs_approved": true,
@@ -13,7 +13,7 @@
   "ingestion_modes": [
     "scheduled"
   ],
-  "help_online": "https://docs.fortinet.com/document/fortisoar/1.6.0/ibm-qradar/498/ibm-qradar-v1-6-0",
+  "help_online": "",
   "configuration": {
     "fields": [
       {
@@ -105,8 +105,8 @@
       "enabled": true,
       "parameters": [
         {
-          "title": "Query/Filter",
-          "description": "Defaults to last 5 min",
+          "title": "Filter String",
+          "description": "Specify the filter string based on which you want to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\".",
           "required": true,
           "editable": true,
           "visible": true,
@@ -370,8 +370,8 @@
           "value": ""
         },
         {
-          "title": "Maximum Number of Events to return",
-          "description": "Maximum Number of events to return from QRadar.",
+          "title": "Max Events to return",
+          "description": "(Optional) Specify the maximum number of events that this operation should return.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -396,8 +396,8 @@
       "enabled": true,
       "parameters": [
         {
-          "title": "Source Address Ids (eg, [3,4,5])",
-          "description": "Provide the source address ids to get the details of source IP Address from QRadar",
+          "title": "Source Address Ids",
+          "description": "Specify the IDs of source addresses based on which you want to retrieve IP address details from the QRadar server. For example, [3,4,5].",
           "required": true,
           "editable": true,
           "visible": true,
@@ -421,8 +421,8 @@
       "enabled": true,
       "parameters": [
         {
-          "title": "Destination Address Ids (eg, [1])",
-          "description": "Provide the destination address ids to get the details of destination IP Address from QRadar",
+          "title": "Destination Address Ids",
+          "description": "IDs of destination addresses based on which you want to retrieve IP address details from the QRadar server. For example, [3,4,5].",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1238,8 +1238,8 @@
           "value": ""
         },
         {
-          "title": "value",
-          "description": "Specify the value of the element to add or update in the reference table. Note: Date values must be represented in Unix Epoch milliseconds.",
+          "title": "Value",
+          "description": "Specify the value of the element that you want to add or update in the specified reference table. Note: Date values must be represented in Unix Epoch milliseconds.",
           "tooltip": "Specify the value of the element to add or update in the reference table. Note: Date values must be represented in Unix Epoch milliseconds, eg: 1671706076483",
           "required": true,
           "editable": true,

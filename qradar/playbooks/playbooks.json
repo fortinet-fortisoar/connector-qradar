@@ -4,7 +4,7 @@
     {
       "@context": "/api/3/contexts/WorkflowCollection",
       "@type": "WorkflowCollection",
-      "name": "Sample - IBM QRadar - 1.6.0",
+      "name": "Sample - IBM QRadar - 1.6.1",
       "description": "Sample playbooks for \"IBM QRadar\" connector. If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection, since the sample playbook collection gets deleted during connector upgrade and delete.",
       "visible": true,
       "image": "/api/3/images/85fe3409-e896-4e8e-9663-5cf02e8e15bd",
@@ -48,7 +48,7 @@
                   "max_results": 100,
                   "last_updated_time": ""
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_events_related_to_offense",
                 "operationTitle": "Get Events Related to an Offense",
@@ -167,7 +167,7 @@
                 "name": "IBM QRadar",
                 "config": "''",
                 "params": [],
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_closing_reasons",
                 "operationTitle": "Get Offense Closing Reasons",
@@ -236,7 +236,7 @@
                   "query.fields": "",
                   "filter_string": ""
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_cases",
                 "operationTitle": "Get Cases",
@@ -328,7 +328,7 @@
                 "name": "IBM QRadar",
                 "config": "''",
                 "params": [],
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_source_ip",
                 "operationTitle": "Get Source IP Addresses",
@@ -429,7 +429,7 @@
                   "query.namespace": "",
                   "query.outer_key": ""
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "add_table_element",
                 "operationTitle": "Add or Update Table Element",
@@ -552,7 +552,7 @@
                   "query.fields": "",
                   "filter_string": ""
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_reference_tables",
                 "operationTitle": "Get Reference Tables",
@@ -662,7 +662,7 @@
                 "params": {
                   "search_string": "SELECT  {{vars.event_query_params}} FROM EVENTS WHERE INOFFENSE({{vars.alertSourceData.offense_data['id']}}) ORDER BY starttime DESC LIMIT {{vars.event_record_limit}} START  '{{vars.offense_start_time}}' STOP '{{vars.current_time}}'"
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "query_qradar",
                 "operationTitle": "Make an Ariel Query to QRadar",
@@ -1021,7 +1021,7 @@
                 "params": {
                   "offense_id": null
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_notes",
                 "operationTitle": "Get Offense Notes",
@@ -1117,7 +1117,7 @@
                   "closure_note": null,
                   "offense_close_id": null
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "close_offense",
                 "operationTitle": "Close Offense",
@@ -1212,7 +1212,7 @@
                   "offense_id": null,
                   "closure_note": null
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "add_notes",
                 "operationTitle": "Create Note",
@@ -1481,7 +1481,7 @@
                   "query.fields": "",
                   "query.namespace": ""
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_table_elements",
                 "operationTitle": "Get Table Elements",
@@ -1608,7 +1608,7 @@
                   },
                   "content_type": "application/json"
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "create_case",
                 "operationTitle": "Create Case",
@@ -1702,7 +1702,7 @@
                 "params": {
                   "method": "GET"
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "invoke_api",
                 "operationTitle": "Invoke QRadar REST API",
@@ -1805,7 +1805,7 @@
                   "content_type": "text/plain",
                   "path.asset_id": ""
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "update_asset",
                 "operationTitle": "Update Asset",
@@ -1899,7 +1899,7 @@
                 "params": {
                   "filter_string": "status=\"OPEN\""
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_offenses",
                 "operationTitle": "Get Offenses from QRadar",
@@ -1991,7 +1991,7 @@
                 "name": "IBM QRadar",
                 "config": "''",
                 "params": [],
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_offense_type",
                 "operationTitle": "Get Offense Types",
@@ -2058,7 +2058,7 @@
                 "params": {
                   "method": "Retrieves Value"
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "handle_reference_set_value",
                 "operationTitle": "Manipulate Reference Set Content",
@@ -2249,7 +2249,7 @@
                 "params": {
                   "destination_address_ids": "{{vars.destinations_ips}}"
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_destination_ip",
                 "operationTitle": "Get Destination IP Addresses",
@@ -2355,7 +2355,7 @@
                 "params": {
                   "filter_string": "{{vars.filter_string}} and (start_time > '{{vars.qradar_epoch}}' or last_updated_time > '{{vars.qradar_epoch}}' )"
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_offenses",
                 "operationTitle": "Get Offenses from QRadar",
@@ -2381,7 +2381,7 @@
                 "params": {
                   "source_address_ids": "{{vars.src_ips}}"
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_source_ip",
                 "operationTitle": "Get Source IP Addresses",
@@ -2573,7 +2573,7 @@
                   "query.fields": "",
                   "filter_string": ""
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_assets",
                 "operationTitle": "Get Assets",
@@ -2673,7 +2673,7 @@
                   "query.domain_id": "",
                   "query.namespace": ""
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "delete_table_element",
                 "operationTitle": "Delete Table Element",
@@ -2770,7 +2770,7 @@
                   "query.namespace": "",
                   "query.purge_only": "false"
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "delete_reference_table",
                 "operationTitle": "Delete or Purge Reference Table",
@@ -3104,7 +3104,7 @@
                 "name": "IBM QRadar",
                 "config": "''",
                 "params": [],
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_destination_ip",
                 "operationTitle": "Get Destination IP Addresses",
@@ -3173,7 +3173,7 @@
                   "query.fields": "",
                   "filter_string": ""
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_assets_properties",
                 "operationTitle": "Get Assets Properties",
@@ -3294,7 +3294,7 @@
                 "params": {
                   "search_string": null
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "query_qradar",
                 "operationTitle": "Make an Ariel Query to QRadar",
@@ -3378,7 +3378,7 @@
                 "params": {
                   "filter_string": "id={{ vars.request.data.Offense_ID }}"
                 },
-                "version": "1.6.0",
+                "version": "1.6.1",
                 "connector": "qradar",
                 "operation": "get_offenses",
                 "operationTitle": "Get Offenses from QRadar",

@@ -73,28 +73,28 @@ class QradarConnection(object):
     def __postUrl(self, endpoint, params={}, headers={}, data={}, json={}):
         url = '{}/{}'.format(self.base_url, endpoint)
         self.log.debug('POST to URL: {}'.format(url))
-        res = self.session.post(url, params=params, headers=headers, data=data, json=json)
+        res = self.session.post(url, params=params, headers=headers, data=data, json=json, timeout=600)
         logger.debug('\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:\n{0}\n'.format(dump.dump_all(res).decode('utf-8')))
         return self.__parseRequestResult(res)
 
     def __patchUrl(self, endpoint, params={}, headers={}, data={}):
         url = '{}/{}'.format(self.base_url, endpoint)
         self.log.debug('PATCH to URL: {}'.format(url))
-        res = self.session.patch(url, params=params, headers=headers, data=data)
+        res = self.session.patch(url, params=params, headers=headers, data=data, timeout=600)
         logger.debug('\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:\n{0}\n'.format(dump.dump_all(res).decode('utf-8')))
         return self.__parseRequestResult(res)
 
     def __getUrl(self, endpoint, params={}, headers={}):
         url = '{}/{}'.format(self.base_url, endpoint)
         self.log.debug('GET to URL: {}'.format(url))
-        res = self.session.get(url, params=params, headers=headers)
+        res = self.session.get(url, params=params, headers=headers, timeout=600)
         logger.debug('\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:\n{0}\n'.format(dump.dump_all(res).decode('utf-8')))
         return self.__parseRequestResult(res)
 
     def __deleteUrl(self, endpoint, params={}, headers={}, data={}):
         url = '{}/{}'.format(self.base_url, endpoint)
         self.log.debug('GET to URL: {}'.format(url))
-        res = self.session.delete(url, params=params, headers=headers, data=data)
+        res = self.session.delete(url, params=params, headers=headers, data=data, timeout=600)
         logger.debug('\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:\n{0}\n'.format(dump.dump_all(res).decode('utf-8')))
         return self.__parseRequestResult(res)
 
