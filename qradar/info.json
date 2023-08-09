@@ -13,7 +13,7 @@
   "ingestion_modes": [
     "scheduled"
   ],
-  "help_online": "",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.6.1/ibm-qradar/648/ibm-qradar-v1-6-1",
   "configuration": {
     "fields": [
       {
@@ -43,7 +43,7 @@
         "type": "text",
         "name": "api_version",
         "value": "14.0",
-        "description": "Specify the version of the QRadar API to be used for performing automated operations. By default, this is set to 14.0"
+        "description": "Specify the version of the QRadar API to be used for performing automated operations. By default, this is set to 14.0."
       },
       {
         "title": "Verify SSL",
@@ -53,7 +53,7 @@
         "type": "checkbox",
         "name": "verify_ssl",
         "value": true,
-        "description": "Specifies whether the SSL certificate for the server is to be verified or not."
+        "description": "Specifies whether the SSL certificate for the server is to be verified. By default, this is set to True."
       }
     ]
   },
@@ -556,7 +556,7 @@
         {
           "title": "Headers in json format",
           "required": false,
-          "description": "(Optional) Additional JSON formatted headers. The following headers are already added by the connector:\n'Accept': 'application/JSON',\n'Content-Type': 'application/JSON',\n'SEC': <token>,\n'Version': <api_version>,",
+          "description": "(Optional) Additional JSON formatted headers. The following headers are already added by the connector: 'Accept': 'application/JSON', 'Content-Type': 'application/JSON', 'SEC': <token>, 'Version': <api_version>,",
           "editable": true,
           "visible": true,
           "type": "json",
@@ -568,7 +568,7 @@
       "operation": "handle_reference_set_value",
       "title": "Manipulate Reference Set Content",
       "annotation": "handle_reference_set_value",
-      "description": "Adds or deletes the content that you have specified from a specified reference set on QRadar.",
+      "description": "Adds or deletes the content that you have specified from a reference set on QRadar.",
       "conditional_output_schema": [
         {
           "condition": "{{method === 'Retrieves Value'}}",
@@ -605,7 +605,7 @@
       "parameters": [
         {
           "title": "Request Method",
-          "description": "Select the request method option of the operation that you want to perform on the specified reference set in QRadar. You can choose from Retrieves Value, Add Value, or Delete Value.",
+          "description": "Select the request method option of the operation that you want to perform on the specified reference set in QRadar. You can choose from following options: Retrieves Value: Specify values in the following field: Reference Set Name: Specify the name of the reference set from which to retrieve the content in QRadar. Add Value: Specify values in the following field: Reference Set Name: Specify the name of the reference set in which to add the content in QRadar. Value: Specify the value to add to the specified reference set. Delete Value: Specify values in the following field: Reference Set Name: Specify the name of the reference set from which to delete the content in QRadar. Value: Specify the value to delete from the specified reference set.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -838,7 +838,7 @@
     {
       "operation": "update_asset",
       "title": "Update Asset",
-      "description": "Updates the attributes of a specific asset on the QRadar server based on the asset ID and asset properties you have specified.\nNote: You can retrieve the list of asset properties using the 'Get Assets Properties' operation.",
+      "description": "Updates the attributes of a specific asset on the QRadar server based on the asset ID and asset properties you have specified. Note: You can retrieve the list of asset properties using the 'Get Assets Properties' operation.",
       "category": "investigation",
       "annotation": "update_asset",
       "output_schema": "",
@@ -890,7 +890,7 @@
     {
       "operation": "get_cases",
       "title": "Get Cases",
-      "description": "Retrieves a detailed list of all cases or specific cases from QRadar based on input parameters specified.\nNote: This action is supported on QRadar API version 7.0 and later.",
+      "description": "Retrieves a detailed list of all cases or specific cases from QRadar based on input parameters specified. Note: This action is supported on QRadar API version 7.0 and later.",
       "category": "investigation",
       "annotation": "get_cases",
       "output_schema": [
@@ -942,7 +942,7 @@
     {
       "operation": "create_case",
       "title": "Create Case",
-      "description": "Creates a new case on QRadar based on the case properties you have specified.\nNote: This action is supported on QRadar API version 7.0 and later.",
+      "description": "Creates a new case on QRadar based on the case properties you have specified. Note: This action is supported on QRadar API version 7.0 and later.",
       "category": "investigation",
       "annotation": "create_case",
       "output_schema": {
@@ -1045,7 +1045,7 @@
     {
       "operation": "delete_reference_table",
       "title": "Delete or Purge Reference Table",
-      "description": "Deletes a specific reference table and optionally purges its content from QRadar based on the reference table name you have specified.\nNote: You can retrieve names and details of reference tables using the 'Get Reference Tables' operation.",
+      "description": "Deletes a specific reference table and optionally purges its content from QRadar based on the reference table name you have specified. Note: You can retrieve names and details of reference tables using the 'Get Reference Tables' operation.",
       "category": "investigation",
       "annotation": "delete_reference_table",
       "output_schema": {
@@ -1063,7 +1063,7 @@
       "parameters": [
         {
           "title": "Reference Table Name",
-          "description": "The name of the reference table to delete or purge",
+          "description": "Specify the name of the reference table that you want to delete from QRadar.",
           "tooltip": "The name of the reference table to delete or purge",
           "required": true,
           "editable": true,
@@ -1078,7 +1078,7 @@
           "editable": true,
           "visible": true,
           "type": "select",
-          "description": "Select the 'true' option from the Purge Table drop-down list if you want to have the contents of the specified reference table to be purged from QRadar, i.e., in this case, the structure of the specified reference table is retained.\nSelect the 'false' (default) option from the Purge Table drop-down list to purge the contents of the specified reference table, i.e., in this case, the specified reference table is completely removed.",
+          "description": "Select the 'true' option from the Purge Table drop-down list if you want to have the contents of the specified reference table to be purged from QRadar, i.e., in this case, the structure of the specified reference table is retained. Select the 'false' (default) option from the Purge Table drop-down list to purge the contents of the specified reference table, i.e., in this case, the specified reference table is completely removed.",
           "tooltip": "This indicates if the reference table should have its contents purged (if the value is true), keeping the reference table structure. If the value is false, or not specified the reference table is removed completely.",
           "options": [
             "true",
@@ -1101,7 +1101,7 @@
         },
         {
           "title": "Namespace",
-          "description": "(Optional) Specify the namespace of the reference table that you want to delete from QRadar. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users.\nNote: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users.",
+          "description": "(Optional) Specify the namespace of the reference table that you want to delete from QRadar. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users.",
           "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
@@ -1115,7 +1115,7 @@
     {
       "operation": "get_table_elements",
       "title": "Get Table Elements",
-      "description": "Retrieves the record details (elements) of a specific reference table based on the reference table name you have specified.\nNote: You can retrieve names and details of reference tables using the 'Get Reference Tables' operation.",
+      "description": "Retrieves the record details (elements) of a specific reference table based on the reference table name you have specified. Note: You can retrieve names and details of reference tables using the 'Get Reference Tables' operation.",
       "category": "investigation",
       "annotation": "get_table_elements",
       "output_schema": {
@@ -1140,7 +1140,7 @@
       "parameters": [
         {
           "title": "Reference Table Name",
-          "description": "Specify the name of the reference table to fetch from Qradar",
+          "description": "Specify the name of the reference table whose record details (elements) you want to retrieve from QRadar.",
           "tooltip": "Specify the name of the reference table to fetch from Qradar",
           "required": true,
           "editable": true,
@@ -1174,7 +1174,7 @@
         },
         {
           "title": "Namespace",
-          "description": "(Optional) Specify the namespace of the reference table whose record details (elements) you want to retrieve from QRadar. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users.\nNote: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users.",
+          "description": "(Optional) Specify the namespace of the reference table whose record details (elements) you want to retrieve from QRadar. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users.",
           "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
@@ -1203,7 +1203,7 @@
       "parameters": [
         {
           "title": "Reference Table Name",
-          "description": "Specify the name of the reference table to add or update an element in.",
+          "description": "Specify the name of the reference table in which you want to add or update the specified element.",
           "tooltip": "Specify the name of the reference table to add or update an element in.",
           "required": true,
           "editable": true,
@@ -1251,7 +1251,7 @@
         },
         {
           "title": "Domain ID",
-          "description": "(Optional) In the case of MSSP setups, you can specify the domain ID to be set for the 'value' you have specified in the 'Value' field.\nIf the 'Domain ID' field is null, then the shared domain is used.",
+          "description": "(Optional) In the case of MSSP setups, you can specify the domain ID to be set for the 'value' you have specified in the 'Value' field. If the 'Domain ID' field is null, then the shared domain is used.",
           "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
           "required": false,
           "editable": true,
@@ -1285,7 +1285,7 @@
         },
         {
           "title": "Namespace",
-          "description": "(Optional) Specify the namespace of the reference table in which you want to add or update the specified element. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users.\nNote: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users",
+          "description": "(Optional) Specify the namespace of the reference table in which you want to add or update the specified element. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users",
           "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
@@ -1314,7 +1314,7 @@
       "parameters": [
         {
           "title": "Reference Table Name",
-          "description": "Specify the name of the reference table to remove element from.",
+          "description": "Specify the name of the reference table from which you want to delete the specified element.",
           "tooltip": "Specify the name of the reference table to remove element from.",
           "required": true,
           "editable": true,
@@ -1350,7 +1350,7 @@
         },
         {
           "title": "value",
-          "description": "Specify the value of the element that you want to delete from the specified reference table. \nNote: Date values must be represented in Epoch milliseconds.",
+          "description": "Specify the value of the element that you want to delete from the specified reference table. Note: Date values must be represented in Epoch milliseconds.",
           "tooltip": "Specify the value of the element to delete. Note: Date values must be represented in Epoch milliseconds",
           "required": true,
           "editable": true,
@@ -1362,7 +1362,7 @@
         },
         {
           "title": "Domain ID",
-          "description": "(Optional) In the case of MSSP setups, you can specify the domain ID to be set for the 'value' you have specified in the 'Value' field.\nIf the 'Domain ID' field is null, then the shared domain is used.",
+          "description": "(Optional) In the case of MSSP setups, you can specify the domain ID to be set for the 'value' you have specified in the 'Value' field. If the 'Domain ID' field is null, then the shared domain is used.",
           "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
           "required": false,
           "editable": true,
@@ -1385,7 +1385,7 @@
         },
         {
           "title": "Namespace",
-          "description": "(Optional) Specify the namespace of the reference table from which you want to delete the specified element. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users.\nNote: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users",
+          "description": "(Optional) Specify the namespace of the reference table from which you want to delete the specified element. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users",
           "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
