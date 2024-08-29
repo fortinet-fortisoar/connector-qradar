@@ -1,13 +1,20 @@
 """ Copyright start
-  Copyright (C) 2008 - 2022 Fortinet Inc.
+  Copyright (C) 2008 - 2024 Fortinet Inc.
   All rights reserved.
   FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
   Copyright end """
 import json
 from .conn import QradarConnection
 from connectors.core.connector import get_logger, ConnectorError
+from datetime import datetime
 
 logger = get_logger('qradar')
+
+
+def _convert_datetime_to_epoch(timestamp_str):
+    datetime_obj = datetime.fromisoformat(timestamp_str[:-1])
+    epoch_time_integer = int(datetime_obj.timestamp())
+    return epoch_time_integer
 
 
 def get_offenses(config, params, *args, **kwargs):
@@ -16,6 +23,29 @@ def get_offenses(config, params, *args, **kwargs):
     filter_string = str(params.get('filter_string', ''))
     q = QradarConnection(**config)
     return q.getOffenses(filter_string)
+
+
+def fetch_offenses(config, params, *args, **kwargs):
+    # address, token, verify_ssl=False, filter_string=None, *args, **kwargs
+    logger.debug('getting offenses from qradar')
+    start_time = _convert_datetime_to_epoch(params.get('start_time'))
+    filter_string = str(params.get('filter_string', '')) + " and (start_time > '" + "{0}".format(start_time) + "' or last_updated_time > '" +  "{0}".format(start_time) + "')"
+    q = QradarConnection(**config)
+    all_offenses = q.getOffenses(filter_string)
+    if all_offenses != []:
+        for offense in all_offenses:
+            src_ips = offense.get('source_address_ids')
+            destination_ips = offense.get('local_destination_address_ids')
+            if src_ips != []:
+                params = {'source_address_ids': src_ips}
+                src_ip_details = get_source_ip(config, params, *args, **kwargs)
+                offense.update({'source_address_details': src_ip_details})
+            if destination_ips != []:
+                params = {'destination_address_ids': destination_ips}
+                destination_ip_details = get_destination_ip(config, params, *args, **kwargs)
+                offense.update({'destination_address_details': destination_ip_details})
+        return all_offenses
+    return all_offenses
 
 
 def query_qradar(config, params, *args, **kwargs):
@@ -163,5 +193,6 @@ operations = {
     'delete_reference_table': delete_record,
     'get_table_elements': get_record,
     'add_table_element': update_record,
-    'delete_table_element': delete_record
+    'delete_table_element': delete_record,
+    'fetch_offenses': fetch_offenses
 }

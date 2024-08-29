@@ -1,0 +1,133 @@
+[
+  {
+    "event_id": "qradar.get_offenses_created",
+    "name": "When Offenses is Created",
+    "description": "Run playbook when an offenses is created",
+    "type": [
+      "PUSH"
+    ],
+    "connector_action": "fetch_offenses",
+    "connector_action_inputs": {
+      "filter_string": "status=\"OPEN\"",
+      "start_time": "2024-07-31T18:30:00.000Z"
+    },
+    "trigger_condition": {
+      "sort": [],
+      "limit": 30,
+      "logic": "AND",
+      "filters": []
+    },
+    "sample_data": [
+      {
+        "id": 7,
+        "rules": [
+          {
+            "id": 100067,
+            "type": "CRE_RULE"
+          }
+        ],
+        "status": "OPEN",
+        "inactive": true,
+        "severity": 4,
+        "domain_id": 0,
+        "follow_up": false,
+        "magnitude": 2,
+        "protected": false,
+        "relevance": 0,
+        "categories": [
+          "Auth Server Login Failed",
+          "General Authentication Failed",
+          "User Login Failure",
+          "Admin Login Failure"
+        ],
+        "close_time": null,
+        "flow_count": 0,
+        "start_time": 1724323393136,
+        "assigned_to": null,
+        "credibility": 3,
+        "description": "Multiple Login Failures for the Same User\n containing An authentication attempt was unsuccessful\n",
+        "event_count": 27,
+        "log_sources": [
+          {
+            "id": 63,
+            "name": "Custom Rule Engine-8 :: qa-qradar-sys1",
+            "type_id": 18,
+            "type_name": "EventCRE"
+          },
+          {
+            "id": 212,
+            "name": "LinuxServer @ 10.132.255.100",
+            "type_id": 11,
+            "type_name": "LinuxServer"
+          },
+          {
+            "id": 262,
+            "name": "LinuxServer @ qa-rocky9-chirayu",
+            "type_id": 11,
+            "type_name": "LinuxServer"
+          },
+          {
+            "id": 263,
+            "name": "IBMAIXServer @ 10.132.255.100",
+            "type_id": 85,
+            "type_name": "IBMAIXServer"
+          }
+        ],
+        "closing_user": null,
+        "device_count": 4,
+        "offense_type": 3,
+        "source_count": 2,
+        "category_count": 4,
+        "offense_source": "root",
+        "source_network": "Net-10-172-192.Net_10_0_0_0",
+        "username_count": 1,
+        "closing_reason_id": null,
+        "last_updated_time": 1724333776525,
+        "source_address_ids": [
+          6,
+          3
+        ],
+        "last_persisted_time": 1724335811000,
+        "destination_networks": [
+          "Net-10-172-192.Net_10_0_0_0"
+        ],
+        "first_persisted_time": 1724323401000,
+        "policy_category_count": 0,
+        "source_address_details": [
+          {
+            "id": 3,
+            "network": "Net-10-172-192.Net_10_0_0_0",
+            "magnitude": 0,
+            "source_ip": "10.132.255.100"
+          },
+          {
+            "id": 6,
+            "network": "Net-10-172-192.Net_10_0_0_0",
+            "magnitude": 0,
+            "source_ip": "10.132.17.6"
+          }
+        ],
+        "local_destination_count": 1,
+        "security_category_count": 4,
+        "remote_destination_count": 0,
+        "destination_address_details": [
+          {
+            "id": 1,
+            "network": "Net-10-172-192.Net_10_0_0_0",
+            "magnitude": 0,
+            "local_destination_ip": "10.132.255.100"
+          }
+        ],
+        "local_destination_address_ids": [
+          1
+        ]
+      }
+    ],
+    "connector_mapping": {
+      "response": "{{data.data}}",
+      "datetime": {
+        "from": "start_time"
+      }
+    }
+  }
+]

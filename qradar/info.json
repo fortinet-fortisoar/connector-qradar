@@ -1,7 +1,7 @@
 {
   "name": "qradar",
   "label": "IBM QRadar",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "IBM QRadar is an enterprise security information and event management (SIEM) product. Fortinet FortiSOSR connector for IBM QRadar allows user to invoke QRadar API, perform Ariel Queries and operations like Get Offense,related events,update and close offenses.",
   "publisher": "Fortinet",
   "cs_approved": true,
@@ -13,7 +13,7 @@
   "ingestion_modes": [
     "scheduled"
   ],
-  "help_online": "https://docs.fortinet.com/document/fortisoar/1.6.1/ibm-qradar/648/ibm-qradar-v1-6-1",
+  "help_online": "",
   "configuration": {
     "fields": [
       {
@@ -1393,6 +1393,106 @@
           "type": "text",
           "name": "query.namespace",
           "value": ""
+        }
+      ]
+    },
+    {
+      "operation": "fetch_offenses",
+      "title": "Fetch Offenses from QRadar",
+      "description": "Retrieves a list of offenses from the QRadar server based on the filter string, start datetime, and updated datetime that you have specified.",
+      "category": "investigation",
+      "annotation": "fetch_offenses",
+      "output_schema": [
+        {
+          "id": "",
+          "rules": [
+            {
+              "id": "",
+              "type": ""
+            }
+          ],
+          "status": "",
+          "inactive": "",
+          "severity": "",
+          "domain_id": "",
+          "follow_up": "",
+          "magnitude": "",
+          "protected": "",
+          "relevance": "",
+          "categories": [],
+          "close_time": "",
+          "flow_count": "",
+          "start_time": "",
+          "assigned_to": "",
+          "credibility": "",
+          "description": "",
+          "event_count": "",
+          "log_sources": [
+            {
+              "id": "",
+              "name": "",
+              "type_id": "",
+              "type_name": ""
+            }
+          ],
+          "closing_user": "",
+          "device_count": "",
+          "offense_type": "",
+          "source_count": "",
+          "category_count": "",
+          "offense_source": "",
+          "source_network": "",
+          "username_count": "",
+          "closing_reason_id": "",
+          "last_updated_time": "",
+          "source_address_ids": [],
+          "last_persisted_time": "",
+          "destination_networks": [],
+          "first_persisted_time": "",
+          "policy_category_count": "",
+          "source_address_details": [
+            {
+              "id": "",
+              "network": "",
+              "magnitude": "",
+              "source_ip": ""
+            }
+          ],
+          "local_destination_count": "",
+          "security_category_count": "",
+          "remote_destination_count": "",
+          "destination_address_details": [
+            {
+              "id": "",
+              "network": "",
+              "magnitude": "",
+              "local_destination_ip": ""
+            }
+          ],
+          "local_destination_address_ids": []
+        }
+      ],
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Filter String",
+          "description": "Specify the filter string based on which you want to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\".",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "filter_string",
+          "value": "status=\"OPEN\""
+        },
+        {
+          "title": "Created After",
+          "description": "Specify the Datetime using which you want to filter the result set to only include only those items that have been created after the specified timestamp.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "datetime",
+          "name": "start_time",
+          "tooltip": "Specify the Datetime using which you want to filter the result set to only include only those items that have been created after the specified timestamp."
         }
       ]
     }
