@@ -1,3 +1,10 @@
+"""
+Copyright start
+MIT License
+Copyright (c) 2024 Fortinet Inc
+Copyright end
+"""
+
 #!/usr/bin/python
 
 # (C) Copyright IBM Corp. 2015, 2016
