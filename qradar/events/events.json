@@ -1,8 +1,8 @@
 [
   {
     "event_id": "qradar.get_offenses_created",
-    "name": "When Offenses is Created",
-    "description": "Run playbook when an offenses is created",
+    "name": "When an offenses is created",
+    "description": "Run the playbook when a offenses is created",
     "type": [
       "PUSH"
     ],
@@ -124,7 +124,7 @@
       }
     ],
     "connector_mapping": {
-      "response": "{{data.data}}",
+      "response": "{{data}}",
       "datetime": {
         "from": "start_time"
       }
