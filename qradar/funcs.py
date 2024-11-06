@@ -16,7 +16,7 @@ logger = get_logger('qradar')
 def _convert_datetime_to_epoch(timestamp_str):
     datetime_obj = datetime.fromisoformat(timestamp_str[:-1])
     epoch_time_integer = int(datetime_obj.timestamp())
-    return epoch_time_integer
+    return epoch_time_integer * 1000
 
 
 def get_offenses(config, params, *args, **kwargs):
