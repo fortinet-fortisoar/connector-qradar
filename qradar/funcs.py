@@ -103,13 +103,13 @@ def get_offense_type(config, params, *args, **kwargs):
 
 
 def get_source_ip(config, params, *args, **kwargs):
-    ips = params['source_address_ids']
+    ips = params['source_address_ids'] if type(params['source_address_ids']) == list else str(params['source_address_ids']).split(",")
     qradar_connection = QradarConnection(**config)
     return qradar_connection.getSourceIpAddresses(ips)
 
 
 def get_destination_ip(config, params, *args, **kwargs):
-    ips = params['destination_address_ids']
+    ips = params['destination_address_ids'] if type(params['destination_address_ids']) == list else str(params['destination_address_ids']).split(",")
     qradar_connection = QradarConnection(**config)
     return qradar_connection.getDestinationIPAddresses(ips)
 

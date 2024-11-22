@@ -2,7 +2,7 @@
   "name": "qradar",
   "label": "IBM QRadar",
   "version": "1.6.2",
-  "description": "IBM QRadar is an enterprise security information and event management (SIEM) product. Fortinet FortiSOSR connector for IBM QRadar allows user to invoke QRadar API, perform Ariel Queries and operations like Get Offense,related events,update and close offenses.",
+  "description": "IBM QRadar is an enterprise security information and event management (SIEM) product. Fortinet FortiSOAR connector for IBM QRadar allows users to invoke QRadar API, perform Ariel Queries and operations like Get Offense,related events,update and close offenses.",
   "publisher": "Fortinet",
   "cs_approved": true,
   "cs_compatible": true,
@@ -24,7 +24,8 @@
         "type": "text",
         "name": "address",
         "value": "",
-        "description": "Specify the IP address of the QRadar server from where the connector gets offenses information and to which you connect and perform automated operations."
+        "description": "Specify the IP address of the QRadar server from where the connector gets offenses information and to which you connect and perform automated operations.",
+        "tooltip": "Specify the IP address of the QRadar server from where the connector gets offenses information and to which you connect and perform automated operations."
       },
       {
         "title": "API Token",
@@ -33,7 +34,8 @@
         "visible": true,
         "type": "password",
         "name": "token",
-        "description": "Specify the API token to access the QRadar server to which you connect and perform automated operations."
+        "description": "Specify the API token to access the QRadar server to which you connect and perform automated operations.",
+        "tooltip": "Specify the API token to access the QRadar server to which you connect and perform automated operations."
       },
       {
         "title": "API Version",
@@ -43,7 +45,8 @@
         "type": "text",
         "name": "api_version",
         "value": "14.0",
-        "description": "Specify the version of the QRadar API to be used for performing automated operations. By default, this is set to 14.0."
+        "description": "Specify the version of the QRadar API to be used for performing automated operations. By default, this is set to 14.0.",
+        "tooltip": "Specify the version of the QRadar API to be used for performing automated operations. By default, this is set to 14.0."
       },
       {
         "title": "Verify SSL",
@@ -53,7 +56,8 @@
         "type": "checkbox",
         "name": "verify_ssl",
         "value": true,
-        "description": "Specifies whether the SSL certificate for the server is to be verified. By default, this is set to True."
+        "description": "Specifies whether the SSL certificate for the server is to be verified. By default, this is set to True.",
+        "tooltip": "Specifies whether the SSL certificate for the server is to be verified. By default, this is set to True."
       }
     ]
   },
@@ -112,7 +116,9 @@
           "visible": true,
           "type": "text",
           "name": "filter_string",
-          "value": "status=\"OPEN\""
+          "value": "status=\"OPEN\"",
+          "tooltip": "Specify the filter string based on which you want to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\".",
+          "placeholder": "For e.g. status=OPEN"
         }
       ]
     },
@@ -133,6 +139,8 @@
           "visible": true,
           "type": "text",
           "name": "search_string",
+          "tooltip": "Specify the Ariel query that you want to run on the QRadar server.",
+          "placeholder": "For e.g. SELECT sourceip, starttime, qid, sourceport  from events",
           "value": null
         }
       ]
@@ -196,6 +204,7 @@
           "visible": true,
           "type": "text",
           "name": "offense_id",
+          "tooltip": "Specify the ID of the offense whose associated notes you want to retrieve from the QRadar server.",
           "value": null
         }
       ]
@@ -252,6 +261,7 @@
           "visible": true,
           "type": "text",
           "name": "offense_id",
+          "tooltip": "Specify the ID of the offense that you want to close on the QRadar server.",
           "value": null
         },
         {
@@ -262,6 +272,7 @@
           "visible": true,
           "type": "text",
           "name": "offense_close_id",
+          "tooltip": "Specify the ID of the offense closing reason using which you want to close the offense on the QRadar server.",
           "value": null
         },
         {
@@ -272,7 +283,8 @@
           "type": "textarea",
           "name": "closure_note",
           "value": null,
-          "description": "(Optional) Note that you want to associate with the offense that you want to close on the QRadar server."
+          "description": "(Optional) Note that you want to associate with the offense that you want to close on the QRadar server.",
+          "tooltip": "(Optional) Note that you want to associate with the offense that you want to close on the QRadar server."
         }
       ]
     },
@@ -298,6 +310,7 @@
           "visible": true,
           "type": "text",
           "name": "offense_id",
+          "tooltip": "Specify the ID of the offense for which you want to create a note on the QRadar server.",
           "value": null
         },
         {
@@ -308,6 +321,7 @@
           "visible": true,
           "type": "textarea",
           "name": "closure_note",
+          "tooltip": "Specify the text of the closure note that you want to create for the specified offense on the QRadar server.",
           "value": null
         }
       ]
@@ -347,6 +361,7 @@
           "visible": true,
           "type": "text",
           "name": "offense_id",
+          "tooltip": "Specify the Offense ID based on which you want to retrieve events from QRadar.",
           "value": ""
         },
         {
@@ -357,6 +372,7 @@
           "visible": true,
           "type": "datetime",
           "name": "start_time",
+          "tooltip": "Specify the number of milliseconds since the epoch from the offense was started.",
           "value": ""
         },
         {
@@ -367,6 +383,7 @@
           "visible": true,
           "type": "datetime",
           "name": "last_updated_time",
+          "tooltip": "Specify the number of milliseconds since the epoch from the offense was last modified.",
           "value": ""
         },
         {
@@ -377,6 +394,7 @@
           "visible": true,
           "type": "integer",
           "name": "max_results",
+          "tooltip": "(Optional) Specify the maximum number of events that this operation should return.",
           "value": 100
         }
       ]
@@ -402,7 +420,8 @@
           "editable": true,
           "visible": true,
           "type": "text",
-          "name": "source_address_ids"
+          "name": "source_address_ids",
+          "tooltip": "Specify the IDs of source addresses based on which you want to retrieve IP address details from the QRadar server. For example, [3,4,5]."
         }
       ]
     },
@@ -427,13 +446,15 @@
           "editable": true,
           "visible": true,
           "type": "text",
-          "name": "destination_address_ids"
+          "name": "destination_address_ids",
+          "tooltip": "IDs of destination addresses based on which you want to retrieve IP address details from the QRadar server. For example, [3,4,5]."
         }
       ]
     },
     {
       "operation": "invoke_api",
       "title": "Invoke QRadar REST API",
+      "category": "investigation",
       "annotation": "api_call",
       "description": "Invokes a function to Get or Post an API endpoint on the QRadar server.",
       "output_schema": {},
@@ -447,7 +468,8 @@
           "visible": true,
           "type": "text",
           "placeholder": "eg /siem/offenses",
-          "name": "endpoint"
+          "name": "endpoint",
+          "tooltip": "Specifies the REST endpoint. For example, /siem/offenses."
         },
         {
           "title": "Request Method",
@@ -463,6 +485,7 @@
             "POST",
             "PATCH"
           ],
+          "tooltip": "Select the request method. You can choose between GET, POST, or PATCH. If you select GET, then you should specify the Request Parameters parameter. In the Request parameters parameter, specify the request parameters for the specified endpoint. If you select POST, then you can specify either the Request Parameters in JSON Format or the Request Payload in JSON Format parameter. In these parameters, specify either the request parameters or the request JSON payload for the specified endpoint. If you select PATCH, then you can specify either the Request Parameters in JSON Format or the Request Payload in JSON Format parameter. In these parameters, specify either the request parameters or the request JSON payload for the specified endpoint.",
           "onchange": {
             "GET": [
               {
@@ -472,7 +495,8 @@
                 "editable": true,
                 "visible": true,
                 "type": "json",
-                "name": "request_parameters"
+                "name": "request_parameters",
+                "tooltip": "Provide the request parameters for the above endpoint that you have specified"
               }
             ],
             "POST": [
@@ -496,7 +520,8 @@
                       "editable": true,
                       "visible": true,
                       "type": "json",
-                      "name": "request_parameters"
+                      "name": "request_parameters",
+                      "tooltip": "Provide the request parameters for the above endpoint that you have specified"
                     }
                   ],
                   "Request Payload": [
@@ -507,7 +532,8 @@
                       "editable": true,
                       "visible": true,
                       "type": "json",
-                      "name": "request_payload"
+                      "name": "request_payload",
+                      "tooltip": "Provide the request json payload for the above endpoint that you have specified"
                     }
                   ]
                 }
@@ -534,7 +560,8 @@
                       "editable": true,
                       "visible": true,
                       "type": "json",
-                      "name": "request_parameters"
+                      "name": "request_parameters",
+                      "tooltip": "Provide the request parameters for the above endpoint that you have specified"
                     }
                   ],
                   "Request Payload": [
@@ -545,7 +572,8 @@
                       "editable": true,
                       "visible": true,
                       "type": "json",
-                      "name": "request_payload"
+                      "name": "request_payload",
+                      "tooltip": "Provide the request json payload for the above endpoint that you have specified"
                     }
                   ]
                 }
@@ -560,13 +588,15 @@
           "editable": true,
           "visible": true,
           "type": "json",
-          "name": "headers"
+          "name": "headers",
+          "tooltip": "(Optional) Additional JSON formatted headers. The following headers are already added by the connector: 'Accept': 'application/JSON', 'Content-Type': 'application/JSON', 'SEC': <token>, 'Version': <api_version>,"
         }
       ]
     },
     {
       "operation": "handle_reference_set_value",
       "title": "Manipulate Reference Set Content",
+      "category": "investigation",
       "annotation": "handle_reference_set_value",
       "description": "Adds or deletes the content that you have specified from a reference set on QRadar.",
       "conditional_output_schema": [
@@ -616,6 +646,7 @@
             "Add Value",
             "Delete Value"
           ],
+          "tooltip": "Select the request method option of the operation that you want to perform on the specified reference set in QRadar. You can choose from following options: Retrieves Value: Specify values in the following field: Reference Set Name: Specify the name of the reference set from which to retrieve the content in QRadar. Add Value: Specify values in the following field: Reference Set Name: Specify the name of the reference set in which to add the content in QRadar. Value: Specify the value to add to the specified reference set. Delete Value: Specify values in the following field: Reference Set Name: Specify the name of the reference set from which to delete the content in QRadar. Value: Specify the value to delete from the specified reference set.",
           "value": "Retrieves Value",
           "onchange": {
             "Retrieves Value": [
@@ -1482,7 +1513,8 @@
           "visible": true,
           "type": "text",
           "name": "filter_string",
-          "value": "status=\"OPEN\""
+          "value": "status=\"OPEN\"",
+          "tooltip": "Specify the filter string based on which you want to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\"."
         },
         {
           "title": "Created After",
