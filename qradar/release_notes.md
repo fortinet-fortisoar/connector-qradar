@@ -1,4 +1,3 @@
-#### Following enhancements have been made to the IBM QRadar Connector in version 1.6.2:
+#### The following enhancements have been made to the IBM QRadar connector in version 1.6.2:
 
-- Added the following new operations:
-	- Fetch Offenses from QRadar.
+- Added a new action `Fetch Offenses from QRadar`.

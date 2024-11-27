@@ -13,7 +13,7 @@
   "ingestion_modes": [
     "scheduled"
   ],
-  "help_online": "",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.6.2/ibm-qradar/1003/ibm-qradar-v1-6-2",
   "configuration": {
     "fields": [
       {
@@ -1430,7 +1430,7 @@
     {
       "operation": "fetch_offenses",
       "title": "Fetch Offenses from QRadar",
-      "description": "Retrieves a list of offenses from the QRadar server based on the filter string, start datetime, and updated datetime that you have specified.",
+      "description": "Retrieves a list of offenses from the QRadar server based on the filter string and start datetime that you have specified.",
       "category": "investigation",
       "annotation": "fetch_offenses",
       "output_schema": [
@@ -1507,24 +1507,24 @@
       "parameters": [
         {
           "title": "Filter String",
-          "description": "Specify the filter string based on which you want to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\".",
+          "description": "Specify the filter string based on which to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\".",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "filter_string",
           "value": "status=\"OPEN\"",
-          "tooltip": "Specify the filter string based on which you want to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\"."
+          "tooltip": "Specify the filter string based on which to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\"."
         },
         {
           "title": "Created After",
-          "description": "Specify the Datetime using which you want to filter the result set to only include only those items that have been created after the specified timestamp.",
+          "description": "Select the date and time using which to filter the result set to only include items that have been created after the specified timestamp.",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "datetime",
           "name": "start_time",
-          "tooltip": "Specify the Datetime using which you want to filter the result set to only include only those items that have been created after the specified timestamp."
+          "tooltip": "Select the date and time using which to filter the result set to only include items that have been created after the specified timestamp."
         }
       ]
     }
