@@ -2,7 +2,7 @@
   "type": "workflow_collections",
   "data": [
     {
-      "uuid": "fcec4c33-b791-4e17-919f-e8657549c3d6",
+      "uuid": "f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
       "@type": "WorkflowCollection",
       "name": "Sample - IBM QRadar - 1.6.3",
       "description": "IBM QRadar is an enterprise security information and event management (SIEM) product. Fortinet FortiSOAR connector for IBM QRadar allows users to invoke QRadar API, perform Ariel Queries and operations like Get Offense,related events,update and close offenses.",
@@ -14,8 +14,8 @@
       "workflows": [
         {
           "@type": "Workflow",
-          "uuid": "afb7ca2a-fc2b-4b05-a231-da5d11097e75",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "96204bb2-e09c-4808-bfb8-de1ecbeb65f2",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves a list of offenses from the QRadar server based on the filter string that you have specified.",
           "name": "Get Offenses from QRadar",
@@ -28,16 +28,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/d79845af-69e5-4d3e-84dc-ddb3bf5c4943",
+          "triggerStep": "/api/3/workflow_steps/1a7433e5-c94c-4bf4-99d7-71db45f99fd6",
           "steps": [
             {
-              "uuid": "d79845af-69e5-4d3e-84dc-ddb3bf5c4943",
+              "uuid": "1a7433e5-c94c-4bf4-99d7-71db45f99fd6",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "7f73cf9d-3dc9-4c3b-9ba2-53f7d7b3b834",
+                "route": "9ab8dc31-9913-4f00-91a9-034bbc8be5d5",
                 "title": "IBM QRadar: Get Offenses from QRadar",
                 "resources": [
                   "alerts"
@@ -57,7 +57,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "de6818c7-a9a9-4818-b3ea-71f5164b70d1",
+              "uuid": "8ed7acae-f294-4cc5-8903-8a1d57f42626",
               "@type": "WorkflowStep",
               "name": "Get Offenses from QRadar",
               "description": null,
@@ -84,19 +84,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "fb68977f-5918-40b9-a6d3-8ae13c82d4d6",
+              "uuid": "3a63e644-6e86-4c1d-8a29-7984b03bae65",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Offenses from QRadar",
-              "sourceStep": "/api/3/workflow_steps/d79845af-69e5-4d3e-84dc-ddb3bf5c4943",
-              "targetStep": "/api/3/workflow_steps/de6818c7-a9a9-4818-b3ea-71f5164b70d1"
+              "sourceStep": "/api/3/workflow_steps/1a7433e5-c94c-4bf4-99d7-71db45f99fd6",
+              "targetStep": "/api/3/workflow_steps/8ed7acae-f294-4cc5-8903-8a1d57f42626"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "59849093-a3d8-4c5e-ada8-2ec1c0a3f4d2",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "ca721043-b542-4e71-8fc1-0189a7a0a524",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Executes an Ariel query on the QRadar server. QRadar uses the Ariel Query Language (AQL) to search for offenses or events based on query parameters.",
           "name": "Make an Ariel Query to QRadar",
@@ -109,16 +109,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/761d997c-8d70-482f-a956-ed1027fa783d",
+          "triggerStep": "/api/3/workflow_steps/538c732a-fb03-4ba2-8adb-c98f6b78ed44",
           "steps": [
             {
-              "uuid": "761d997c-8d70-482f-a956-ed1027fa783d",
+              "uuid": "538c732a-fb03-4ba2-8adb-c98f6b78ed44",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "63fa53de-96e3-432b-af02-8664cf96e7b2",
+                "route": "43d3e9d5-f0d4-4663-a818-087ef0154b43",
                 "title": "IBM QRadar: Make an Ariel Query to QRadar",
                 "resources": [
                   "alerts"
@@ -138,7 +138,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "00dff571-07f8-4f26-9fd5-a15ee5f5052e",
+              "uuid": "e670f74a-baf9-42ce-b566-b5c5dee6f764",
               "@type": "WorkflowStep",
               "name": "Make an Ariel Query to QRadar",
               "description": null,
@@ -163,19 +163,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "0fb7cd18-fe30-4f8b-aa4a-ef305b1f7dbb",
+              "uuid": "c461bd49-a89d-417d-a565-a0ed9931ea1e",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Make an Ariel Query to QRadar",
-              "sourceStep": "/api/3/workflow_steps/761d997c-8d70-482f-a956-ed1027fa783d",
-              "targetStep": "/api/3/workflow_steps/00dff571-07f8-4f26-9fd5-a15ee5f5052e"
+              "sourceStep": "/api/3/workflow_steps/538c732a-fb03-4ba2-8adb-c98f6b78ed44",
+              "targetStep": "/api/3/workflow_steps/e670f74a-baf9-42ce-b566-b5c5dee6f764"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "b5f1a33b-b650-41c8-b654-215e77db1606",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "7028cf20-144a-4490-ad52-8a17b591fb0b",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves a list of closing reasons associated with all offenses from the QRadar server.",
           "name": "Get Offense Closing Reasons",
@@ -188,16 +188,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/ad03f884-4198-4b77-8868-121697cc791b",
+          "triggerStep": "/api/3/workflow_steps/d1347bac-1da3-41dc-a3ad-80d450a38a36",
           "steps": [
             {
-              "uuid": "ad03f884-4198-4b77-8868-121697cc791b",
+              "uuid": "d1347bac-1da3-41dc-a3ad-80d450a38a36",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "f6c0d8bf-19e5-4504-8df0-525d1a451c52",
+                "route": "4c3c911e-5e71-4e2c-a7cd-b08971fabbaa",
                 "title": "IBM QRadar: Get Offense Closing Reasons",
                 "resources": [
                   "alerts"
@@ -217,7 +217,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "7722e068-6356-4e0d-a904-f658197ead43",
+              "uuid": "970e2e4f-4cb7-40cd-b16a-135d3e18acf5",
               "@type": "WorkflowStep",
               "name": "Get Offense Closing Reasons",
               "description": null,
@@ -242,19 +242,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "d15b5ede-7d12-4e04-a0c1-89427b4dcc11",
+              "uuid": "bcf1f109-89fb-454d-8501-dae5fd521380",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Offense Closing Reasons",
-              "sourceStep": "/api/3/workflow_steps/ad03f884-4198-4b77-8868-121697cc791b",
-              "targetStep": "/api/3/workflow_steps/7722e068-6356-4e0d-a904-f658197ead43"
+              "sourceStep": "/api/3/workflow_steps/d1347bac-1da3-41dc-a3ad-80d450a38a36",
+              "targetStep": "/api/3/workflow_steps/970e2e4f-4cb7-40cd-b16a-135d3e18acf5"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "5d80d7d7-82b7-4510-98ac-1b1eda4f5dc1",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "c927f519-b9ef-4b3d-8b6f-acb02dbdafc4",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves a list containing IDs of all the offense types from the QRadar server.",
           "name": "Get Offense Types",
@@ -267,16 +267,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/dd0a61b2-ffe8-4a48-a961-6620298e3676",
+          "triggerStep": "/api/3/workflow_steps/66ec087e-a00c-4066-8201-5e3f4f6b5143",
           "steps": [
             {
-              "uuid": "dd0a61b2-ffe8-4a48-a961-6620298e3676",
+              "uuid": "66ec087e-a00c-4066-8201-5e3f4f6b5143",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "0c28a5c5-4802-4d18-b534-737e7e193951",
+                "route": "c2925ae4-dd56-437f-b373-84c0ff9e32a6",
                 "title": "IBM QRadar: Get Offense Types",
                 "resources": [
                   "alerts"
@@ -296,7 +296,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "a7b8bf4c-5b0d-45db-82b2-cdbcf086652a",
+              "uuid": "04e43afa-7e26-4035-8298-71e277fa8d33",
               "@type": "WorkflowStep",
               "name": "Get Offense Types",
               "description": null,
@@ -321,19 +321,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "ea1f4473-9cc4-4f45-9bcf-20f01dcad056",
+              "uuid": "539ef422-76f1-4cb5-872e-4bf3fbade0c4",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Offense Types",
-              "sourceStep": "/api/3/workflow_steps/dd0a61b2-ffe8-4a48-a961-6620298e3676",
-              "targetStep": "/api/3/workflow_steps/a7b8bf4c-5b0d-45db-82b2-cdbcf086652a"
+              "sourceStep": "/api/3/workflow_steps/66ec087e-a00c-4066-8201-5e3f4f6b5143",
+              "targetStep": "/api/3/workflow_steps/04e43afa-7e26-4035-8298-71e277fa8d33"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "9f67dd4a-c931-45f1-94ac-1e24aa69b9b4",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "1b65ec9a-ce2b-4a54-ba5d-cf9d6c42ddc4",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves a list of notes associated with a specified offense in QRadar based on the offense ID you have specified.",
           "name": "Get Offense Notes",
@@ -346,16 +346,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/336e6603-d427-4e42-bd84-485e862a1d6d",
+          "triggerStep": "/api/3/workflow_steps/40b694ff-200f-4964-9f93-1d705307c734",
           "steps": [
             {
-              "uuid": "336e6603-d427-4e42-bd84-485e862a1d6d",
+              "uuid": "40b694ff-200f-4964-9f93-1d705307c734",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "4ee5ce0b-b801-4609-93a1-30dcd46d38dd",
+                "route": "112ed49e-7262-4905-9dee-d6abc752c6f4",
                 "title": "IBM QRadar: Get Offense Notes",
                 "resources": [
                   "alerts"
@@ -375,7 +375,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "5c93c264-7bf9-49e8-aaaf-36b2cdaa4d4a",
+              "uuid": "50ab5d2f-4425-417c-8f49-4eeac9f203c6",
               "@type": "WorkflowStep",
               "name": "Get Offense Notes",
               "description": null,
@@ -400,19 +400,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "cf4bd84e-5ebe-4cb1-b6a9-d19d2646338d",
+              "uuid": "137974e4-87ed-4f3a-81cd-1af1682781af",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Offense Notes",
-              "sourceStep": "/api/3/workflow_steps/336e6603-d427-4e42-bd84-485e862a1d6d",
-              "targetStep": "/api/3/workflow_steps/5c93c264-7bf9-49e8-aaaf-36b2cdaa4d4a"
+              "sourceStep": "/api/3/workflow_steps/40b694ff-200f-4964-9f93-1d705307c734",
+              "targetStep": "/api/3/workflow_steps/50ab5d2f-4425-417c-8f49-4eeac9f203c6"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "fa6dc8c2-a89e-4261-b4e9-e73f06f5c3ad",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "0cf593d9-ca2b-45c3-af7c-0ac439bddda1",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Closes an offense on the QRadar server based on the offense ID that you have specified.",
           "name": "Close Offense",
@@ -425,16 +425,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/99d9bee0-9a59-4e1a-ba38-31a5dc7c2920",
+          "triggerStep": "/api/3/workflow_steps/bc4ce28f-2f3a-44da-992c-b05479bcc192",
           "steps": [
             {
-              "uuid": "99d9bee0-9a59-4e1a-ba38-31a5dc7c2920",
+              "uuid": "bc4ce28f-2f3a-44da-992c-b05479bcc192",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "867c639a-ad9c-425f-9a65-66d6b013935f",
+                "route": "18e8c6bf-6a0d-46ee-a5b7-1e35ce53835b",
                 "title": "IBM QRadar: Close Offense",
                 "resources": [
                   "alerts"
@@ -454,7 +454,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "630bc037-6244-4583-b3be-557e7467cfbb",
+              "uuid": "b2f4423e-eda0-4cc9-85f2-e74b32262f79",
               "@type": "WorkflowStep",
               "name": "Close Offense",
               "description": null,
@@ -479,19 +479,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "f5c52544-c367-4570-afea-f1cb6d2329d2",
+              "uuid": "2c5bdf49-e6dc-4e05-8a34-fb619be9a977",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Close Offense",
-              "sourceStep": "/api/3/workflow_steps/99d9bee0-9a59-4e1a-ba38-31a5dc7c2920",
-              "targetStep": "/api/3/workflow_steps/630bc037-6244-4583-b3be-557e7467cfbb"
+              "sourceStep": "/api/3/workflow_steps/bc4ce28f-2f3a-44da-992c-b05479bcc192",
+              "targetStep": "/api/3/workflow_steps/b2f4423e-eda0-4cc9-85f2-e74b32262f79"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "34cc1ad1-7ff1-4406-8fef-9d76fc98b936",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "c702ff47-d72c-4a6b-855b-b268710cfec8",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Creates a note for a specified offense in QRadar based on the offense ID you have specified.",
           "name": "Create Note",
@@ -504,16 +504,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/cc59a9c6-4b69-45bc-a2b4-c433a6060096",
+          "triggerStep": "/api/3/workflow_steps/876a96b0-b553-4cb0-87fd-02ca913befc3",
           "steps": [
             {
-              "uuid": "cc59a9c6-4b69-45bc-a2b4-c433a6060096",
+              "uuid": "876a96b0-b553-4cb0-87fd-02ca913befc3",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "39b5373f-1814-43fc-931c-1191600d581d",
+                "route": "fedac73a-6054-4290-8ae4-8e9db33e3c11",
                 "title": "IBM QRadar: Create Note",
                 "resources": [
                   "alerts"
@@ -533,7 +533,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "aca730e0-c90d-4f3d-836d-433109b5a9c5",
+              "uuid": "6f0b68e9-1e75-4b49-9c00-b4b64846ef78",
               "@type": "WorkflowStep",
               "name": "Create Note",
               "description": null,
@@ -558,19 +558,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "eb1d9aeb-a854-4d11-8c8f-303f552bba7f",
+              "uuid": "a2c0b16f-3223-4b6a-83b7-6dc9a58e045a",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Create Note",
-              "sourceStep": "/api/3/workflow_steps/cc59a9c6-4b69-45bc-a2b4-c433a6060096",
-              "targetStep": "/api/3/workflow_steps/aca730e0-c90d-4f3d-836d-433109b5a9c5"
+              "sourceStep": "/api/3/workflow_steps/876a96b0-b553-4cb0-87fd-02ca913befc3",
+              "targetStep": "/api/3/workflow_steps/6f0b68e9-1e75-4b49-9c00-b4b64846ef78"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "dbd3be55-c280-469f-ace0-15b6b909b897",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "55090912-ce47-4a87-9fa5-9a92fe25cb86",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves details of events associated with a QRadar offense, from the QRadar server, based on the QRadar offense ID that you have specified.",
           "name": "Get Events Related to an Offense",
@@ -583,16 +583,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/666d0b59-195a-42b6-9e4f-8e79c8613a29",
+          "triggerStep": "/api/3/workflow_steps/5ceed706-9ef7-48d5-b48e-59e62ed2a961",
           "steps": [
             {
-              "uuid": "666d0b59-195a-42b6-9e4f-8e79c8613a29",
+              "uuid": "5ceed706-9ef7-48d5-b48e-59e62ed2a961",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "f3e3c299-4558-4293-bbd3-44e5b4c85135",
+                "route": "f164f4a3-2dc7-40a1-908e-0a6a26946a54",
                 "title": "IBM QRadar: Get Events Related to an Offense",
                 "resources": [
                   "alerts"
@@ -612,7 +612,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "277c9cc4-70a4-41bb-b9ab-a40258f117d6",
+              "uuid": "43e954ea-c477-46d0-9f6d-c06ae2006b6a",
               "@type": "WorkflowStep",
               "name": "Get Events Related to an Offense",
               "description": null,
@@ -642,19 +642,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "8c1dec69-db32-4013-ab08-f4d414ab3367",
+              "uuid": "30849003-085d-43e3-951c-6c204f97561d",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Events Related to an Offense",
-              "sourceStep": "/api/3/workflow_steps/666d0b59-195a-42b6-9e4f-8e79c8613a29",
-              "targetStep": "/api/3/workflow_steps/277c9cc4-70a4-41bb-b9ab-a40258f117d6"
+              "sourceStep": "/api/3/workflow_steps/5ceed706-9ef7-48d5-b48e-59e62ed2a961",
+              "targetStep": "/api/3/workflow_steps/43e954ea-c477-46d0-9f6d-c06ae2006b6a"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "5c455226-ed8c-4862-a518-0366b89f043f",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "66e3226c-fe52-48f6-9028-f30ca541ddc4",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves IP address details associated with source address IDs from the QRadar server, based on the source address IDs that you have specified",
           "name": "Get Source IP Addresses",
@@ -667,16 +667,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/98e9dae4-e3f0-41e8-b2ce-a8f079df38f4",
+          "triggerStep": "/api/3/workflow_steps/4b25dfd6-19a7-438b-9f5f-1fd074a7d359",
           "steps": [
             {
-              "uuid": "98e9dae4-e3f0-41e8-b2ce-a8f079df38f4",
+              "uuid": "4b25dfd6-19a7-438b-9f5f-1fd074a7d359",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "c9aec81a-3b5a-4599-837f-67617d152bbf",
+                "route": "1c265a49-4f1d-400f-8cee-2e9c8771029f",
                 "title": "IBM QRadar: Get Source IP Addresses",
                 "resources": [
                   "alerts"
@@ -696,7 +696,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "3555b620-56a5-4109-b4e8-0c8166c41f59",
+              "uuid": "0a78b245-aecc-40a8-810b-691b8ea30cf7",
               "@type": "WorkflowStep",
               "name": "Get Source IP Addresses",
               "description": null,
@@ -721,19 +721,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "24525151-5e70-4cf1-a439-98884a453425",
+              "uuid": "af81a5fd-d3c1-4463-8101-6806af0598b4",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Source IP Addresses",
-              "sourceStep": "/api/3/workflow_steps/98e9dae4-e3f0-41e8-b2ce-a8f079df38f4",
-              "targetStep": "/api/3/workflow_steps/3555b620-56a5-4109-b4e8-0c8166c41f59"
+              "sourceStep": "/api/3/workflow_steps/4b25dfd6-19a7-438b-9f5f-1fd074a7d359",
+              "targetStep": "/api/3/workflow_steps/0a78b245-aecc-40a8-810b-691b8ea30cf7"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "24396842-f02d-4d04-91b9-54c25440bb34",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "0b0bca87-8aba-4086-a316-42696298aa2f",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves IP address details associated with the destination address IDs from the QRadar server, based on the destination address IDs that you have specified",
           "name": "Get Destination IP Addresses",
@@ -746,16 +746,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/bb245c83-907d-4357-a127-5264979ad8d8",
+          "triggerStep": "/api/3/workflow_steps/26b2f0b5-c005-4345-bb46-7a20526d9ffe",
           "steps": [
             {
-              "uuid": "bb245c83-907d-4357-a127-5264979ad8d8",
+              "uuid": "26b2f0b5-c005-4345-bb46-7a20526d9ffe",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "b4bc81d0-e4c2-4bca-b5bf-96dd283cbc3f",
+                "route": "479cca62-f5d2-402c-9737-85a55b43fef7",
                 "title": "IBM QRadar: Get Destination IP Addresses",
                 "resources": [
                   "alerts"
@@ -775,7 +775,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "d3852c39-2727-47b8-a322-28d20279472e",
+              "uuid": "f58d8f78-016d-4ad1-8966-859c16e827cb",
               "@type": "WorkflowStep",
               "name": "Get Destination IP Addresses",
               "description": null,
@@ -800,19 +800,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "92de8619-f17d-4104-b043-233101a060de",
+              "uuid": "5252c2d2-0430-4f9c-ac42-c652af911d64",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Destination IP Addresses",
-              "sourceStep": "/api/3/workflow_steps/bb245c83-907d-4357-a127-5264979ad8d8",
-              "targetStep": "/api/3/workflow_steps/d3852c39-2727-47b8-a322-28d20279472e"
+              "sourceStep": "/api/3/workflow_steps/26b2f0b5-c005-4345-bb46-7a20526d9ffe",
+              "targetStep": "/api/3/workflow_steps/f58d8f78-016d-4ad1-8966-859c16e827cb"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "4bbd3ddd-6f33-4b62-83cf-77f095d7c876",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "0ba8fbe4-45b0-4730-8030-10a7c98cd448",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Invokes a function to Get or Post an API endpoint on the QRadar server.",
           "name": "Invoke QRadar REST API",
@@ -825,16 +825,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/f6a80c87-eadd-4072-b44b-79bf8a39f919",
+          "triggerStep": "/api/3/workflow_steps/b18637f9-8632-4935-83e1-d4fbff7baab3",
           "steps": [
             {
-              "uuid": "f6a80c87-eadd-4072-b44b-79bf8a39f919",
+              "uuid": "b18637f9-8632-4935-83e1-d4fbff7baab3",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "54d161bb-8778-4116-9efa-862a2c723688",
+                "route": "2f41d0f8-decb-4053-8497-77b2cc088053",
                 "title": "IBM QRadar: Invoke QRadar REST API",
                 "resources": [
                   "alerts"
@@ -854,7 +854,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "638fb491-4bb2-45bc-bc8b-757840323316",
+              "uuid": "6a0af79d-245e-43f6-810f-8a9fa7a291bc",
               "@type": "WorkflowStep",
               "name": "Invoke QRadar REST API",
               "description": null,
@@ -881,19 +881,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "0ee0414e-3126-4d01-b5e9-0ecc2edc5517",
+              "uuid": "4d0e4edb-587d-4f97-96e2-40fa91d6add5",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Invoke QRadar REST API",
-              "sourceStep": "/api/3/workflow_steps/f6a80c87-eadd-4072-b44b-79bf8a39f919",
-              "targetStep": "/api/3/workflow_steps/638fb491-4bb2-45bc-bc8b-757840323316"
+              "sourceStep": "/api/3/workflow_steps/b18637f9-8632-4935-83e1-d4fbff7baab3",
+              "targetStep": "/api/3/workflow_steps/6a0af79d-245e-43f6-810f-8a9fa7a291bc"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "ce4c3f21-e260-4cdf-ab1a-154d4fa42023",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "d27f978f-8d66-45ca-89db-221c2bbc695e",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Adds or deletes the content that you have specified from a reference set on QRadar.",
           "name": "Manipulate Reference Set Content",
@@ -906,16 +906,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/3317a8dc-59bb-4f22-a723-95b3c33605bf",
+          "triggerStep": "/api/3/workflow_steps/5bdb663d-943e-455b-ab5b-e0353f51d314",
           "steps": [
             {
-              "uuid": "3317a8dc-59bb-4f22-a723-95b3c33605bf",
+              "uuid": "5bdb663d-943e-455b-ab5b-e0353f51d314",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "59737e72-05a3-4571-bed3-dd04b079d6cb",
+                "route": "28d155f5-708c-4439-9b99-a4e575015df4",
                 "title": "IBM QRadar: Manipulate Reference Set Content",
                 "resources": [
                   "alerts"
@@ -935,7 +935,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "2459f1a2-c848-4b88-bb4b-63d7e186ce47",
+              "uuid": "de410a7e-1881-47b8-810b-0dcbf7cf7d4a",
               "@type": "WorkflowStep",
               "name": "Manipulate Reference Set Content",
               "description": null,
@@ -962,19 +962,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "283d3ef1-6dde-44b0-a6f2-b64c258bcb4d",
+              "uuid": "c1d67f6c-5634-41a8-a4c6-e8d0d04cbed4",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Manipulate Reference Set Content",
-              "sourceStep": "/api/3/workflow_steps/3317a8dc-59bb-4f22-a723-95b3c33605bf",
-              "targetStep": "/api/3/workflow_steps/2459f1a2-c848-4b88-bb4b-63d7e186ce47"
+              "sourceStep": "/api/3/workflow_steps/5bdb663d-943e-455b-ab5b-e0353f51d314",
+              "targetStep": "/api/3/workflow_steps/de410a7e-1881-47b8-810b-0dcbf7cf7d4a"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "a5d49b52-8589-458f-8ba8-feb34f8caee3",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "224f2d19-3f67-46e5-bbf5-598602d1adb7",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves a detailed list of available asset properties or specific available asset properties from QRadar based on input parameters specified.",
           "name": "Get Assets Properties",
@@ -987,16 +987,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/58e855a9-c794-4877-9a10-2bae3a23ea4d",
+          "triggerStep": "/api/3/workflow_steps/4be1e9e9-f997-41be-b3fb-094b36147d39",
           "steps": [
             {
-              "uuid": "58e855a9-c794-4877-9a10-2bae3a23ea4d",
+              "uuid": "4be1e9e9-f997-41be-b3fb-094b36147d39",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "2d7bab81-a571-458c-bccf-f712f01fcc4f",
+                "route": "529bfe42-07a7-4754-9dd1-03d25f2a6237",
                 "title": "IBM QRadar: Get Assets Properties",
                 "resources": [
                   "alerts"
@@ -1016,7 +1016,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "2f2b5445-0603-4b66-9518-17d5146c2f05",
+              "uuid": "0321cc13-ef16-475d-9d76-5b8d628eccc3",
               "@type": "WorkflowStep",
               "name": "Get Assets Properties",
               "description": null,
@@ -1045,19 +1045,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "277bde2e-abe8-4630-ab0b-e0ad8220bab3",
+              "uuid": "b33e757b-7229-48cc-9774-4fa0bc89da2e",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Assets Properties",
-              "sourceStep": "/api/3/workflow_steps/58e855a9-c794-4877-9a10-2bae3a23ea4d",
-              "targetStep": "/api/3/workflow_steps/2f2b5445-0603-4b66-9518-17d5146c2f05"
+              "sourceStep": "/api/3/workflow_steps/4be1e9e9-f997-41be-b3fb-094b36147d39",
+              "targetStep": "/api/3/workflow_steps/0321cc13-ef16-475d-9d76-5b8d628eccc3"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "2772d84a-2077-4f1d-9720-b25f871858ff",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "0ccb17f1-34a0-405c-9e3e-ba1be46a0610",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves a detailed list of all available assets or specific available assets from QRadar based on input parameters specified.",
           "name": "Get Assets",
@@ -1070,16 +1070,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/8dc6f005-d64d-438d-89e6-d3b711e7c8b4",
+          "triggerStep": "/api/3/workflow_steps/a1a51d66-060e-4d50-adce-82f21384e57b",
           "steps": [
             {
-              "uuid": "8dc6f005-d64d-438d-89e6-d3b711e7c8b4",
+              "uuid": "a1a51d66-060e-4d50-adce-82f21384e57b",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "a31d83a8-a93f-4f01-a5cd-7ffc72c4237f",
+                "route": "91ec76b3-f6ca-42d1-acd0-fb5822bb62cb",
                 "title": "IBM QRadar: Get Assets",
                 "resources": [
                   "alerts"
@@ -1099,7 +1099,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "478bddc3-aeb0-4777-9808-230c37943dee",
+              "uuid": "318833ad-7e20-4485-b77e-8d5928befd46",
               "@type": "WorkflowStep",
               "name": "Get Assets",
               "description": null,
@@ -1129,19 +1129,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "59721a26-4b94-457b-88a7-d2473130a4ec",
+              "uuid": "ffbb843f-8287-4ea5-9bbf-c59d4d77e58a",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Assets",
-              "sourceStep": "/api/3/workflow_steps/8dc6f005-d64d-438d-89e6-d3b711e7c8b4",
-              "targetStep": "/api/3/workflow_steps/478bddc3-aeb0-4777-9808-230c37943dee"
+              "sourceStep": "/api/3/workflow_steps/a1a51d66-060e-4d50-adce-82f21384e57b",
+              "targetStep": "/api/3/workflow_steps/318833ad-7e20-4485-b77e-8d5928befd46"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "0f64582e-4ce9-48c3-a970-b38bb9b6fd35",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "f8569029-17b3-4299-965c-c30e7c9ca0c8",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Updates the attributes of a specific asset on the QRadar server based on the asset ID and asset properties you have specified. Note: You can retrieve the list of asset properties using the 'Get Assets Properties' operation.",
           "name": "Update Asset",
@@ -1154,16 +1154,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/df0480f0-56c2-491f-9a15-c86007fd8b26",
+          "triggerStep": "/api/3/workflow_steps/546ba15d-86de-4d53-a9d5-e2392b07f786",
           "steps": [
             {
-              "uuid": "df0480f0-56c2-491f-9a15-c86007fd8b26",
+              "uuid": "546ba15d-86de-4d53-a9d5-e2392b07f786",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "cbb61fea-0761-4f3e-a587-868977f08dcc",
+                "route": "a5465bb2-a865-4683-8723-76e690158779",
                 "title": "IBM QRadar: Update Asset",
                 "resources": [
                   "alerts"
@@ -1183,7 +1183,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "79985cd1-5d92-4908-890f-41773227ac20",
+              "uuid": "2a99f620-7f46-4d42-a156-25034b6cae71",
               "@type": "WorkflowStep",
               "name": "Update Asset",
               "description": null,
@@ -1219,19 +1219,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "e2853349-7922-4e4c-975d-07e09faef301",
+              "uuid": "b200427b-22a3-4c07-9c2d-ce14b24eae9a",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Update Asset",
-              "sourceStep": "/api/3/workflow_steps/df0480f0-56c2-491f-9a15-c86007fd8b26",
-              "targetStep": "/api/3/workflow_steps/79985cd1-5d92-4908-890f-41773227ac20"
+              "sourceStep": "/api/3/workflow_steps/546ba15d-86de-4d53-a9d5-e2392b07f786",
+              "targetStep": "/api/3/workflow_steps/2a99f620-7f46-4d42-a156-25034b6cae71"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "330893bb-c46b-4b07-9963-6312d047a337",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "51dc76d5-0c8f-4d50-a1e8-b99f71d5838c",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves a detailed list of all cases or specific cases from QRadar based on input parameters specified. Note: This action is supported on QRadar API version 7.0 and later.",
           "name": "Get Cases",
@@ -1244,16 +1244,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/f585e4d8-377f-4764-b212-2daae1c8ba8d",
+          "triggerStep": "/api/3/workflow_steps/6d0e5ffe-3e10-4f94-bcd9-6e44f30cba0c",
           "steps": [
             {
-              "uuid": "f585e4d8-377f-4764-b212-2daae1c8ba8d",
+              "uuid": "6d0e5ffe-3e10-4f94-bcd9-6e44f30cba0c",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "24ad07e3-c97c-4b2c-b4f1-aac02993efe2",
+                "route": "2e1ffe6c-7d68-4449-8c57-0a2a5526b03a",
                 "title": "IBM QRadar: Get Cases",
                 "resources": [
                   "alerts"
@@ -1273,7 +1273,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "b312ad5a-122c-4c34-a078-6d92100b04f4",
+              "uuid": "cc3dcc62-86ae-40f0-9b79-b2e09d0045ed",
               "@type": "WorkflowStep",
               "name": "Get Cases",
               "description": null,
@@ -1302,19 +1302,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "1231b7a8-f597-4750-97a5-74555302b6f3",
+              "uuid": "d3af79da-cd5a-4069-8876-50324b791708",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Cases",
-              "sourceStep": "/api/3/workflow_steps/f585e4d8-377f-4764-b212-2daae1c8ba8d",
-              "targetStep": "/api/3/workflow_steps/b312ad5a-122c-4c34-a078-6d92100b04f4"
+              "sourceStep": "/api/3/workflow_steps/6d0e5ffe-3e10-4f94-bcd9-6e44f30cba0c",
+              "targetStep": "/api/3/workflow_steps/cc3dcc62-86ae-40f0-9b79-b2e09d0045ed"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "1e5613c6-292c-4ad1-867e-a6689019e0f4",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "e7985e0f-571a-43a0-9ff7-9e15a000c525",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Creates a new case on QRadar based on the case properties you have specified. Note: This action is supported on QRadar API version 7.0 and later.",
           "name": "Create Case",
@@ -1327,16 +1327,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/74f9d57f-19e6-4789-9d00-29b7bceb9752",
+          "triggerStep": "/api/3/workflow_steps/0221e445-e743-479b-a6fd-532fffbfd996",
           "steps": [
             {
-              "uuid": "74f9d57f-19e6-4789-9d00-29b7bceb9752",
+              "uuid": "0221e445-e743-479b-a6fd-532fffbfd996",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "3f5efbb3-f546-454f-b52a-f58b660313aa",
+                "route": "68f90f06-fc43-4435-98b7-730a3a155664",
                 "title": "IBM QRadar: Create Case",
                 "resources": [
                   "alerts"
@@ -1356,7 +1356,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "8a273394-97f6-40cb-8202-361a305e6651",
+              "uuid": "e59a7fed-9748-4605-99db-aae104cf7e66",
               "@type": "WorkflowStep",
               "name": "Create Case",
               "description": null,
@@ -1389,19 +1389,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "7f2019ce-2e1b-40c1-b67f-f6d7f762d996",
+              "uuid": "eb2b56d7-72f4-458e-b27d-775ac846e471",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Create Case",
-              "sourceStep": "/api/3/workflow_steps/74f9d57f-19e6-4789-9d00-29b7bceb9752",
-              "targetStep": "/api/3/workflow_steps/8a273394-97f6-40cb-8202-361a305e6651"
+              "sourceStep": "/api/3/workflow_steps/0221e445-e743-479b-a6fd-532fffbfd996",
+              "targetStep": "/api/3/workflow_steps/e59a7fed-9748-4605-99db-aae104cf7e66"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "f2e4c578-feb5-4ded-ab6e-a5d5f9f82763",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "7dec7ff5-6a06-4857-8268-e053b12804f8",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves a detailed list of all reference tables or specific reference tables from QRadar based on input parameters specified.",
           "name": "Get Reference Tables",
@@ -1414,16 +1414,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/cdbfd84d-70ec-4327-a9a9-7a883b7873ed",
+          "triggerStep": "/api/3/workflow_steps/e66d1ebc-e71e-47c5-b6aa-f839059a1a5a",
           "steps": [
             {
-              "uuid": "cdbfd84d-70ec-4327-a9a9-7a883b7873ed",
+              "uuid": "e66d1ebc-e71e-47c5-b6aa-f839059a1a5a",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "95998cfc-a9b4-49d2-95c4-976fe52a92e2",
+                "route": "f67be06f-f74f-4310-9d27-144deb0d15f6",
                 "title": "IBM QRadar: Get Reference Tables",
                 "resources": [
                   "alerts"
@@ -1443,7 +1443,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "b4f6dfcf-91fb-4a8d-b0b1-f9f26e912500",
+              "uuid": "d8569da6-8c28-4af8-95cb-ae697e41794f",
               "@type": "WorkflowStep",
               "name": "Get Reference Tables",
               "description": null,
@@ -1472,19 +1472,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "0da4895f-aaa1-4388-b0d6-28e92914e6e8",
+              "uuid": "1efc870e-4a09-41b7-8d68-76d2a3a20d8c",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Reference Tables",
-              "sourceStep": "/api/3/workflow_steps/cdbfd84d-70ec-4327-a9a9-7a883b7873ed",
-              "targetStep": "/api/3/workflow_steps/b4f6dfcf-91fb-4a8d-b0b1-f9f26e912500"
+              "sourceStep": "/api/3/workflow_steps/e66d1ebc-e71e-47c5-b6aa-f839059a1a5a",
+              "targetStep": "/api/3/workflow_steps/d8569da6-8c28-4af8-95cb-ae697e41794f"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "5c152a06-81dd-4a33-860b-4fe35a67de3f",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "c386de1f-a0b4-4e0f-9987-06ce01bed1b4",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Deletes a specific reference table and optionally purges its content from QRadar based on the reference table name you have specified. Note: You can retrieve names and details of reference tables using the 'Get Reference Tables' operation.",
           "name": "Delete or Purge Reference Table",
@@ -1497,16 +1497,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/f2651852-e8c4-4f15-975d-7456143384a1",
+          "triggerStep": "/api/3/workflow_steps/9049f933-9b43-4631-ab57-188539c34313",
           "steps": [
             {
-              "uuid": "f2651852-e8c4-4f15-975d-7456143384a1",
+              "uuid": "9049f933-9b43-4631-ab57-188539c34313",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "db8c5252-7813-4b75-912c-2d34e713ca20",
+                "route": "62274b4a-db96-450f-9898-4042e753d078",
                 "title": "IBM QRadar: Delete or Purge Reference Table",
                 "resources": [
                   "alerts"
@@ -1526,7 +1526,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "4e82ca06-a6fc-46b7-9b38-fa5ddf6418df",
+              "uuid": "5325811d-340a-4102-9f3e-c13c796ed501",
               "@type": "WorkflowStep",
               "name": "Delete or Purge Reference Table",
               "description": null,
@@ -1556,19 +1556,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "a59f0f90-28a5-41c1-9790-e5f592d5b791",
+              "uuid": "d39beb93-a3ae-4a5b-af11-963567f13916",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Delete or Purge Reference Table",
-              "sourceStep": "/api/3/workflow_steps/f2651852-e8c4-4f15-975d-7456143384a1",
-              "targetStep": "/api/3/workflow_steps/4e82ca06-a6fc-46b7-9b38-fa5ddf6418df"
+              "sourceStep": "/api/3/workflow_steps/9049f933-9b43-4631-ab57-188539c34313",
+              "targetStep": "/api/3/workflow_steps/5325811d-340a-4102-9f3e-c13c796ed501"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "f87a8d56-56d7-4781-9b7a-e831452d2816",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "93be42f9-b43f-4eb9-bac9-b3b0ac442039",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves the record details (elements) of a specific reference table based on the reference table name you have specified. Note: You can retrieve names and details of reference tables using the 'Get Reference Tables' operation.",
           "name": "Get Table Elements",
@@ -1581,16 +1581,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/b1d7ba77-06de-40a6-8491-592224ccb1a4",
+          "triggerStep": "/api/3/workflow_steps/16d74b5c-255e-40bb-9a47-851fa57e9854",
           "steps": [
             {
-              "uuid": "b1d7ba77-06de-40a6-8491-592224ccb1a4",
+              "uuid": "16d74b5c-255e-40bb-9a47-851fa57e9854",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "5688b554-fd02-480f-bdce-988b7a070541",
+                "route": "5fafeb3e-0074-4dcb-bfd6-595c08e82505",
                 "title": "IBM QRadar: Get Table Elements",
                 "resources": [
                   "alerts"
@@ -1610,7 +1610,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "b64e79b2-a456-4893-af1c-4a703b4db933",
+              "uuid": "ec6b0a14-df36-4a99-8952-a921b2bd3c50",
               "@type": "WorkflowStep",
               "name": "Get Table Elements",
               "description": null,
@@ -1640,19 +1640,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "69f4273b-d4c6-4cac-99d2-432ec2c8a9a8",
+              "uuid": "26356100-bcb7-437c-aa66-1ee301aa27ad",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Table Elements",
-              "sourceStep": "/api/3/workflow_steps/b1d7ba77-06de-40a6-8491-592224ccb1a4",
-              "targetStep": "/api/3/workflow_steps/b64e79b2-a456-4893-af1c-4a703b4db933"
+              "sourceStep": "/api/3/workflow_steps/16d74b5c-255e-40bb-9a47-851fa57e9854",
+              "targetStep": "/api/3/workflow_steps/ec6b0a14-df36-4a99-8952-a921b2bd3c50"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "601ece89-2f46-400c-8b89-be9a592db111",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "c30156fb-635b-41d7-bb54-c18da0fdd211",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Adds or updates an element in the specified reference table based on the reference table name, outer key, inner key, and other input parameters you have specified.",
           "name": "Add or Update Table Element",
@@ -1665,16 +1665,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/c1f174c7-ec01-4000-b848-b75c7f7a8490",
+          "triggerStep": "/api/3/workflow_steps/30ae3a48-56e1-46a7-9750-4f9292ba0bd6",
           "steps": [
             {
-              "uuid": "c1f174c7-ec01-4000-b848-b75c7f7a8490",
+              "uuid": "30ae3a48-56e1-46a7-9750-4f9292ba0bd6",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "22fef674-9def-4d39-8ba4-e0511d3ce080",
+                "route": "50aab6fb-2977-4cab-ae97-098fd80bca4c",
                 "title": "IBM QRadar: Add or Update Table Element",
                 "resources": [
                   "alerts"
@@ -1694,7 +1694,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "d6a0bbff-179a-4b2b-b5c3-42d80333bbdd",
+              "uuid": "dd755454-4656-4c46-93b7-9f839c3ba959",
               "@type": "WorkflowStep",
               "name": "Add or Update Table Element",
               "description": null,
@@ -1728,19 +1728,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "678c63d0-661f-41c3-86bd-b40f83f997f2",
+              "uuid": "1c79d32b-b7a8-4dce-a4b1-34b30b0d5393",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Add or Update Table Element",
-              "sourceStep": "/api/3/workflow_steps/c1f174c7-ec01-4000-b848-b75c7f7a8490",
-              "targetStep": "/api/3/workflow_steps/d6a0bbff-179a-4b2b-b5c3-42d80333bbdd"
+              "sourceStep": "/api/3/workflow_steps/30ae3a48-56e1-46a7-9750-4f9292ba0bd6",
+              "targetStep": "/api/3/workflow_steps/dd755454-4656-4c46-93b7-9f839c3ba959"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "c2212277-13eb-4e85-bd14-1bbca530195c",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "9e1246e4-a39a-4fdc-adf7-ec83a434eb31",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Specify the element to be deleted from a reference table on Qradar based on the input parameters specified.",
           "name": "Delete Table Element",
@@ -1753,16 +1753,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/7c300ea3-f5ee-45b3-9fec-02d4495e8baf",
+          "triggerStep": "/api/3/workflow_steps/5f16baf8-ef2b-4121-8cf7-417be36f64ba",
           "steps": [
             {
-              "uuid": "7c300ea3-f5ee-45b3-9fec-02d4495e8baf",
+              "uuid": "5f16baf8-ef2b-4121-8cf7-417be36f64ba",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "bf14d827-c5e4-461b-91fd-b9da93d61d9a",
+                "route": "a10802ce-2b6e-4131-8e46-fc048e0e39e7",
                 "title": "IBM QRadar: Delete Table Element",
                 "resources": [
                   "alerts"
@@ -1782,7 +1782,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "0d672226-c63d-4b50-af7b-ac5776d5e1c8",
+              "uuid": "ead5fa83-2589-48d7-9f6a-f5161dab9876",
               "@type": "WorkflowStep",
               "name": "Delete Table Element",
               "description": null,
@@ -1815,19 +1815,19 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "a17908d9-b4cf-4617-980f-f6c1e5cb02d9",
+              "uuid": "624e7857-fd86-423c-949b-3bd72332cbb0",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Delete Table Element",
-              "sourceStep": "/api/3/workflow_steps/7c300ea3-f5ee-45b3-9fec-02d4495e8baf",
-              "targetStep": "/api/3/workflow_steps/0d672226-c63d-4b50-af7b-ac5776d5e1c8"
+              "sourceStep": "/api/3/workflow_steps/5f16baf8-ef2b-4121-8cf7-417be36f64ba",
+              "targetStep": "/api/3/workflow_steps/ead5fa83-2589-48d7-9f6a-f5161dab9876"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "5d74dde4-8d88-49ac-9bd3-fef2636892a5",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "d91021d1-4fba-4465-980b-079a8cdba02f",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves a list of offenses from the QRadar server based on the filter string and start datetime that you have specified.",
           "name": "Fetch Offenses from QRadar",
@@ -1840,16 +1840,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/25da3e71-41d0-4ebb-89d7-ccbbf65a67e2",
+          "triggerStep": "/api/3/workflow_steps/e7365391-12ad-42f8-a69a-2123e1609ce6",
           "steps": [
             {
-              "uuid": "25da3e71-41d0-4ebb-89d7-ccbbf65a67e2",
+              "uuid": "e7365391-12ad-42f8-a69a-2123e1609ce6",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "cc0db9d7-b9dd-44a0-9d8a-bfbf108c9484",
+                "route": "267fd0bf-cad4-45a3-9bd1-d63c25d0656b",
                 "title": "IBM QRadar: Fetch Offenses from QRadar",
                 "resources": [
                   "alerts"
@@ -1869,7 +1869,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "c6790d0f-e6c9-4796-85d0-67462e3c4ccd",
+              "uuid": "e3c5db7f-b085-4278-ae20-b4f243838a51",
               "@type": "WorkflowStep",
               "name": "Fetch Offenses from QRadar",
               "description": null,
@@ -1896,22 +1896,22 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "2e445851-e959-4c9e-8af3-327586242de9",
+              "uuid": "970d8a5d-9bdb-420c-b152-4895420ee351",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Fetch Offenses from QRadar",
-              "sourceStep": "/api/3/workflow_steps/25da3e71-41d0-4ebb-89d7-ccbbf65a67e2",
-              "targetStep": "/api/3/workflow_steps/c6790d0f-e6c9-4796-85d0-67462e3c4ccd"
+              "sourceStep": "/api/3/workflow_steps/e7365391-12ad-42f8-a69a-2123e1609ce6",
+              "targetStep": "/api/3/workflow_steps/e3c5db7f-b085-4278-ae20-b4f243838a51"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "1dd7857f-d9c5-459a-bba1-c4e726422992",
-          "collection": "/api/3/workflow_collections/fcec4c33-b791-4e17-919f-e8657549c3d6",
+          "uuid": "af0c3dc0-f96c-473d-9225-edfe40fa9c4c",
+          "collection": "/api/3/workflow_collections/f20c3d65-18c3-4b96-8d2d-e0ed22bd8021",
           "triggerLimit": null,
           "description": "Retrieves the MITRE mapping details associated with a QRadar offense from the QRadar server, based on the specified Offense ID.",
-          "name": "Get Mitre Mapping Related to an Offense",
+          "name": "Get Mitre Mapping Related To Offense",
           "tag": "#IBM QRadar",
           "recordTags": [
             "qradar"
@@ -1921,17 +1921,17 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/6e10b852-8ba0-4a23-b300-607c11a9f2bc",
+          "triggerStep": "/api/3/workflow_steps/dec04227-477c-4c15-bdb5-3f983c95873d",
           "steps": [
             {
-              "uuid": "6e10b852-8ba0-4a23-b300-607c11a9f2bc",
+              "uuid": "dec04227-477c-4c15-bdb5-3f983c95873d",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "6a3fbc6d-1a76-47fb-b638-d47776c5c782",
-                "title": "IBM QRadar: Get Mitre Mapping Related to an Offense",
+                "route": "77f1a163-3a72-44c6-ac0d-37818751ed7b",
+                "title": "IBM QRadar: Get Mitre Mapping Related To Offense",
                 "resources": [
                   "alerts"
                 ],
@@ -1950,9 +1950,9 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "d0a9b236-b968-4ae0-809c-44d61e26bc62",
+              "uuid": "efd48020-b810-424d-92df-22fbdb3af46b",
               "@type": "WorkflowStep",
-              "name": "Get Mitre Mapping Related to an Offense",
+              "name": "Get Mitre Mapping Related To Offense",
               "description": null,
               "status": null,
               "arguments": {
@@ -1962,7 +1962,7 @@
                 "version": "1.6.3",
                 "connector": "qradar",
                 "operation": "get_mitre_mapping_related_to_an_offense",
-                "operationTitle": "Get Mitre Mapping Related to an Offense",
+                "operationTitle": "Get Mitre Mapping Related To Offense",
                 "step_variables": {
                   "output_data": "{{vars.result}}"
                 }
@@ -1975,12 +1975,12 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "1e1a2451-a3f6-4d0e-a270-fda76c7011f2",
+              "uuid": "72eff696-3093-45c0-af93-0b9756627ffc",
               "label": null,
               "isExecuted": false,
-              "name": "Start-> Get Mitre Mapping Related to an Offense",
-              "sourceStep": "/api/3/workflow_steps/6e10b852-8ba0-4a23-b300-607c11a9f2bc",
-              "targetStep": "/api/3/workflow_steps/d0a9b236-b968-4ae0-809c-44d61e26bc62"
+              "name": "Start-> Get Mitre Mapping Related To Offense",
+              "sourceStep": "/api/3/workflow_steps/dec04227-477c-4c15-bdb5-3f983c95873d",
+              "targetStep": "/api/3/workflow_steps/efd48020-b810-424d-92df-22fbdb3af46b"
             }
           ]
         }

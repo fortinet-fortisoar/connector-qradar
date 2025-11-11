@@ -1,0 +1,22 @@
+{
+  "PYTHON_PATH": "C:\\Users\\Vishal\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+  "qradar": {
+    "config": {
+      "test": {
+        "address": "192.168.60.35",
+        "verify_ssl": false,
+        "api_version": "14.0",
+        "token": "kl+leypBlXlt0FFOAuYn4mmhHEunbtJje6wh2MeC7Ujflffy43cXssrdEdwDZjqY",
+        "config_id": "2260ccad-8119-4bf3-8504-8f878caa9c4c"
+      }
+    },
+    "params": {
+      "get_mitre_mapping_related_to_an_offense": {
+        "offense_id": "106"
+      }
+    },
+    "output_schema": {
+      "get_mitre_mapping_related_to_an_offense": {}
+    }
+  }
+}
