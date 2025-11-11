@@ -1,7 +1,7 @@
 {
   "name": "qradar",
   "label": "IBM QRadar",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "IBM QRadar is an enterprise security information and event management (SIEM) product. Fortinet FortiSOAR connector for IBM QRadar allows users to invoke QRadar API, perform Ariel Queries and operations like Get Offense,related events,update and close offenses.",
   "publisher": "Fortinet",
   "cs_approved": true,
@@ -13,7 +13,7 @@
   "ingestion_modes": [
     "scheduled"
   ],
-  "help_online": "https://docs.fortinet.com/document/fortisoar/1.6.2/ibm-qradar/1003/ibm-qradar-v1-6-2",
+  "help_online": "",
   "configuration": {
     "fields": [
       {
@@ -25,7 +25,8 @@
         "name": "address",
         "value": "",
         "description": "Specify the IP address of the QRadar server from where the connector gets offenses information and to which you connect and perform automated operations.",
-        "tooltip": "Specify the IP address of the QRadar server from where the connector gets offenses information and to which you connect and perform automated operations."
+        "tooltip": "Specify the IP address of the QRadar server from where the connector gets offenses information and to which you connect and perform automated operations.",
+        "isOnChange": false
       },
       {
         "title": "API Token",
@@ -35,7 +36,8 @@
         "type": "password",
         "name": "token",
         "description": "Specify the API token to access the QRadar server to which you connect and perform automated operations.",
-        "tooltip": "Specify the API token to access the QRadar server to which you connect and perform automated operations."
+        "tooltip": "Specify the API token to access the QRadar server to which you connect and perform automated operations.",
+        "isOnChange": false
       },
       {
         "title": "API Version",
@@ -46,7 +48,8 @@
         "name": "api_version",
         "value": "14.0",
         "description": "Specify the version of the QRadar API to be used for performing automated operations. By default, this is set to 14.0.",
-        "tooltip": "Specify the version of the QRadar API to be used for performing automated operations. By default, this is set to 14.0."
+        "tooltip": "Specify the version of the QRadar API to be used for performing automated operations. By default, this is set to 14.0.",
+        "isOnChange": false
       },
       {
         "title": "Verify SSL",
@@ -57,7 +60,8 @@
         "name": "verify_ssl",
         "value": true,
         "description": "Specifies whether the SSL certificate for the server is to be verified. By default, this is set to True.",
-        "tooltip": "Specifies whether the SSL certificate for the server is to be verified. By default, this is set to True."
+        "tooltip": "Specifies whether the SSL certificate for the server is to be verified. By default, this is set to True.",
+        "isOnChange": false
       }
     ]
   },
@@ -68,6 +72,21 @@
       "description": "Retrieves a list of offenses from the QRadar server based on the filter string that you have specified.",
       "category": "investigation",
       "annotation": "get_offenses",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Filter String",
+          "description": "Specify the filter string based on which you want to retrieve the list of offenses from QRadar. For example, assigned_to\u003d\"admin\".",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "filter_string",
+          "value": "status\u003d\"OPEN\"",
+          "tooltip": "Specify the filter string based on which you want to retrieve the list of offenses from QRadar. For example, assigned_to\u003d\"admin\".",
+          "placeholder": "For e.g. status\u003dOPEN"
+        }
+      ],
       "output_schema": [
         {
           "credibility": "",
@@ -105,21 +124,6 @@
           "categories": [],
           "offense_type": ""
         }
-      ],
-      "enabled": true,
-      "parameters": [
-        {
-          "title": "Filter String",
-          "description": "Specify the filter string based on which you want to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\".",
-          "required": true,
-          "editable": true,
-          "visible": true,
-          "type": "text",
-          "name": "filter_string",
-          "value": "status=\"OPEN\"",
-          "tooltip": "Specify the filter string based on which you want to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\".",
-          "placeholder": "For e.g. status=OPEN"
-        }
       ]
     },
     {
@@ -128,7 +132,6 @@
       "description": "Executes an Ariel query on the QRadar server. QRadar uses the Ariel Query Language (AQL) to search for offenses or events based on query parameters.",
       "category": "investigation",
       "annotation": "run_query",
-      "output_schema": {},
       "enabled": true,
       "parameters": [
         {
@@ -140,10 +143,10 @@
           "type": "text",
           "name": "search_string",
           "tooltip": "Specify the Ariel query that you want to run on the QRadar server.",
-          "placeholder": "For e.g. SELECT sourceip, starttime, qid, sourceport  from events",
-          "value": null
+          "placeholder": "For e.g. SELECT sourceip, starttime, qid, sourceport  from events"
         }
-      ]
+      ],
+      "output_schema": {}
     },
     {
       "operation": "get_closing_reasons",
@@ -151,6 +154,8 @@
       "description": "Retrieves a list of closing reasons associated with all offenses from the QRadar server.",
       "category": "remediation",
       "annotation": "get_offense_closing_reasons",
+      "enabled": true,
+      "parameters": [],
       "output_schema": [
         {
           "is_deleted": "",
@@ -158,9 +163,7 @@
           "is_reserved": "",
           "text": ""
         }
-      ],
-      "enabled": true,
-      "parameters": []
+      ]
     },
     {
       "operation": "get_offense_type",
@@ -168,6 +171,8 @@
       "description": "Retrieves a list containing IDs of all the offense types from the QRadar server.",
       "category": "investigation",
       "annotation": "get_offense_type",
+      "enabled": true,
+      "parameters": [],
       "output_schema": [
         {
           "property_name": "",
@@ -176,9 +181,7 @@
           "name": "",
           "custom": ""
         }
-      ],
-      "enabled": true,
-      "parameters": []
+      ]
     },
     {
       "operation": "get_notes",
@@ -186,14 +189,6 @@
       "description": "Retrieves a list of notes associated with a specified offense in QRadar based on the offense ID you have specified.",
       "category": "remediation",
       "annotation": "get_notes",
-      "output_schema": [
-        {
-          "id": "",
-          "note_text": "",
-          "create_time": "",
-          "username": ""
-        }
-      ],
       "enabled": true,
       "parameters": [
         {
@@ -204,8 +199,15 @@
           "visible": true,
           "type": "text",
           "name": "offense_id",
-          "tooltip": "Specify the ID of the offense whose associated notes you want to retrieve from the QRadar server.",
-          "value": null
+          "tooltip": "Specify the ID of the offense whose associated notes you want to retrieve from the QRadar server."
+        }
+      ],
+      "output_schema": [
+        {
+          "id": "",
+          "note_text": "",
+          "create_time": "",
+          "username": ""
         }
       ]
     },
@@ -215,6 +217,39 @@
       "description": "Closes an offense on the QRadar server based on the offense ID that you have specified.",
       "category": "remediation",
       "annotation": "close_offense",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Offense ID",
+          "description": "Specify the ID of the offense that you want to close on the QRadar server.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "offense_id",
+          "tooltip": "Specify the ID of the offense that you want to close on the QRadar server."
+        },
+        {
+          "title": "Offense Closing Reason - ID",
+          "description": "Specify the ID of the offense closing reason using which you want to close the offense on the QRadar server.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "offense_close_id",
+          "tooltip": "Specify the ID of the offense closing reason using which you want to close the offense on the QRadar server."
+        },
+        {
+          "title": "Closure Note",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "textarea",
+          "name": "closure_note",
+          "description": "(Optional) Note that you want to associate with the offense that you want to close on the QRadar server.",
+          "tooltip": "(Optional) Note that you want to associate with the offense that you want to close on the QRadar server."
+        }
+      ],
       "output_schema": {
         "credibility": "",
         "source_address_ids": [],
@@ -250,43 +285,7 @@
         "last_updated_time": "",
         "categories": [],
         "offense_type": ""
-      },
-      "enabled": true,
-      "parameters": [
-        {
-          "title": "Offense ID",
-          "description": "Specify the ID of the offense that you want to close on the QRadar server.",
-          "required": true,
-          "editable": true,
-          "visible": true,
-          "type": "text",
-          "name": "offense_id",
-          "tooltip": "Specify the ID of the offense that you want to close on the QRadar server.",
-          "value": null
-        },
-        {
-          "title": "Offense Closing Reason - ID",
-          "description": "Specify the ID of the offense closing reason using which you want to close the offense on the QRadar server.",
-          "required": true,
-          "editable": true,
-          "visible": true,
-          "type": "text",
-          "name": "offense_close_id",
-          "tooltip": "Specify the ID of the offense closing reason using which you want to close the offense on the QRadar server.",
-          "value": null
-        },
-        {
-          "title": "Closure Note",
-          "required": false,
-          "editable": true,
-          "visible": true,
-          "type": "textarea",
-          "name": "closure_note",
-          "value": null,
-          "description": "(Optional) Note that you want to associate with the offense that you want to close on the QRadar server.",
-          "tooltip": "(Optional) Note that you want to associate with the offense that you want to close on the QRadar server."
-        }
-      ]
+      }
     },
     {
       "operation": "add_notes",
@@ -294,12 +293,6 @@
       "description": "Creates a note for a specified offense in QRadar based on the offense ID you have specified.",
       "category": "remediation",
       "annotation": "add_notes",
-      "output_schema": {
-        "id": "",
-        "note_text": "",
-        "create_time": "",
-        "username": ""
-      },
       "enabled": true,
       "parameters": [
         {
@@ -310,8 +303,7 @@
           "visible": true,
           "type": "text",
           "name": "offense_id",
-          "tooltip": "Specify the ID of the offense for which you want to create a note on the QRadar server.",
-          "value": null
+          "tooltip": "Specify the ID of the offense for which you want to create a note on the QRadar server."
         },
         {
           "title": "Closure Note",
@@ -321,10 +313,15 @@
           "visible": true,
           "type": "textarea",
           "name": "closure_note",
-          "tooltip": "Specify the text of the closure note that you want to create for the specified offense on the QRadar server.",
-          "value": null
+          "tooltip": "Specify the text of the closure note that you want to create for the specified offense on the QRadar server."
         }
-      ]
+      ],
+      "output_schema": {
+        "id": "",
+        "note_text": "",
+        "create_time": "",
+        "username": ""
+      }
     },
     {
       "operation": "get_events_related_to_offense",
@@ -332,25 +329,6 @@
       "description": "Retrieves details of events associated with a QRadar offense, from the QRadar server, based on the QRadar offense ID that you have specified.",
       "category": "investigation",
       "annotation": "get_events",
-      "output_schema": {
-        "events": [
-          {
-            "qid": "",
-            "category": "",
-            "sourceip": "",
-            "username": "",
-            "magnitude": "",
-            "starttime": "",
-            "eventcount": "",
-            "identityip": "",
-            "protocolid": "",
-            "sourceport": "",
-            "logsourceid": "",
-            "destinationip": "",
-            "destinationport": ""
-          }
-        ]
-      },
       "enabled": true,
       "parameters": [
         {
@@ -397,18 +375,31 @@
           "tooltip": "(Optional) Specify the maximum number of events that this operation should return.",
           "value": 100
         }
-      ]
+      ],
+      "output_schema": {
+        "events": [
+          {
+            "qid": "",
+            "category": "",
+            "sourceip": "",
+            "username": "",
+            "magnitude": "",
+            "starttime": "",
+            "eventcount": "",
+            "identityip": "",
+            "protocolid": "",
+            "sourceport": "",
+            "logsourceid": "",
+            "destinationip": "",
+            "destinationport": ""
+          }
+        ]
+      }
     },
     {
       "operation": "get_source_ip",
       "title": "Get Source IP Addresses",
       "description": "Retrieves IP address details associated with source address IDs from the QRadar server, based on the source address IDs that you have specified",
-      "output_schema": {
-        "id": "",
-        "source_ip": "",
-        "network": "",
-        "magnitude": ""
-      },
       "category": "investigation",
       "annotation": "ip_details",
       "enabled": true,
@@ -423,7 +414,13 @@
           "name": "source_address_ids",
           "tooltip": "Specify the IDs of source addresses based on which you want to retrieve IP address details from the QRadar server. For example, [3,4,5]."
         }
-      ]
+      ],
+      "output_schema": {
+        "id": "",
+        "source_ip": "",
+        "network": "",
+        "magnitude": ""
+      }
     },
     {
       "operation": "get_destination_ip",
@@ -431,12 +428,6 @@
       "description": "Retrieves IP address details associated with the destination address IDs from the QRadar server, based on the destination address IDs that you have specified",
       "category": "investigation",
       "annotation": "ip_details",
-      "output_schema": {
-        "id": "",
-        "local_destination_ip": "",
-        "network": "",
-        "magnitude": ""
-      },
       "enabled": true,
       "parameters": [
         {
@@ -449,7 +440,13 @@
           "name": "destination_address_ids",
           "tooltip": "IDs of destination addresses based on which you want to retrieve IP address details from the QRadar server. For example, [3,4,5]."
         }
-      ]
+      ],
+      "output_schema": {
+        "id": "",
+        "local_destination_ip": "",
+        "network": "",
+        "magnitude": ""
+      }
     },
     {
       "operation": "invoke_api",
@@ -457,7 +454,6 @@
       "category": "investigation",
       "annotation": "api_call",
       "description": "Invokes a function to Get or Post an API endpoint on the QRadar server.",
-      "output_schema": {},
       "enabled": true,
       "parameters": [
         {
@@ -496,7 +492,10 @@
                 "visible": true,
                 "type": "json",
                 "name": "request_parameters",
-                "tooltip": "Provide the request parameters for the above endpoint that you have specified"
+                "tooltip": "Provide the request parameters for the above endpoint that you have specified",
+                "isOnChange": true,
+                "onChangeParam": "Request Method",
+                "onChangeOption": "GET"
               }
             ],
             "POST": [
@@ -521,7 +520,10 @@
                       "visible": true,
                       "type": "json",
                       "name": "request_parameters",
-                      "tooltip": "Provide the request parameters for the above endpoint that you have specified"
+                      "tooltip": "Provide the request parameters for the above endpoint that you have specified",
+                      "isOnChange": true,
+                      "onChangeParam": "Provide Parameters",
+                      "onChangeOption": "Request Parameters"
                     }
                   ],
                   "Request Payload": [
@@ -533,10 +535,16 @@
                       "visible": true,
                       "type": "json",
                       "name": "request_payload",
-                      "tooltip": "Provide the request json payload for the above endpoint that you have specified"
+                      "tooltip": "Provide the request json payload for the above endpoint that you have specified",
+                      "isOnChange": true,
+                      "onChangeParam": "Provide Parameters",
+                      "onChangeOption": "Request Payload"
                     }
                   ]
-                }
+                },
+                "isOnChange": true,
+                "onChangeParam": "Request Method",
+                "onChangeOption": "POST"
               }
             ],
             "PATCH": [
@@ -561,7 +569,10 @@
                       "visible": true,
                       "type": "json",
                       "name": "request_parameters",
-                      "tooltip": "Provide the request parameters for the above endpoint that you have specified"
+                      "tooltip": "Provide the request parameters for the above endpoint that you have specified",
+                      "isOnChange": true,
+                      "onChangeParam": "Provide Parameters",
+                      "onChangeOption": "Request Parameters"
                     }
                   ],
                   "Request Payload": [
@@ -573,10 +584,16 @@
                       "visible": true,
                       "type": "json",
                       "name": "request_payload",
-                      "tooltip": "Provide the request json payload for the above endpoint that you have specified"
+                      "tooltip": "Provide the request json payload for the above endpoint that you have specified",
+                      "isOnChange": true,
+                      "onChangeParam": "Provide Parameters",
+                      "onChangeOption": "Request Payload"
                     }
                   ]
-                }
+                },
+                "isOnChange": true,
+                "onChangeParam": "Request Method",
+                "onChangeOption": "PATCH"
               }
             ]
           }
@@ -584,14 +601,15 @@
         {
           "title": "Headers in json format",
           "required": false,
-          "description": "(Optional) Additional JSON formatted headers. The following headers are already added by the connector: 'Accept': 'application/JSON', 'Content-Type': 'application/JSON', 'SEC': <token>, 'Version': <api_version>,",
+          "description": "(Optional) Additional JSON formatted headers. The following headers are already added by the connector: \u0027Accept\u0027: \u0027application/JSON\u0027, \u0027Content-Type\u0027: \u0027application/JSON\u0027, \u0027SEC\u0027: \u003ctoken\u003e, \u0027Version\u0027: \u003capi_version\u003e,",
           "editable": true,
           "visible": true,
           "type": "json",
           "name": "headers",
-          "tooltip": "(Optional) Additional JSON formatted headers. The following headers are already added by the connector: 'Accept': 'application/JSON', 'Content-Type': 'application/JSON', 'SEC': <token>, 'Version': <api_version>,"
+          "tooltip": "(Optional) Additional JSON formatted headers. The following headers are already added by the connector: \u0027Accept\u0027: \u0027application/JSON\u0027, \u0027Content-Type\u0027: \u0027application/JSON\u0027, \u0027SEC\u0027: \u003ctoken\u003e, \u0027Version\u0027: \u003capi_version\u003e,"
         }
-      ]
+      ],
+      "output_schema": {}
     },
     {
       "operation": "handle_reference_set_value",
@@ -601,7 +619,7 @@
       "description": "Adds or deletes the content that you have specified from a reference set on QRadar.",
       "conditional_output_schema": [
         {
-          "condition": "{{method === 'Retrieves Value'}}",
+          "condition": "{{method \u003d\u003d\u003d \u0027Retrieves Value\u0027}}",
           "output_schema": {
             "data": [
               {
@@ -620,7 +638,7 @@
           }
         },
         {
-          "condition": "{{(method === 'Add Value' || method === 'Delete Value')}}",
+          "condition": "{{(method \u003d\u003d\u003d \u0027Add Value\u0027 || method \u003d\u003d\u003d \u0027Delete Value\u0027)}}",
           "output_schema": {
             "message": "",
             "element_type": "",
@@ -658,7 +676,10 @@
                 "editable": true,
                 "visible": true,
                 "type": "text",
-                "name": "name"
+                "name": "name",
+                "isOnChange": true,
+                "onChangeParam": "Request Method",
+                "onChangeOption": "Retrieves Value"
               }
             ],
             "Add Value": [
@@ -670,7 +691,10 @@
                 "editable": true,
                 "visible": true,
                 "type": "text",
-                "name": "name"
+                "name": "name",
+                "isOnChange": true,
+                "onChangeParam": "Request Method",
+                "onChangeOption": "Add Value"
               },
               {
                 "title": "Value",
@@ -680,7 +704,10 @@
                 "editable": true,
                 "visible": true,
                 "type": "text",
-                "name": "value"
+                "name": "value",
+                "isOnChange": true,
+                "onChangeParam": "Request Method",
+                "onChangeOption": "Add Value"
               }
             ],
             "Delete Value": [
@@ -692,7 +719,10 @@
                 "editable": true,
                 "visible": true,
                 "type": "text",
-                "name": "name"
+                "name": "name",
+                "isOnChange": true,
+                "onChangeParam": "Request Method",
+                "onChangeOption": "Delete Value"
               },
               {
                 "title": "Value",
@@ -702,7 +732,10 @@
                 "editable": true,
                 "visible": true,
                 "type": "text",
-                "name": "value"
+                "name": "value",
+                "isOnChange": true,
+                "onChangeParam": "Request Method",
+                "onChangeOption": "Delete Value"
               }
             ]
           }
@@ -715,16 +748,6 @@
       "description": "Retrieves a detailed list of available asset properties or specific available asset properties from QRadar based on input parameters specified.",
       "category": "investigation",
       "annotation": "get_assets_properties",
-      "output_schema": [
-        {
-          "data_type": "",
-          "display": "",
-          "custom": "",
-          "name": "",
-          "id": "",
-          "state": ""
-        }
-      ],
       "enabled": true,
       "parameters": [
         {
@@ -747,7 +770,7 @@
           "visible": true,
           "type": "text",
           "name": "filter_string",
-          "placeholder": "field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
+          "placeholder": "field_one \u003d \u0027some_string\u0027 and field_two \u003e 42 or not field_three in (1, 2, 3)",
           "value": ""
         },
         {
@@ -762,6 +785,16 @@
           "placeholder": "field_one(sub_field_one,sub_field_two),field_two",
           "value": ""
         }
+      ],
+      "output_schema": [
+        {
+          "data_type": "",
+          "display": "",
+          "custom": "",
+          "name": "",
+          "id": "",
+          "state": ""
+        }
       ]
     },
     {
@@ -770,6 +803,56 @@
       "description": "Retrieves a detailed list of all available assets or specific available assets from QRadar based on input parameters specified.",
       "category": "investigation",
       "annotation": "get_assets",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Filter",
+          "description": "Specify the parameters to be used to filter (restrict) the list of assets to be returned by this operation in the response.",
+          "tooltip": "This parameter is used to restrict the list of assets in the response based on the filter query specified.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "filter_string",
+          "placeholder": "field_one \u003d \u0027some_string\u0027 and field_two \u003e 42 or not field_three in (1, 2, 3)",
+          "value": ""
+        },
+        {
+          "title": "Limit",
+          "description": "Specify the maximum count of assets to be returned by this operation in the response. Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "max_results",
+          "value": 100
+        },
+        {
+          "title": "Fields",
+          "description": "Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
+          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.fields",
+          "placeholder": "field_one(sub_field_one,sub_field_two),field_two",
+          "value": ""
+        },
+        {
+          "title": "Sort",
+          "description": "Specify the fields using which you want to sort the response. Specify the negative (-) sign to sort the results in descending order and the positive sign (+) to sort in ascending order.",
+          "tooltip": "Use this parameter to specify on which field you would like to sort the response. Specify negative sign to sort in descending order and positive sign to sort in ascending order.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "query.sort",
+          "placeholder": "-id",
+          "value": ""
+        }
+      ],
       "output_schema": [
         {
           "vulnerability_count": "",
@@ -814,65 +897,14 @@
           ],
           "products": ""
         }
-      ],
-      "enabled": true,
-      "parameters": [
-        {
-          "title": "Filter",
-          "description": "Specify the parameters to be used to filter (restrict) the list of assets to be returned by this operation in the response.",
-          "tooltip": "This parameter is used to restrict the list of assets in the response based on the filter query specified.",
-          "required": false,
-          "editable": true,
-          "visible": true,
-          "type": "text",
-          "name": "filter_string",
-          "placeholder": "field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
-          "value": ""
-        },
-        {
-          "title": "Limit",
-          "description": "Specify the maximum count of assets to be returned by this operation in the response. Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
-          "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
-          "required": false,
-          "editable": true,
-          "visible": true,
-          "type": "integer",
-          "name": "max_results",
-          "value": 100
-        },
-        {
-          "title": "Fields",
-          "description": "Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
-          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
-          "required": false,
-          "editable": true,
-          "visible": true,
-          "type": "text",
-          "name": "query.fields",
-          "placeholder": "field_one(sub_field_one,sub_field_two),field_two",
-          "value": ""
-        },
-        {
-          "title": "Sort",
-          "description": "Specify the fields using which you want to sort the response. Specify the negative (-) sign to sort the results in descending order and the positive sign (+) to sort in ascending order.",
-          "tooltip": "Use this parameter to specify on which field you would like to sort the response. Specify negative sign to sort in descending order and positive sign to sort in ascending order.",
-          "required": false,
-          "editable": true,
-          "visible": true,
-          "type": "text",
-          "name": "query.sort",
-          "placeholder": "-id",
-          "value": ""
-        }
       ]
     },
     {
       "operation": "update_asset",
       "title": "Update Asset",
-      "description": "Updates the attributes of a specific asset on the QRadar server based on the asset ID and asset properties you have specified. Note: You can retrieve the list of asset properties using the 'Get Assets Properties' operation.",
+      "description": "Updates the attributes of a specific asset on the QRadar server based on the asset ID and asset properties you have specified. Note: You can retrieve the list of asset properties using the \u0027Get Assets Properties\u0027 operation.",
       "category": "investigation",
       "annotation": "update_asset",
-      "output_schema": "",
       "enabled": true,
       "parameters": [
         {
@@ -916,7 +948,8 @@
           "name": "content_type",
           "value": "text/plain"
         }
-      ]
+      ],
+      "output_schema": ""
     },
     {
       "operation": "get_cases",
@@ -924,13 +957,6 @@
       "description": "Retrieves a detailed list of all cases or specific cases from QRadar based on input parameters specified. Note: This action is supported on QRadar API version 7.0 and later.",
       "category": "investigation",
       "annotation": "get_cases",
-      "output_schema": [
-        {
-          "assigned_to": [],
-          "id": "",
-          "name": ""
-        }
-      ],
       "enabled": true,
       "parameters": [
         {
@@ -954,7 +980,7 @@
           "visible": true,
           "type": "text",
           "name": "filter_string",
-          "placeholder": "field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
+          "placeholder": "field_one \u003d \u0027some_string\u0027 and field_two \u003e 42 or not field_three in (1, 2, 3)",
           "value": ""
         },
         {
@@ -968,6 +994,13 @@
           "name": "max_results",
           "value": 100
         }
+      ],
+      "output_schema": [
+        {
+          "assigned_to": [],
+          "id": "",
+          "name": ""
+        }
       ]
     },
     {
@@ -976,13 +1009,6 @@
       "description": "Creates a new case on QRadar based on the case properties you have specified. Note: This action is supported on QRadar API version 7.0 and later.",
       "category": "investigation",
       "annotation": "create_case",
-      "output_schema": {
-        "case_id": "",
-        "name": "",
-        "id": "",
-        "state": "",
-        "assigned_to": []
-      },
       "enabled": true,
       "parameters": [
         {
@@ -1012,7 +1038,14 @@
           "name": "content_type",
           "value": "application/json"
         }
-      ]
+      ],
+      "output_schema": {
+        "case_id": "",
+        "name": "",
+        "id": "",
+        "state": "",
+        "assigned_to": []
+      }
     },
     {
       "operation": "get_reference_tables",
@@ -1020,20 +1053,6 @@
       "description": "Retrieves a detailed list of all reference tables or specific reference tables from QRadar based on input parameters specified.",
       "category": "investigation",
       "annotation": "get_reference_tables",
-      "output_schema": [
-        {
-          "timeout_type": "",
-          "number_of_elements": "",
-          "creation_time": "",
-          "name": "",
-          "key_name_types": {
-            "port": "",
-            "source_ip": "",
-            "timestamp": ""
-          },
-          "element_type": ""
-        }
-      ],
       "enabled": true,
       "parameters": [
         {
@@ -1045,7 +1064,7 @@
           "visible": true,
           "type": "text",
           "name": "filter_string",
-          "placeholder": "field_one = 'some_string' and field_two > 42 or not field_three in (1, 2, 3)",
+          "placeholder": "field_one \u003d \u0027some_string\u0027 and field_two \u003e 42 or not field_three in (1, 2, 3)",
           "value": ""
         },
         {
@@ -1071,25 +1090,28 @@
           "placeholder": "field_one(sub_field_one,sub_field_two),field_two",
           "value": ""
         }
+      ],
+      "output_schema": [
+        {
+          "timeout_type": "",
+          "number_of_elements": "",
+          "creation_time": "",
+          "name": "",
+          "key_name_types": {
+            "port": "",
+            "source_ip": "",
+            "timestamp": ""
+          },
+          "element_type": ""
+        }
       ]
     },
     {
       "operation": "delete_reference_table",
       "title": "Delete or Purge Reference Table",
-      "description": "Deletes a specific reference table and optionally purges its content from QRadar based on the reference table name you have specified. Note: You can retrieve names and details of reference tables using the 'Get Reference Tables' operation.",
+      "description": "Deletes a specific reference table and optionally purges its content from QRadar based on the reference table name you have specified. Note: You can retrieve names and details of reference tables using the \u0027Get Reference Tables\u0027 operation.",
       "category": "investigation",
       "annotation": "delete_reference_table",
-      "output_schema": {
-        "created_by": "",
-        "created": "",
-        "name": "",
-        "modified": "",
-        "started": "",
-        "completed": "",
-        "id": "",
-        "message": "",
-        "status": ""
-      },
       "enabled": true,
       "parameters": [
         {
@@ -1109,7 +1131,7 @@
           "editable": true,
           "visible": true,
           "type": "select",
-          "description": "Select the 'true' option from the Purge Table drop-down list if you want to have the contents of the specified reference table to be purged from QRadar, i.e., in this case, the structure of the specified reference table is retained. Select the 'false' (default) option from the Purge Table drop-down list to purge the contents of the specified reference table, i.e., in this case, the specified reference table is completely removed.",
+          "description": "Select the \u0027true\u0027 option from the Purge Table drop-down list if you want to have the contents of the specified reference table to be purged from QRadar, i.e., in this case, the structure of the specified reference table is retained. Select the \u0027false\u0027 (default) option from the Purge Table drop-down list to purge the contents of the specified reference table, i.e., in this case, the specified reference table is completely removed.",
           "tooltip": "This indicates if the reference table should have its contents purged (if the value is true), keeping the reference table structure. If the value is false, or not specified the reference table is removed completely.",
           "options": [
             "true",
@@ -1132,7 +1154,7 @@
         },
         {
           "title": "Namespace",
-          "description": "(Optional) Specify the namespace of the reference table that you want to delete from QRadar. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users.",
+          "description": "(Optional) Specify the namespace of the reference table that you want to delete from QRadar. By default, it is \u0027SHARED\u0027 for \u0027admin\u0027 users and \u0027TENANT\u0027 for \u0027tenant\u0027 users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is \u0027SHARED\u0027 for all users.",
           "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
@@ -1141,32 +1163,25 @@
           "name": "query.namespace",
           "value": ""
         }
-      ]
+      ],
+      "output_schema": {
+        "created_by": "",
+        "created": "",
+        "name": "",
+        "modified": "",
+        "started": "",
+        "completed": "",
+        "id": "",
+        "message": "",
+        "status": ""
+      }
     },
     {
       "operation": "get_table_elements",
       "title": "Get Table Elements",
-      "description": "Retrieves the record details (elements) of a specific reference table based on the reference table name you have specified. Note: You can retrieve names and details of reference tables using the 'Get Reference Tables' operation.",
+      "description": "Retrieves the record details (elements) of a specific reference table based on the reference table name you have specified. Note: You can retrieve names and details of reference tables using the \u0027Get Reference Tables\u0027 operation.",
       "category": "investigation",
       "annotation": "get_table_elements",
-      "output_schema": {
-        "timeout_type": "",
-        "number_of_elements": "",
-        "data": {
-          "outer_key": {
-            "inner_key": {
-              "last_seen": "",
-              "first_seen": "",
-              "source": "",
-              "value": ""
-            }
-          }
-        },
-        "creation_time": "",
-        "name": "",
-        "key_name_types": "",
-        "element_type": ""
-      },
       "enabled": true,
       "parameters": [
         {
@@ -1205,7 +1220,7 @@
         },
         {
           "title": "Namespace",
-          "description": "(Optional) Specify the namespace of the reference table whose record details (elements) you want to retrieve from QRadar. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users.",
+          "description": "(Optional) Specify the namespace of the reference table whose record details (elements) you want to retrieve from QRadar. By default, it is \u0027SHARED\u0027 for \u0027admin\u0027 users and \u0027TENANT\u0027 for \u0027tenant\u0027 users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is \u0027SHARED\u0027 for all users.",
           "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
@@ -1214,7 +1229,25 @@
           "name": "query.namespace",
           "value": ""
         }
-      ]
+      ],
+      "output_schema": {
+        "timeout_type": "",
+        "number_of_elements": "",
+        "data": {
+          "outer_key": {
+            "inner_key": {
+              "last_seen": "",
+              "first_seen": "",
+              "source": "",
+              "value": ""
+            }
+          }
+        },
+        "creation_time": "",
+        "name": "",
+        "key_name_types": "",
+        "element_type": ""
+      }
     },
     {
       "operation": "add_table_element",
@@ -1222,14 +1255,6 @@
       "description": "Adds or updates an element in the specified reference table based on the reference table name, outer key, inner key, and other input parameters you have specified.",
       "category": "investigation",
       "annotation": "add_table_element",
-      "output_schema": {
-        "timeout_type": "",
-        "number_of_elements": "",
-        "creation_time": "",
-        "name": "",
-        "key_name_types": "",
-        "element_type": ""
-      },
       "enabled": true,
       "parameters": [
         {
@@ -1282,7 +1307,7 @@
         },
         {
           "title": "Domain ID",
-          "description": "(Optional) In the case of MSSP setups, you can specify the domain ID to be set for the 'value' you have specified in the 'Value' field. If the 'Domain ID' field is null, then the shared domain is used.",
+          "description": "(Optional) In the case of MSSP setups, you can specify the domain ID to be set for the \u0027value\u0027 you have specified in the \u0027Value\u0027 field. If the \u0027Domain ID\u0027 field is null, then the shared domain is used.",
           "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
           "required": false,
           "editable": true,
@@ -1293,8 +1318,8 @@
         },
         {
           "title": "Element Source",
-          "description": "(Optional) Specify the source of the specified element that you want to add or update in the specified table. By default, this is set to 'FortiSOAR'.",
-          "tooltip": "An indication of where the data originated. The default value is 'FortiSOAR'",
+          "description": "(Optional) Specify the source of the specified element that you want to add or update in the specified table. By default, this is set to \u0027FortiSOAR\u0027.",
+          "tooltip": "An indication of where the data originated. The default value is \u0027FortiSOAR\u0027",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1316,7 +1341,7 @@
         },
         {
           "title": "Namespace",
-          "description": "(Optional) Specify the namespace of the reference table in which you want to add or update the specified element. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users",
+          "description": "(Optional) Specify the namespace of the reference table in which you want to add or update the specified element. By default, it is \u0027SHARED\u0027 for \u0027admin\u0027 users and \u0027TENANT\u0027 for \u0027tenant\u0027 users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is \u0027SHARED\u0027 for all users",
           "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
@@ -1325,14 +1350,7 @@
           "name": "query.namespace",
           "value": ""
         }
-      ]
-    },
-    {
-      "operation": "delete_table_element",
-      "title": "Delete Table Element",
-      "description": "Specify the element to be deleted from a reference table on Qradar based on the input parameters specified.",
-      "category": "investigation",
-      "annotation": "delete_table_element",
+      ],
       "output_schema": {
         "timeout_type": "",
         "number_of_elements": "",
@@ -1340,7 +1358,14 @@
         "name": "",
         "key_name_types": "",
         "element_type": ""
-      },
+      }
+    },
+    {
+      "operation": "delete_table_element",
+      "title": "Delete Table Element",
+      "description": "Specify the element to be deleted from a reference table on Qradar based on the input parameters specified.",
+      "category": "investigation",
+      "annotation": "delete_table_element",
       "enabled": true,
       "parameters": [
         {
@@ -1393,7 +1418,7 @@
         },
         {
           "title": "Domain ID",
-          "description": "(Optional) In the case of MSSP setups, you can specify the domain ID to be set for the 'value' you have specified in the 'Value' field. If the 'Domain ID' field is null, then the shared domain is used.",
+          "description": "(Optional) In the case of MSSP setups, you can specify the domain ID to be set for the \u0027value\u0027 you have specified in the \u0027Value\u0027 field. If the \u0027Domain ID\u0027 field is null, then the shared domain is used.",
           "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
           "required": false,
           "editable": true,
@@ -1416,7 +1441,7 @@
         },
         {
           "title": "Namespace",
-          "description": "(Optional) Specify the namespace of the reference table from which you want to delete the specified element. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users",
+          "description": "(Optional) Specify the namespace of the reference table from which you want to delete the specified element. By default, it is \u0027SHARED\u0027 for \u0027admin\u0027 users and \u0027TENANT\u0027 for \u0027tenant\u0027 users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is \u0027SHARED\u0027 for all users",
           "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
@@ -1425,7 +1450,15 @@
           "name": "query.namespace",
           "value": ""
         }
-      ]
+      ],
+      "output_schema": {
+        "timeout_type": "",
+        "number_of_elements": "",
+        "creation_time": "",
+        "name": "",
+        "key_name_types": "",
+        "element_type": ""
+      }
     },
     {
       "operation": "fetch_offenses",
@@ -1433,6 +1466,30 @@
       "description": "Retrieves a list of offenses from the QRadar server based on the filter string and start datetime that you have specified.",
       "category": "investigation",
       "annotation": "fetch_offenses",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Filter String",
+          "description": "Specify the filter string based on which to retrieve the list of offenses from QRadar. For example, assigned_to\u003d\"admin\".",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "filter_string",
+          "value": "status\u003d\"OPEN\"",
+          "tooltip": "Specify the filter string based on which to retrieve the list of offenses from QRadar. For example, assigned_to\u003d\"admin\"."
+        },
+        {
+          "title": "Created After",
+          "description": "Select the date and time using which to filter the result set to only include items that have been created after the specified timestamp.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "datetime",
+          "name": "start_time",
+          "tooltip": "Select the date and time using which to filter the result set to only include items that have been created after the specified timestamp."
+        }
+      ],
       "output_schema": [
         {
           "id": "",
@@ -1502,29 +1559,57 @@
           ],
           "local_destination_address_ids": []
         }
-      ],
+      ]
+    },
+    {
+      "operation": "get_mitre_mapping_related_to_an_offense",
+      "title": "Get Mitre Mapping Related To Offense",
+      "annotation": "get_mitre_mapping_related_to_an_offense",
+      "description": "Retrieves the MITRE mapping details associated with a QRadar offense from the QRadar server, based on the specified Offense ID.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
       "enabled": true,
       "parameters": [
         {
-          "title": "Filter String",
-          "description": "Specify the filter string based on which to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\".",
-          "required": true,
-          "editable": true,
-          "visible": true,
+          "name": "offense_id",
+          "title": "QRadar Offense ID",
           "type": "text",
-          "name": "filter_string",
-          "value": "status=\"OPEN\"",
-          "tooltip": "Specify the filter string based on which to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\"."
-        },
-        {
-          "title": "Created After",
-          "description": "Select the date and time using which to filter the result set to only include items that have been created after the specified timestamp.",
-          "required": true,
           "editable": true,
           "visible": true,
-          "type": "datetime",
-          "name": "start_time",
-          "tooltip": "Select the date and time using which to filter the result set to only include items that have been created after the specified timestamp."
+          "required": true,
+          "tooltip": "Specify the QRadar Offense ID to retrieve the associated MITRE ATT\u0026CK mapping.",
+          "description": "Specify the Offense ID based on which you want to retrieve mitre mapping from QRadar.",
+          "isOnChange": false,
+          "onchange": {}
+        }
+      ],
+      "output_schema": [
+        {
+          "rule_name": "",
+          "id": "",
+          "override_id": "",
+          "has_ibm_default": "",
+          "last_updated": "",
+          "min_mitre_version": "",
+          "mapping": [
+            {
+              "tactic_id": "",
+              "tactic_name": "",
+              "confidence": "",
+              "user_override": "",
+              "enabled": "",
+              "ibm_default": "",
+              "techniques": [
+                {
+                  "technique_id": "",
+                  "technique_name": "",
+                  "confidence": "",
+                  "enabled": ""
+                }
+              ]
+            }
+          ]
         }
       ]
     }
