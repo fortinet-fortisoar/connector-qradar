@@ -172,6 +172,22 @@ def delete_record(config, params, *args, **kwargs):
     qradar_connection = QradarConnection(**config)
     return qradar_connection.delete_record(params)
 
+def get_mitre_mapping_related_to_an_offense(config, params, *args, **kwargs):
+    headers = params.get('headers') if params.get('headers', {}) else {}
+    qradar_connection = QradarConnection(**config)
+    # Get offense analysis for rule id
+    offense_id=params['offense_id']
+    offense_details_endpoint = '/siem/offenses/' + offense_id
+    offense_res = qradar_connection.invokeQRadarAPI(endpoint=offense_details_endpoint, method='GET', params=params, headers=headers)
+    # Get rule analysis for rule uuid
+    rule_id = offense_res['rules'][0]['id']
+    rule_analysis_endpoint = '/analytics/rules/' + str(rule_id)
+
+    rule_res = qradar_connection.invokeQRadarAPI(endpoint=rule_analysis_endpoint, method='GET', params=params, headers=headers)
+    rule_uuid = rule_res['identifier']
+    qradar_connection = QradarConnection(**config)
+    return qradar_connection.get_mitre_mapping_for_offense(params, rule_uuid)
+
 
 operations = {
     'get_offenses': get_offenses,
@@ -196,5 +212,6 @@ operations = {
     'get_table_elements': get_record,
     'add_table_element': update_record,
     'delete_table_element': delete_record,
-    'fetch_offenses': fetch_offenses
+    'fetch_offenses': fetch_offenses,
+    'get_mitre_mapping_related_to_an_offense': get_mitre_mapping_related_to_an_offense
 }

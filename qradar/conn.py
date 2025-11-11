@@ -89,7 +89,11 @@ class QradarConnection(object):
         return self.__parseRequestResult(res)
 
     def __getUrl(self, endpoint, params={}, headers={}):
-        url = '{}/{}'.format(self.base_url, endpoint)
+        if endpoint.startswith('console'):
+            url = '{}/{}'.format(self.address, endpoint)
+        else:
+            url = '{}/{}'.format(self.base_url, endpoint)
+
         self.log.debug('GET to URL: {}'.format(url))
         res = self.session.get(url, params=params, headers=headers, timeout=REQUEST_TIMEOUT)
         logger.debug('\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:\n{0}\n'.format(dump.dump_all(res).decode('utf-8')))
@@ -369,3 +373,8 @@ class QradarConnection(object):
         url_params, headers, data = self.__args_parser(params)
         self.log.debug('Deleting Record. \nParams: {0} \nHeaders: {1}'.format(url_params, headers))
         return self.__deleteUrl(endpoint, headers=headers, params=url_params)
+
+    def get_mitre_mapping_for_offense(self, params, rule_uuid):
+        mitre_endpoint = '/console/plugins/app_proxy:UseCaseManager_Service/api/mappings/by_name?rule_id=' + rule_uuid
+        rule_res = self.invokeQRadarAPI(endpoint=mitre_endpoint, method='GET', params=params, headers={})
+        return rule_res
