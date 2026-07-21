@@ -31,7 +31,8 @@ def fetch_offenses(config, params, *args, **kwargs):
     # address, token, verify_ssl=False, filter_string=None, *args, **kwargs
     logger.debug('getting offenses from qradar')
     start_time = _convert_datetime_to_epoch(params.get('start_time'))
-    filter_string = str(params.get('filter_string', '')) + " and (start_time > '" + "{0}".format(start_time) + "' or last_updated_time > '" +  "{0}".format(start_time) + "')"
+    filter_string = str(params.get('filter_string', '')) + " and (start_time > '" + "{0}".format(
+        start_time) + "' or last_updated_time > '" + "{0}".format(start_time) + "')"
     q = QradarConnection(**config)
     all_offenses = q.getOffenses(filter_string)
     if all_offenses != []:
@@ -103,13 +104,15 @@ def get_offense_type(config, params, *args, **kwargs):
 
 
 def get_source_ip(config, params, *args, **kwargs):
-    ips = params['source_address_ids'] if type(params['source_address_ids']) == list else str(params['source_address_ids']).split(",")
+    ips = params['source_address_ids'] if type(params['source_address_ids']) == list else str(
+        params['source_address_ids']).split(",")
     qradar_connection = QradarConnection(**config)
     return qradar_connection.getSourceIpAddresses(ips)
 
 
 def get_destination_ip(config, params, *args, **kwargs):
-    ips = params['destination_address_ids'] if type(params['destination_address_ids']) == list else str(params['destination_address_ids']).split(",")
+    ips = params['destination_address_ids'] if type(params['destination_address_ids']) == list else str(
+        params['destination_address_ids']).split(",")
     qradar_connection = QradarConnection(**config)
     return qradar_connection.getDestinationIPAddresses(ips)
 
@@ -173,6 +176,25 @@ def delete_record(config, params, *args, **kwargs):
     return qradar_connection.delete_record(params)
 
 
+def get_mitre_mapping_related_to_an_offense(config, params, *args, **kwargs):
+    headers = params.get('headers') if params.get('headers', {}) else {}
+    qradar_connection = QradarConnection(**config)
+    # Get offense analysis for rule id
+    offense_id = params['offense_id']
+    offense_details_endpoint = '/siem/offenses/' + offense_id
+    offense_res = qradar_connection.invokeQRadarAPI(endpoint=offense_details_endpoint, method='GET', params=params,
+                                                    headers=headers)
+    # Get rule analysis for rule uuid
+    rule_id = offense_res['rules'][0]['id']
+    rule_analysis_endpoint = '/analytics/rules/' + str(rule_id)
+
+    rule_res = qradar_connection.invokeQRadarAPI(endpoint=rule_analysis_endpoint, method='GET', params=params,
+                                                 headers=headers)
+    rule_uuid = rule_res['identifier']
+    qradar_connection = QradarConnection(**config)
+    return qradar_connection.get_mitre_mapping_for_offense(params, rule_uuid)
+
+
 operations = {
     'get_offenses': get_offenses,
     'query_qradar': query_qradar,
@@ -186,7 +208,7 @@ operations = {
     'handle_reference_set_value': handle_reference_set_value,
     'add_notes': add_notes,
     'get_notes': get_notes,
-    'get_assets_properties':get_record,
+    'get_assets_properties': get_record,
     'get_assets': get_record,
     'update_asset': update_record,
     'get_cases': get_record,
@@ -196,5 +218,6 @@ operations = {
     'get_table_elements': get_record,
     'add_table_element': update_record,
     'delete_table_element': delete_record,
-    'fetch_offenses': fetch_offenses
+    'fetch_offenses': fetch_offenses,
+    'get_mitre_mapping_related_to_an_offense': get_mitre_mapping_related_to_an_offense
 }

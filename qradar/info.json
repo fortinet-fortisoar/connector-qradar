@@ -1,7 +1,7 @@
 {
   "name": "qradar",
   "label": "IBM QRadar",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "IBM QRadar is an enterprise security information and event management (SIEM) product. Fortinet FortiSOAR connector for IBM QRadar allows users to invoke QRadar API, perform Ariel Queries and operations like Get Offense,related events,update and close offenses.",
   "publisher": "Fortinet",
   "cs_approved": true,
@@ -13,11 +13,12 @@
   "ingestion_modes": [
     "scheduled"
   ],
-  "help_online": "https://docs.fortinet.com/document/fortisoar/1.6.2/ibm-qradar/1003/ibm-qradar-v1-6-2",
+  "help_online": "",
   "configuration": {
     "fields": [
       {
         "title": "Address",
+        "isOnChange": false,
         "required": true,
         "editable": true,
         "visible": true,
@@ -29,6 +30,7 @@
       },
       {
         "title": "API Token",
+        "isOnChange": false,
         "required": true,
         "editable": true,
         "visible": true,
@@ -39,6 +41,7 @@
       },
       {
         "title": "API Version",
+        "isOnChange": false,
         "required": true,
         "editable": true,
         "visible": true,
@@ -50,6 +53,7 @@
       },
       {
         "title": "Verify SSL",
+        "isOnChange": false,
         "required": false,
         "editable": true,
         "visible": true,
@@ -140,8 +144,7 @@
           "type": "text",
           "name": "search_string",
           "tooltip": "Specify the Ariel query that you want to run on the QRadar server.",
-          "placeholder": "For e.g. SELECT sourceip, starttime, qid, sourceport  from events",
-          "value": null
+          "placeholder": "For e.g. SELECT sourceip, starttime, qid, sourceport  from events"
         }
       ]
     },
@@ -204,8 +207,7 @@
           "visible": true,
           "type": "text",
           "name": "offense_id",
-          "tooltip": "Specify the ID of the offense whose associated notes you want to retrieve from the QRadar server.",
-          "value": null
+          "tooltip": "Specify the ID of the offense whose associated notes you want to retrieve from the QRadar server."
         }
       ]
     },
@@ -261,8 +263,7 @@
           "visible": true,
           "type": "text",
           "name": "offense_id",
-          "tooltip": "Specify the ID of the offense that you want to close on the QRadar server.",
-          "value": null
+          "tooltip": "Specify the ID of the offense that you want to close on the QRadar server."
         },
         {
           "title": "Offense Closing Reason - ID",
@@ -272,8 +273,7 @@
           "visible": true,
           "type": "text",
           "name": "offense_close_id",
-          "tooltip": "Specify the ID of the offense closing reason using which you want to close the offense on the QRadar server.",
-          "value": null
+          "tooltip": "Specify the ID of the offense closing reason using which you want to close the offense on the QRadar server."
         },
         {
           "title": "Closure Note",
@@ -282,7 +282,6 @@
           "visible": true,
           "type": "textarea",
           "name": "closure_note",
-          "value": null,
           "description": "(Optional) Note that you want to associate with the offense that you want to close on the QRadar server.",
           "tooltip": "(Optional) Note that you want to associate with the offense that you want to close on the QRadar server."
         }
@@ -310,8 +309,7 @@
           "visible": true,
           "type": "text",
           "name": "offense_id",
-          "tooltip": "Specify the ID of the offense for which you want to create a note on the QRadar server.",
-          "value": null
+          "tooltip": "Specify the ID of the offense for which you want to create a note on the QRadar server."
         },
         {
           "title": "Closure Note",
@@ -321,8 +319,7 @@
           "visible": true,
           "type": "textarea",
           "name": "closure_note",
-          "tooltip": "Specify the text of the closure note that you want to create for the specified offense on the QRadar server.",
-          "value": null
+          "tooltip": "Specify the text of the closure note that you want to create for the specified offense on the QRadar server."
         }
       ]
     },
@@ -491,6 +488,9 @@
               {
                 "title": "Request Parameters",
                 "required": false,
+                "isOnChange": true,
+                "onChangeOption": "GET",
+                "onChangeParam": "Request Method",
                 "description": "Provide the request parameters for the above endpoint that you have specified",
                 "editable": true,
                 "visible": true,
@@ -507,6 +507,9 @@
                 ],
                 "type": "multiselect",
                 "name": "post_payload",
+                "onChangeOption": "POST",
+                "onChangeParam": "Request Method",
+                "isOnChange": true,
                 "title": "Provide Parameters",
                 "visible": true,
                 "editable": true,
@@ -516,6 +519,9 @@
                     {
                       "title": "Request Parameters in JSON Format",
                       "required": false,
+                      "isOnChange": true,
+                      "onChangeOption": "Request Parameters",
+                      "onChangeParam": "Provide Parameters",
                       "description": "Provide the request parameters for the above endpoint that you have specified",
                       "editable": true,
                       "visible": true,
@@ -528,6 +534,9 @@
                     {
                       "title": "Request Payload in JSON Format",
                       "required": false,
+                      "isOnChange": true,
+                      "onChangeOption": "Request Payload",
+                      "onChangeParam": "Provide Parameters",
                       "description": "Provide the request json payload for the above endpoint that you have specified",
                       "editable": true,
                       "visible": true,
@@ -546,7 +555,10 @@
                   "Request Payload"
                 ],
                 "type": "multiselect",
+                "isOnChange": true,
                 "name": "patch_payload",
+                "onChangeOption": "PATCH",
+                "onChangeParam": "Request Method",
                 "title": "Provide Parameters",
                 "visible": true,
                 "editable": true,
@@ -556,6 +568,9 @@
                     {
                       "title": "Request Parameters in JSON Format",
                       "required": false,
+                      "isOnChange": true,
+                      "onChangeOption": "Request Parameters",
+                      "onChangeParam": "Provide Parameters",
                       "description": "Provide the request parameters for the above endpoint that you have specified",
                       "editable": true,
                       "visible": true,
@@ -568,7 +583,10 @@
                     {
                       "title": "Request Payload in JSON Format",
                       "required": false,
+                      "isOnChange": true,
                       "description": "Provide the request json payload for the above endpoint that you have specified",
+                      "onChangeOption": "Request Payload",
+                      "onChangeParam": "Provide Parameters",
                       "editable": true,
                       "visible": true,
                       "type": "json",
@@ -653,6 +671,9 @@
               {
                 "title": "Reference Set Name",
                 "required": true,
+                "isOnChange": true,
+                "onChangeOption": "Retrieves Value",
+                "onChangeParam": "Request Method",
                 "tooltip": "Name of the reference set in which you want manipulate the content",
                 "description": "Specify the name of the reference set to be used for this operation based on the option you have specified in the Request Method. If you choose Add Value as the Request Method, then this operation will add the specified value to the reference set you have specified in this field. If you choose Delete Value as the Request Method, then this operation will delete the specified value from the reference set you have specified in this field. If you choose Retrieves Value as the Request Method, then this operation will retrieve the values of the reference set you have specified in this field.",
                 "editable": true,
@@ -664,6 +685,9 @@
             "Add Value": [
               {
                 "title": "Reference Set Name",
+                "isOnChange": true,
+                "onChangeOption": "Add Value",
+                "onChangeParam": "Request Method",
                 "required": true,
                 "tooltip": "Name of the reference set in which you want manipulate the content",
                 "description": "Specify the name of the reference set to be used for this operation based on the option you have specified in the Request Method. If you choose Add Value as the Request Method, then this operation will add the specified value to the reference set you have specified in this field. If you choose Delete Value as the Request Method, then this operation will delete the specified value from the reference set you have specified in this field. If you choose Retrieves Value as the Request Method, then this operation will retrieve the values of the reference set you have specified in this field.",
@@ -675,6 +699,9 @@
               {
                 "title": "Value",
                 "required": true,
+                "isOnChange": true,
+                "onChangeOption": "Add Value",
+                "onChangeParam": "Request Method",
                 "tooltip": "Value that you want to add or remove from the specified reference set. You must specify the value in this field if you have chosen Add Value or Delete Value as the Request Method.",
                 "description": "Specify the value that you want to add or remove from the specified reference set. You must specify the value in this field if you have chosen Add Value or Delete Value as the Request Method.",
                 "editable": true,
@@ -687,6 +714,9 @@
               {
                 "title": "Reference Set Name",
                 "required": true,
+                "isOnChange": true,
+                "onChangeOption": "Delete Value",
+                "onChangeParam": "Request Method",
                 "tooltip": "Name of the reference set in which you want manipulate the content",
                 "description": "Specify the name of the reference set to be used for this operation based on the option you have specified in the Request Method. If you choose Add Value as the Request Method, then this operation will add the specified value to the reference set you have specified in this field. If you choose Delete Value as the Request Method, then this operation will delete the specified value from the reference set you have specified in this field. If you choose Retrieves Value as the Request Method, then this operation will retrieve the values of the reference set you have specified in this field.",
                 "editable": true,
@@ -697,6 +727,9 @@
               {
                 "title": "Value",
                 "required": true,
+                "isOnChange": true,
+                "onChangeOption": "Delete Value",
+                "onChangeParam": "Request Method",
                 "tooltip": "Value that you want to add or remove from the specified reference set. You must specify the value in this field if you have chosen Add Value or Delete Value as the Request Method.",
                 "description": "Specify the value that you want to add or remove from the specified reference set. You must specify the value in this field if you have chosen Add Value or Delete Value as the Request Method.",
                 "editable": true,
@@ -1525,6 +1558,58 @@
           "type": "datetime",
           "name": "start_time",
           "tooltip": "Select the date and time using which to filter the result set to only include items that have been created after the specified timestamp."
+        }
+      ]
+    },
+    {
+      "annotation": "get_mitre_mapping_related_to_an_offense",
+      "category": "investigation",
+      "title": "Get Mitre Mapping Related To Offense",
+      "visible": true,
+      "description": "Retrieves the MITRE mapping details associated with a QRadar offense from the QRadar server, based on the specified Offense ID.",
+      "enabled": true,
+      "is_config_required": true,
+      "operation": "get_mitre_mapping_related_to_an_offense",
+      "output_schema": [
+        {
+          "has_ibm_default": "",
+          "id": "",f
+          "last_updated": "",
+          "mapping": [
+            {
+              "confidence": "",
+              "enabled": "",
+              "ibm_default": "",
+              "tactic_id": "",
+              "tactic_name": "",
+              "techniques": [
+                {
+                  "confidence": "",
+                  "enabled": "",
+                  "technique_id": "",
+                  "technique_name": ""
+                }
+              ],
+              "user_override": ""
+            }
+          ],
+          "min_mitre_version": "",
+          "override_id": "",
+          "rule_name": ""
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Specify the Offense ID based on which you want to retrieve mitre mapping from QRadar.",
+          "editable": true,
+          "isOnChange": false,
+          "name": "offense_id",
+          "onchange": {},
+          "required": true,
+          "title": "QRadar Offense ID",
+          "tooltip": "Specify the QRadar Offense ID to retrieve the associated MITRE ATT&CK mapping.",
+          "type": "text",
+          "visible": true
         }
       ]
     }

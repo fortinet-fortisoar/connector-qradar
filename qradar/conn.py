@@ -32,6 +32,7 @@ class QradarConnection(object):
         'delete_reference_table': 'reference_data/tables/{name}'
 
     }
+
     def __init__(self, address, token, verify_ssl=True, api_version='6.0', **kwargs):
         self.address = address
         if not address.startswith('https://') and not address.startswith('http://'):
@@ -89,7 +90,10 @@ class QradarConnection(object):
         return self.__parseRequestResult(res)
 
     def __getUrl(self, endpoint, params={}, headers={}):
-        url = '{}/{}'.format(self.base_url, endpoint)
+        if endpoint.startswith('console'):
+            url = '{}/{}'.format(self.address, endpoint)
+        else:
+            url = '{}/{}'.format(self.base_url, endpoint)
         self.log.debug('GET to URL: {}'.format(url))
         res = self.session.get(url, params=params, headers=headers, timeout=REQUEST_TIMEOUT)
         logger.debug('\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:\n{0}\n'.format(dump.dump_all(res).decode('utf-8')))
@@ -290,7 +294,7 @@ class QradarConnection(object):
         res = self.__getUrl(endpoint)
         return res
 
-#1.6.0
+    # 1.6.0
     def __args_parser(self, params):
         """
         Builds url_params, headers and POST payloads from params
@@ -311,15 +315,15 @@ class QradarConnection(object):
                 if isinstance(value, dict):
                     logger.debug('Request JSON data: {}'.format(value))
                     data = value
-                    headers.update({'Content-type': 'application/json', 'Accept': params.get('content_type','application/json')})
+                    headers.update(
+                        {'Content-type': 'application/json', 'Accept': params.get('content_type', 'application/json')})
                 else:
-                    data.update({kv_input[1]:value})
+                    data.update({kv_input[1]: value})
             elif 'query' in key and value:
-                url_params.update({key.split('.')[1]:self.__ensureStr(value)})
+                url_params.update({key.split('.')[1]: self.__ensureStr(value)})
         return url_params, headers, data
 
-
-    def __build_endpoint(self,params):
+    def __build_endpoint(self, params):
         """
         Formats endpoint string
         :param endpoint: endpoint string
@@ -346,7 +350,6 @@ class QradarConnection(object):
         self.log.debug('Getting Records. \nParams: {0}, \nHeaders: {1}'.format(url_params, headers))
         return self.__getUrl(endpoint, params=url_params, headers=headers)
 
-
     def update_record(self, params):
         """
         Run POST operations
@@ -358,7 +361,6 @@ class QradarConnection(object):
         self.log.debug('Updating Record. \nParams: {0} \nHeaders: {1} \nData: {2}'.format(url_params, headers, data))
         return self.__postUrl(endpoint, headers=headers, params=url_params, json=data)
 
-
     def delete_record(self, params):
         """
         Run DELETE operations
@@ -369,3 +371,8 @@ class QradarConnection(object):
         url_params, headers, data = self.__args_parser(params)
         self.log.debug('Deleting Record. \nParams: {0} \nHeaders: {1}'.format(url_params, headers))
         return self.__deleteUrl(endpoint, headers=headers, params=url_params)
+
+    def get_mitre_mapping_for_offense(self, params, rule_uuid):
+        mitre_endpoint = '/console/plugins/app_proxy:UseCaseManager_Service/api/mappings/by_name?rule_id=' + rule_uuid
+        rule_res = self.invokeQRadarAPI(endpoint=mitre_endpoint, method='GET', params=params, headers={})
+        return rule_res
