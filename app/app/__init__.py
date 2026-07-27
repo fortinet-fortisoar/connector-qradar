@@ -15,7 +15,6 @@ import re
 
 from flask import Flask
 from flask import send_from_directory, render_template, request, abort
-from markupsafe import escape
 from werkzeug.utils import safe_join
 
 from qpylib import qpylib
@@ -38,12 +37,17 @@ def debug():
 @app.route('/debug_view')
 def debug_view():
     """
-    Display the debug log safely.
-    Escapes log contents to prevent Stored XSS.
+    Display the debug log.
+    Jinja2 escapes variables by default, preventing XSS.
     """
     try:
-        with open('/store/log/app.log', 'r', encoding='utf-8', errors='replace') as log_file:
-            debug_content = escape(log_file.read())
+        with open(
+            '/store/log/app.log',
+            'r',
+            encoding='utf-8',
+            errors='replace'
+        ) as log_file:
+            debug_content = log_file.read()
 
         return render_template(
             'debug.html',
@@ -51,36 +55,76 @@ def debug_view():
         )
 
     except Exception as err:
-        qpylib.log("Unable to read debug log: {}".format(err), "ERROR")
+        qpylib.log(
+            "Unable to read debug log: {}".format(err),
+            "ERROR"
+        )
         abort(500)
 
 
 @app.route('/resources/<path:filename>')
 def send_file(filename):
     """
-    Serve static resources safely.
-    Validates the requested path before serving the file.
+    Securely serve static resources.
     """
 
     resources_dir = os.path.join(app.static_folder, 'resources')
 
-    safe_path = safe_join(resources_dir, filename)
+    # Normalize path
+    filename = os.path.normpath(filename)
 
-    if safe_path is None or not os.path.isfile(safe_path):
+    # Reject traversal attempts
+    if filename.startswith("..") or os.path.isabs(filename):
         abort(404)
 
-    qpylib.log(">>> route resources >>>")
-    qpylib.log("filename={}".format(filename))
-    qpylib.log("resource={}".format(safe_path))
+    # Allow only expected file extensions
+    allowed_extensions = {
+        ".css",
+        ".js",
+        ".png",
+        ".jpg",
+        ".jpeg",
+        ".gif",
+        ".svg",
+        ".ico",
+        ".woff",
+        ".woff2",
+        ".ttf",
+        ".eot",
+        ".map"
+    }
 
-    return send_from_directory(resources_dir, filename)
+    extension = os.path.splitext(filename)[1].lower()
+
+    if extension not in allowed_extensions:
+        abort(404)
+
+    # Build secure path
+    safe_path = safe_join(resources_dir, filename)
+
+    if safe_path is None:
+        abort(404)
+
+    if not os.path.isfile(safe_path):
+        abort(404)
+
+    # Use validated relative filename
+    safe_filename = os.path.relpath(safe_path, resources_dir)
+
+    qpylib.log(">>> route resources >>>")
+    qpylib.log("resource={}".format(safe_filename))
+
+    return send_from_directory(
+        resources_dir,
+        safe_filename,
+        conditional=True
+    )
 
 
 @app.route('/log_level', methods=['POST'])
 def log_level():
     """
     Update application log level.
-    Uses an allow-list and avoids reflecting unsanitized user input.
     """
 
     level = request.form.get('level', '').upper()
@@ -106,9 +150,9 @@ def log_level():
     return "Log level successfully updated."
 
 
-# Untested or compiled code
 @app.route('/react-intl/<path:requested>', methods=['GET'])
 def reactIntl(requested):
+
     def put_in_container(container, key, value):
         key_parts = key.split(".")
 
@@ -157,6 +201,7 @@ def reactIntl(requested):
     }
 
     for f in os.listdir(resources):
+
         bundle_lang = f.split("_")
 
         locale = None
@@ -187,9 +232,11 @@ def reactIntl(requested):
                     lang = {}
 
                     for line in thefile:
+
                         line = line.strip()
 
                         if len(line) > 0:
+
                             key_value = line.split("=")
 
                             put_in_container(
