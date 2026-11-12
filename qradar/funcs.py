@@ -181,7 +181,7 @@ def get_mitre_mapping_related_to_an_offense(config, params, *args, **kwargs):
     qradar_connection = QradarConnection(**config)
     # Get offense analysis for rule id
     offense_id = params['offense_id']
-    offense_details_endpoint = '/siem/offenses/' + offense_id
+    offense_details_endpoint = '/siem/offenses/' + str(offense_id)
     offense_res = qradar_connection.invokeQRadarAPI(endpoint=offense_details_endpoint, method='GET', params=params,
                                                     headers=headers)
     # Get rule analysis for rule uuid
