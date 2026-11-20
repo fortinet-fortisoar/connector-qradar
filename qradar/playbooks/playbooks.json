@@ -1122,7 +1122,7 @@
         {
           "@type": "Workflow",
           "triggerLimit": null,
-          "name": "Get Mitre Mapping Related To Offense",
+          "name": "Get MITRE Mapping Related to an Offense",
           "aliasName": null,
           "tag": null,
           "description": "Retrieves the MITRE mapping details associated with a QRadar offense from the QRadar server, based on the specified Offense ID.",
@@ -1139,7 +1139,7 @@
           "steps": [
             {
               "@type": "WorkflowStep",
-              "name": "Get Mitre Mapping Related To Offense",
+              "name": "Get MITRE Mapping Related to an Offense",
               "description": null,
               "arguments": {
                 "name": "IBM QRadar",
@@ -1150,7 +1150,7 @@
                 "version": "1.7.0",
                 "connector": "qradar",
                 "operation": "get_mitre_mapping_related_to_an_offense",
-                "operationTitle": "Get Mitre Mapping Related To Offense",
+                "operationTitle": "Get MITRE Mapping Related to an Offense",
                 "pickFromTenant": false,
                 "step_variables": []
               },
@@ -1167,7 +1167,7 @@
               "description": null,
               "arguments": {
                 "route": "813d2cfd-e667-4055-b639-cb6180320b5b",
-                "title": "IBM QRadar: Get Mitre Mapping Related To Offense",
+                "title": "IBM QRadar: Get MITRE Mapping Related to an Offense",
                 "resources": [
                   "alerts"
                 ],
@@ -1200,7 +1200,7 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Start -> Get Mitre Mapping Related To Offense",
+              "name": "Start -> Get MITRE Mapping Related to an Offense",
               "targetStep": "/api/3/workflow_steps/e9bd0539-a9fd-4ef4-bdbd-2414434eadfd",
               "sourceStep": "/api/3/workflow_steps/5fd442fa-4a6e-471b-8ee6-675ccdd23f9a",
               "label": null,
@@ -3348,7 +3348,7 @@
         {
           "@type": "Workflow",
           "triggerLimit": null,
-          "name": "Get Assets Properties",
+          "name": "Get Asset Properties",
           "aliasName": null,
           "tag": "#IBM QRadar",
           "description": "Retrieves a detailed list of available asset properties from Qradar that can be used with assets update operation.",
@@ -3365,7 +3365,7 @@
           "steps": [
             {
               "@type": "WorkflowStep",
-              "name": "Get Assets Properties",
+              "name": "Get Asset Properties",
               "description": null,
               "arguments": {
                 "name": "IBM QRadar",
@@ -3378,7 +3378,7 @@
                 "version": "1.7.0",
                 "connector": "qradar",
                 "operation": "get_assets_properties",
-                "operationTitle": "Get Assets Properties",
+                "operationTitle": "Get Asset Properties",
                 "step_variables": {
                   "output_data": "{{vars.result}}"
                 }
@@ -3396,7 +3396,7 @@
               "description": null,
               "arguments": {
                 "route": "e34db2ff-edf9-47e1-a87f-4dae9c6d8d2b",
-                "title": "IBM QRadar: Get Assets Properties",
+                "title": "IBM QRadar: Get Asset Properties",
                 "resources": [
                   "alerts"
                 ],
@@ -3421,7 +3421,7 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Start-> Get Assets Properties",
+              "name": "Start-> Get Asset Properties",
               "targetStep": "/api/3/workflow_steps/1bed410d-c7b5-4b0e-9d73-140442621117",
               "sourceStep": "/api/3/workflow_steps/272e7989-d471-4983-9304-8d0415cb70da",
               "label": null,
@@ -3539,91 +3539,6 @@
           "importedBy": [],
           "recordTags": [
             "qradar"
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "API - Push Offense From QRadar",
-          "aliasName": null,
-          "tag": "#qradar app",
-          "description": "This playbook demonstrate the QRadar App. You need have QRadar CyberSponse App installed on QRadar.",
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1676990399,
-          "collection": "/api/3/workflow_collections/69aba265-f851-4ede-8b53-b6bebb6ca561",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/5cc52ab8-80ad-49b0-9dad-4987bd043068",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Get Offense Details",
-              "description": null,
-              "arguments": {
-                "name": "IBM QRadar",
-                "config": "",
-                "params": {
-                  "filter_string": "id={{ vars.request.data.Offense_ID }}"
-                },
-                "version": "1.7.0",
-                "connector": "qradar",
-                "operation": "get_offenses",
-                "operationTitle": "Get Offenses from QRadar",
-                "step_variables": []
-              },
-              "status": null,
-              "top": "160",
-              "left": "400",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "7ac14252-3ffa-421a-8074-7d0808119a96"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "qradar",
-                "authentication_methods": [
-                  ""
-                ]
-              },
-              "status": null,
-              "top": "53",
-              "left": "234",
-              "stepType": "/api/3/workflow_step_types/df26c7a2-4166-4ca5-91e5-548e24c01b5f",
-              "group": null,
-              "uuid": "5cc52ab8-80ad-49b0-9dad-4987bd043068"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Get Offense Details",
-              "targetStep": "/api/3/workflow_steps/7ac14252-3ffa-421a-8074-7d0808119a96",
-              "sourceStep": "/api/3/workflow_steps/5cc52ab8-80ad-49b0-9dad-4987bd043068",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "75e2ffa5-ea71-47c6-87df-1aa7e006d911"
-            }
-          ],
-          "groups": [],
-          "priority": null,
-          "playbookOrigin": "/api/3/picklists/15c1e8c9-22bf-4e66-8fbb-0a502d4a4a3f",
-          "isEditable": true,
-          "uuid": "ebcdedf8-82d0-4072-a71c-badec8b2ccc8",
-          "id": 2773,
-          "owners": [],
-          "isPrivate": false,
-          "deletedAt": null,
-          "importedBy": [],
-          "recordTags": [
-            "qradar app"
           ]
         }
       ]

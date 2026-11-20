@@ -308,7 +308,7 @@ class QradarConnection(object):
             if key == 'filter_string' and value:
                 url_params.update({"filter": self.__ensureStr(value)})
             elif key == 'max_results':
-                max_results = str(value) if value else str(self.MAX_RESULTS)
+                max_results = str(value) if value is not None else str(self.MAX_RESULTS)
                 headers.update({'Range': 'items=0-' + str(max_results)})
             elif 'body' in key:
                 kv_input = key.split('.')

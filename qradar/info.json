@@ -13,7 +13,7 @@
   "ingestion_modes": [
     "scheduled"
   ],
-  "help_online": "",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.7.0/ibm-qradar/170/ibm-qradar-v1-7-0",
   "configuration": {
     "fields": [
       {
@@ -25,8 +25,8 @@
         "type": "text",
         "name": "address",
         "value": "",
-        "description": "Specify the IP address of the QRadar server from where the connector gets offenses information and to which you connect and perform automated operations.",
-        "tooltip": "Specify the IP address of the QRadar server from where the connector gets offenses information and to which you connect and perform automated operations."
+        "description": "Specify the IP address of the IBM QRadar server to which you connect and perform automated operations.",
+        "tooltip": "Specify the IP address of the IBM QRadar server to which you connect and perform automated operations."
       },
       {
         "title": "API Token",
@@ -36,8 +36,8 @@
         "visible": true,
         "type": "password",
         "name": "token",
-        "description": "Specify the API token to access the QRadar server to which you connect and perform automated operations.",
-        "tooltip": "Specify the API token to access the QRadar server to which you connect and perform automated operations."
+        "description": "Specify the API token to access the IBM QRadar server to which you connect and perform automated operations. In MSSP environments, the token must have full administrative permissions across all domains.",
+        "tooltip": "Specify the API token to access the IBM QRadar server to which you connect and perform automated operations. In MSSP environments, the token must have full administrative permissions across all domains."
       },
       {
         "title": "API Version",
@@ -48,8 +48,8 @@
         "type": "text",
         "name": "api_version",
         "value": "14.0",
-        "description": "Specify the version of the QRadar API to be used for performing automated operations. By default, this is set to 14.0.",
-        "tooltip": "Specify the version of the QRadar API to be used for performing automated operations. By default, this is set to 14.0."
+        "description": "Specify the version of the IBM QRadar API to use for automated operations. By default, this is set to 14.0.",
+        "tooltip": "Specify the version of the IBM QRadar API to use for automated operations. By default, this is set to 14.0."
       },
       {
         "title": "Verify SSL",
@@ -60,8 +60,8 @@
         "type": "checkbox",
         "name": "verify_ssl",
         "value": true,
-        "description": "Specifies whether the SSL certificate for the server is to be verified. By default, this is set to True.",
-        "tooltip": "Specifies whether the SSL certificate for the server is to be verified. By default, this is set to True."
+        "description": "Select this option to verify the SSL certificate of the server. By default, this is set to true.",
+        "tooltip": "Select this option to verify the SSL certificate of the server. By default, this is set to true."
       }
     ]
   },
@@ -114,14 +114,14 @@
       "parameters": [
         {
           "title": "Filter String",
-          "description": "Specify the filter string based on which you want to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\".",
+          "description": "Specify the filter string based on which you want to retrieve offenses from QRadar. For example, assigned_to=\"admin\". By default, this is set to status=\"OPEN\".",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "filter_string",
           "value": "status=\"OPEN\"",
-          "tooltip": "Specify the filter string based on which you want to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\".",
+          "tooltip": "Specify the filter string based on which you want to retrieve offenses from QRadar. For example, assigned_to=\"admin\". By default, this is set to status=\"OPEN\".",
           "placeholder": "For e.g. status=OPEN"
         }
       ]
@@ -129,7 +129,7 @@
     {
       "operation": "query_qradar",
       "title": "Make an Ariel Query to QRadar",
-      "description": "Executes an Ariel query on the QRadar server. QRadar uses the Ariel Query Language (AQL) to search for offenses or events based on query parameters.",
+      "description": "Runs an Ariel query on the QRadar server based on the Ariel search string that you have specified. QRadar uses the Ariel Query Language (AQL) to search for offenses or events.",
       "category": "investigation",
       "annotation": "run_query",
       "output_schema": {},
@@ -151,8 +151,8 @@
     {
       "operation": "get_closing_reasons",
       "title": "Get Offense Closing Reasons",
-      "description": "Retrieves a list of closing reasons associated with all offenses from the QRadar server.",
-      "category": "remediation",
+      "description": "Retrieves the list of offense closing reasons from the QRadar server.",
+      "category": "investigation",
       "annotation": "get_offense_closing_reasons",
       "output_schema": [
         {
@@ -168,7 +168,7 @@
     {
       "operation": "get_offense_type",
       "title": "Get Offense Types",
-      "description": "Retrieves a list containing IDs of all the offense types from the QRadar server.",
+      "description": "Retrieves the list of all offense types, with their IDs, from the QRadar server.",
       "category": "investigation",
       "annotation": "get_offense_type",
       "output_schema": [
@@ -186,8 +186,8 @@
     {
       "operation": "get_notes",
       "title": "Get Offense Notes",
-      "description": "Retrieves a list of notes associated with a specified offense in QRadar based on the offense ID you have specified.",
-      "category": "remediation",
+      "description": "Retrieves the notes associated with an offense from the QRadar server based on the offense ID that you have specified.",
+      "category": "investigation",
       "annotation": "get_notes",
       "output_schema": [
         {
@@ -201,20 +201,20 @@
       "parameters": [
         {
           "title": "Offense ID",
-          "description": "Specify the ID of the offense whose associated notes you want to retrieve from the QRadar server.",
+          "description": "Specify the ID of the offense whose notes you want to retrieve from the QRadar server.",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "offense_id",
-          "tooltip": "Specify the ID of the offense whose associated notes you want to retrieve from the QRadar server."
+          "tooltip": "Specify the ID of the offense whose notes you want to retrieve from the QRadar server."
         }
       ]
     },
     {
       "operation": "close_offense",
       "title": "Close Offense",
-      "description": "Closes an offense on the QRadar server based on the offense ID that you have specified.",
+      "description": "Closes an offense on the QRadar server based on the offense ID and closing reason ID that you have specified.",
       "category": "remediation",
       "annotation": "close_offense",
       "output_schema": {
@@ -266,14 +266,14 @@
           "tooltip": "Specify the ID of the offense that you want to close on the QRadar server."
         },
         {
-          "title": "Offense Closing Reason - ID",
-          "description": "Specify the ID of the offense closing reason using which you want to close the offense on the QRadar server.",
+          "title": "Closing Reason ID",
+          "description": "Specify the ID of the closing reason with which you want to close the offense. To retrieve closing reason IDs, use the Get Offense Closing Reasons action.",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "offense_close_id",
-          "tooltip": "Specify the ID of the offense closing reason using which you want to close the offense on the QRadar server."
+          "tooltip": "Specify the ID of the closing reason with which you want to close the offense. To retrieve closing reason IDs, use the Get Offense Closing Reasons action."
         },
         {
           "title": "Closure Note",
@@ -282,15 +282,15 @@
           "visible": true,
           "type": "textarea",
           "name": "closure_note",
-          "description": "(Optional) Note that you want to associate with the offense that you want to close on the QRadar server.",
-          "tooltip": "(Optional) Note that you want to associate with the offense that you want to close on the QRadar server."
+          "description": "(Optional) Specify the note that you want to add to the offense when you close it.",
+          "tooltip": "(Optional) Specify the note that you want to add to the offense when you close it."
         }
       ]
     },
     {
       "operation": "add_notes",
       "title": "Create Note",
-      "description": "Creates a note for a specified offense in QRadar based on the offense ID you have specified.",
+      "description": "Creates a note for an offense on the QRadar server based on the offense ID and note text that you have specified.",
       "category": "remediation",
       "annotation": "add_notes",
       "output_schema": {
@@ -312,23 +312,23 @@
           "tooltip": "Specify the ID of the offense for which you want to create a note on the QRadar server."
         },
         {
-          "title": "Closure Note",
-          "description": "Specify the text of the closure note that you want to create for the specified offense on the QRadar server.",
+          "title": "Note Text",
+          "description": "Specify the text of the note that you want to create for the offense.",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "textarea",
           "name": "closure_note",
-          "tooltip": "Specify the text of the closure note that you want to create for the specified offense on the QRadar server."
+          "tooltip": "Specify the text of the note that you want to create for the offense."
         }
       ]
     },
     {
       "operation": "get_events_related_to_offense",
       "title": "Get Events Related to an Offense",
-      "description": "Retrieves details of events associated with a QRadar offense, from the QRadar server, based on the QRadar offense ID that you have specified.",
+      "description": "Retrieves the events associated with an offense from the QRadar server based on the offense ID, offense start time, and offense last update time that you have specified.",
       "category": "investigation",
-      "annotation": "get_events",
+      "annotation": "get_events_related_to_offense",
       "output_schema": {
         "events": [
           {
@@ -352,46 +352,46 @@
       "parameters": [
         {
           "title": "QRadar Offense ID",
-          "description": "Specify the Offense ID based on which you want to retrieve events from QRadar.",
+          "description": "Specify the ID of the offense whose events you want to retrieve from QRadar.",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "offense_id",
-          "tooltip": "Specify the Offense ID based on which you want to retrieve events from QRadar.",
+          "tooltip": "Specify the ID of the offense whose events you want to retrieve from QRadar.",
           "value": ""
         },
         {
           "title": "Offense Start Time",
-          "description": "Specify the number of milliseconds since the epoch from the offense was started.",
+          "description": "Select the date and time when the offense started.",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "datetime",
           "name": "start_time",
-          "tooltip": "Specify the number of milliseconds since the epoch from the offense was started.",
+          "tooltip": "Select the date and time when the offense started.",
           "value": ""
         },
         {
           "title": "Offense Last Update Time",
-          "description": "Specify the number of milliseconds since the epoch from the offense was last modified.",
+          "description": "Select the date and time when the offense was last updated.",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "datetime",
           "name": "last_updated_time",
-          "tooltip": "Specify the number of milliseconds since the epoch from the offense was last modified.",
+          "tooltip": "Select the date and time when the offense was last updated.",
           "value": ""
         },
         {
-          "title": "Max Events to return",
-          "description": "(Optional) Specify the maximum number of events that this operation should return.",
+          "title": "Max Events to Return",
+          "description": "(Optional) Specify the maximum number of events that this operation should return. By default, this is set to 100.",
           "required": false,
           "editable": true,
           "visible": true,
           "type": "integer",
           "name": "max_results",
-          "tooltip": "(Optional) Specify the maximum number of events that this operation should return.",
+          "tooltip": "Specify the maximum number of events that this operation should return. By default, this is set to 100.",
           "value": 100
         }
       ]
@@ -399,7 +399,7 @@
     {
       "operation": "get_source_ip",
       "title": "Get Source IP Addresses",
-      "description": "Retrieves IP address details associated with source address IDs from the QRadar server, based on the source address IDs that you have specified",
+      "description": "Retrieves the IP address details associated with source address IDs from the QRadar server based on the source address IDs that you have specified.",
       "output_schema": {
         "id": "",
         "source_ip": "",
@@ -407,27 +407,27 @@
         "magnitude": ""
       },
       "category": "investigation",
-      "annotation": "ip_details",
+      "annotation": "get_source_ip",
       "enabled": true,
       "parameters": [
         {
-          "title": "Source Address Ids",
-          "description": "Specify the IDs of source addresses based on which you want to retrieve IP address details from the QRadar server. For example, [3,4,5].",
+          "title": "Source Address IDs",
+          "description": "Specify the IDs of the source addresses whose IP address details you want to retrieve from the QRadar server. For example, [3,4,5].",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "source_address_ids",
-          "tooltip": "Specify the IDs of source addresses based on which you want to retrieve IP address details from the QRadar server. For example, [3,4,5]."
+          "tooltip": "Specify the IDs of the source addresses whose IP address details you want to retrieve from the QRadar server. For example, [3,4,5]."
         }
       ]
     },
     {
       "operation": "get_destination_ip",
       "title": "Get Destination IP Addresses",
-      "description": "Retrieves IP address details associated with the destination address IDs from the QRadar server, based on the destination address IDs that you have specified",
+      "description": "Retrieves the IP address details associated with destination address IDs from the QRadar server based on the destination address IDs that you have specified.",
       "category": "investigation",
-      "annotation": "ip_details",
+      "annotation": "get_destination_ip",
       "output_schema": {
         "id": "",
         "local_destination_ip": "",
@@ -437,41 +437,41 @@
       "enabled": true,
       "parameters": [
         {
-          "title": "Destination Address Ids",
-          "description": "IDs of destination addresses based on which you want to retrieve IP address details from the QRadar server. For example, [3,4,5].",
+          "title": "Destination Address IDs",
+          "description": "Specify the IDs of the destination addresses whose IP address details you want to retrieve from the QRadar server. For example, [3,4,5].",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "destination_address_ids",
-          "tooltip": "IDs of destination addresses based on which you want to retrieve IP address details from the QRadar server. For example, [3,4,5]."
+          "tooltip": "Specify the IDs of the destination addresses whose IP address details you want to retrieve from the QRadar server. For example, [3,4,5]."
         }
       ]
     },
     {
       "operation": "invoke_api",
       "title": "Invoke QRadar REST API",
-      "category": "investigation",
+      "category": "miscellaneous",
       "annotation": "api_call",
-      "description": "Invokes a function to Get or Post an API endpoint on the QRadar server.",
+      "description": "Invokes a QRadar REST API endpoint based on the endpoint, request method, and other input parameters that you have specified.",
       "output_schema": {},
       "enabled": true,
       "parameters": [
         {
           "title": "Endpoint",
           "required": true,
-          "description": "Specifies the REST endpoint. For example, /siem/offenses.",
+          "description": "Specify the REST endpoint that you want to invoke. For example, /siem/offenses.",
           "editable": true,
           "visible": true,
           "type": "text",
           "placeholder": "eg /siem/offenses",
           "name": "endpoint",
-          "tooltip": "Specifies the REST endpoint. For example, /siem/offenses."
+          "tooltip": "Specify the REST endpoint that you want to invoke. For example, /siem/offenses."
         },
         {
           "title": "Request Method",
           "required": true,
-          "description": "Select the request method. You can choose between GET, POST, or PATCH. If you select GET, then you should specify the Request Parameters parameter. In the Request parameters parameter, specify the request parameters for the specified endpoint. If you select POST, then you can specify either the Request Parameters in JSON Format or the Request Payload in JSON Format parameter. In these parameters, specify either the request parameters or the request JSON payload for the specified endpoint. If you select PATCH, then you can specify either the Request Parameters in JSON Format or the Request Payload in JSON Format parameter. In these parameters, specify either the request parameters or the request JSON payload for the specified endpoint.",
+          "description": "Select the HTTP method for the request. You can choose from the following options: GET, POST, or PATCH. By default, this is set to GET.",
           "editable": true,
           "visible": true,
           "type": "select",
@@ -482,7 +482,7 @@
             "POST",
             "PATCH"
           ],
-          "tooltip": "Select the request method. You can choose between GET, POST, or PATCH. If you select GET, then you should specify the Request Parameters parameter. In the Request parameters parameter, specify the request parameters for the specified endpoint. If you select POST, then you can specify either the Request Parameters in JSON Format or the Request Payload in JSON Format parameter. In these parameters, specify either the request parameters or the request JSON payload for the specified endpoint. If you select PATCH, then you can specify either the Request Parameters in JSON Format or the Request Payload in JSON Format parameter. In these parameters, specify either the request parameters or the request JSON payload for the specified endpoint.",
+          "tooltip": "Select the HTTP method for the request. You can choose from the following options: GET, POST, or PATCH. By default, this is set to GET.",
           "onchange": {
             "GET": [
               {
@@ -491,12 +491,12 @@
                 "isOnChange": true,
                 "onChangeOption": "GET",
                 "onChangeParam": "Request Method",
-                "description": "Provide the request parameters for the above endpoint that you have specified",
+                "description": "(Optional) Specify the request parameters, in JSON format, for the endpoint that you have specified.",
                 "editable": true,
                 "visible": true,
                 "type": "json",
                 "name": "request_parameters",
-                "tooltip": "Provide the request parameters for the above endpoint that you have specified"
+                "tooltip": "(Optional) Specify the request parameters, in JSON format, for the endpoint that you have specified."
               }
             ],
             "POST": [
@@ -511,6 +511,8 @@
                 "onChangeParam": "Request Method",
                 "isOnChange": true,
                 "title": "Provide Parameters",
+                "description": "Select what to send with the request. You can choose one or both of the following options: Request Parameters and Request Payload.",
+                "tooltip": "Select what to send with the request. You can choose one or both of the following options: Request Parameters and Request Payload.",
                 "visible": true,
                 "editable": true,
                 "required": true,
@@ -522,12 +524,12 @@
                       "isOnChange": true,
                       "onChangeOption": "Request Parameters",
                       "onChangeParam": "Provide Parameters",
-                      "description": "Provide the request parameters for the above endpoint that you have specified",
+                      "description": "(Optional) Specify the request parameters, in JSON format, for the endpoint that you have specified.",
                       "editable": true,
                       "visible": true,
                       "type": "json",
                       "name": "request_parameters",
-                      "tooltip": "Provide the request parameters for the above endpoint that you have specified"
+                      "tooltip": "(Optional) Specify the request parameters, in JSON format, for the endpoint that you have specified."
                     }
                   ],
                   "Request Payload": [
@@ -537,12 +539,12 @@
                       "isOnChange": true,
                       "onChangeOption": "Request Payload",
                       "onChangeParam": "Provide Parameters",
-                      "description": "Provide the request json payload for the above endpoint that you have specified",
+                      "description": "(Optional) Specify the request payload, in JSON format, for the endpoint that you have specified.",
                       "editable": true,
                       "visible": true,
                       "type": "json",
                       "name": "request_payload",
-                      "tooltip": "Provide the request json payload for the above endpoint that you have specified"
+                      "tooltip": "(Optional) Specify the request payload, in JSON format, for the endpoint that you have specified."
                     }
                   ]
                 }
@@ -559,6 +561,8 @@
                 "name": "patch_payload",
                 "onChangeOption": "PATCH",
                 "onChangeParam": "Request Method",
+                "description": "Select what to send with the request. You can choose one or both of the following options: Request Parameters and Request Payload.",
+                "tooltip": "Select what to send with the request. You can choose one or both of the following options: Request Parameters and Request Payload.",
                 "title": "Provide Parameters",
                 "visible": true,
                 "editable": true,
@@ -571,12 +575,12 @@
                       "isOnChange": true,
                       "onChangeOption": "Request Parameters",
                       "onChangeParam": "Provide Parameters",
-                      "description": "Provide the request parameters for the above endpoint that you have specified",
+                      "description": "(Optional) Specify the request parameters, in JSON format, for the endpoint that you have specified.",
                       "editable": true,
                       "visible": true,
                       "type": "json",
                       "name": "request_parameters",
-                      "tooltip": "Provide the request parameters for the above endpoint that you have specified"
+                      "tooltip": "(Optional) Specify the request parameters, in JSON format, for the endpoint that you have specified."
                     }
                   ],
                   "Request Payload": [
@@ -584,14 +588,14 @@
                       "title": "Request Payload in JSON Format",
                       "required": false,
                       "isOnChange": true,
-                      "description": "Provide the request json payload for the above endpoint that you have specified",
+                      "description": "(Optional) Specify the request payload, in JSON format, for the endpoint that you have specified.",
                       "onChangeOption": "Request Payload",
                       "onChangeParam": "Provide Parameters",
                       "editable": true,
                       "visible": true,
                       "type": "json",
                       "name": "request_payload",
-                      "tooltip": "Provide the request json payload for the above endpoint that you have specified"
+                      "tooltip": "(Optional) Specify the request payload, in JSON format, for the endpoint that you have specified."
                     }
                   ]
                 }
@@ -600,23 +604,23 @@
           }
         },
         {
-          "title": "Headers in json format",
+          "title": "Headers in JSON Format",
           "required": false,
-          "description": "(Optional) Additional JSON formatted headers. The following headers are already added by the connector: 'Accept': 'application/JSON', 'Content-Type': 'application/JSON', 'SEC': <token>, 'Version': <api_version>,",
+          "description": "(Optional) Specify additional headers, in JSON format. The connector already adds the following headers: Accept: application/json, Content-Type: application/json, SEC: <token>, and Version: <api_version>.",
           "editable": true,
           "visible": true,
           "type": "json",
           "name": "headers",
-          "tooltip": "(Optional) Additional JSON formatted headers. The following headers are already added by the connector: 'Accept': 'application/JSON', 'Content-Type': 'application/JSON', 'SEC': <token>, 'Version': <api_version>,"
+          "tooltip": "(Optional) Specify additional headers, in JSON format. The connector already adds the following headers: Accept: application/json, Content-Type: application/json, SEC: <token>, and Version: <api_version>."
         }
       ]
     },
     {
       "operation": "handle_reference_set_value",
       "title": "Manipulate Reference Set Content",
-      "category": "investigation",
+      "category": "containment",
       "annotation": "handle_reference_set_value",
-      "description": "Adds or deletes the content that you have specified from a reference set on QRadar.",
+      "description": "Retrieves, adds, or deletes the content of a reference set on QRadar based on the request method, reference set name, and value that you have specified.",
       "conditional_output_schema": [
         {
           "condition": "{{method === 'Retrieves Value'}}",
@@ -653,7 +657,7 @@
       "parameters": [
         {
           "title": "Request Method",
-          "description": "Select the request method option of the operation that you want to perform on the specified reference set in QRadar. You can choose from following options: Retrieves Value: Specify values in the following field: Reference Set Name: Specify the name of the reference set from which to retrieve the content in QRadar. Add Value: Specify values in the following field: Reference Set Name: Specify the name of the reference set in which to add the content in QRadar. Value: Specify the value to add to the specified reference set. Delete Value: Specify values in the following field: Reference Set Name: Specify the name of the reference set from which to delete the content in QRadar. Value: Specify the value to delete from the specified reference set.",
+          "description": "Select the operation that you want to perform on the reference set in QRadar. You can choose from the following options: Retrieve Value, Add Value, or Delete Value. By default, this is set to Retrieves Value.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -664,7 +668,7 @@
             "Add Value",
             "Delete Value"
           ],
-          "tooltip": "Select the request method option of the operation that you want to perform on the specified reference set in QRadar. You can choose from following options: Retrieves Value: Specify values in the following field: Reference Set Name: Specify the name of the reference set from which to retrieve the content in QRadar. Add Value: Specify values in the following field: Reference Set Name: Specify the name of the reference set in which to add the content in QRadar. Value: Specify the value to add to the specified reference set. Delete Value: Specify values in the following field: Reference Set Name: Specify the name of the reference set from which to delete the content in QRadar. Value: Specify the value to delete from the specified reference set.",
+          "tooltip": "Select the operation that you want to perform on the reference set in QRadar. You can choose from the following options: Retrieve Value, Add Value, or Delete Value. By default, this is set to Retrieve Value.",
           "value": "Retrieves Value",
           "onchange": {
             "Retrieves Value": [
@@ -674,8 +678,8 @@
                 "isOnChange": true,
                 "onChangeOption": "Retrieves Value",
                 "onChangeParam": "Request Method",
-                "tooltip": "Name of the reference set in which you want manipulate the content",
-                "description": "Specify the name of the reference set to be used for this operation based on the option you have specified in the Request Method. If you choose Add Value as the Request Method, then this operation will add the specified value to the reference set you have specified in this field. If you choose Delete Value as the Request Method, then this operation will delete the specified value from the reference set you have specified in this field. If you choose Retrieves Value as the Request Method, then this operation will retrieve the values of the reference set you have specified in this field.",
+                "tooltip": "Specify the name of the reference set whose content you want to retrieve from QRadar.",
+                "description": "Specify the name of the reference set whose content you want to retrieve from QRadar.",
                 "editable": true,
                 "visible": true,
                 "type": "text",
@@ -689,8 +693,8 @@
                 "onChangeOption": "Add Value",
                 "onChangeParam": "Request Method",
                 "required": true,
-                "tooltip": "Name of the reference set in which you want manipulate the content",
-                "description": "Specify the name of the reference set to be used for this operation based on the option you have specified in the Request Method. If you choose Add Value as the Request Method, then this operation will add the specified value to the reference set you have specified in this field. If you choose Delete Value as the Request Method, then this operation will delete the specified value from the reference set you have specified in this field. If you choose Retrieves Value as the Request Method, then this operation will retrieve the values of the reference set you have specified in this field.",
+                "tooltip": "Specify the name of the reference set to which you want to add the value.",
+                "description": "Specify the name of the reference set to which you want to add the value.",
                 "editable": true,
                 "visible": true,
                 "type": "text",
@@ -702,8 +706,8 @@
                 "isOnChange": true,
                 "onChangeOption": "Add Value",
                 "onChangeParam": "Request Method",
-                "tooltip": "Value that you want to add or remove from the specified reference set. You must specify the value in this field if you have chosen Add Value or Delete Value as the Request Method.",
-                "description": "Specify the value that you want to add or remove from the specified reference set. You must specify the value in this field if you have chosen Add Value or Delete Value as the Request Method.",
+                "tooltip": "Specify the value that you want to add to the reference set.",
+                "description": "Specify the value that you want to add to the reference set.",
                 "editable": true,
                 "visible": true,
                 "type": "text",
@@ -717,8 +721,8 @@
                 "isOnChange": true,
                 "onChangeOption": "Delete Value",
                 "onChangeParam": "Request Method",
-                "tooltip": "Name of the reference set in which you want manipulate the content",
-                "description": "Specify the name of the reference set to be used for this operation based on the option you have specified in the Request Method. If you choose Add Value as the Request Method, then this operation will add the specified value to the reference set you have specified in this field. If you choose Delete Value as the Request Method, then this operation will delete the specified value from the reference set you have specified in this field. If you choose Retrieves Value as the Request Method, then this operation will retrieve the values of the reference set you have specified in this field.",
+                "tooltip": "Specify the name of the reference set from which you want to delete the value.",
+                "description": "Specify the name of the reference set from which you want to delete the value.",
                 "editable": true,
                 "visible": true,
                 "type": "text",
@@ -730,8 +734,8 @@
                 "isOnChange": true,
                 "onChangeOption": "Delete Value",
                 "onChangeParam": "Request Method",
-                "tooltip": "Value that you want to add or remove from the specified reference set. You must specify the value in this field if you have chosen Add Value or Delete Value as the Request Method.",
-                "description": "Specify the value that you want to add or remove from the specified reference set. You must specify the value in this field if you have chosen Add Value or Delete Value as the Request Method.",
+                "tooltip": "Specify the value that you want to delete from the reference set.",
+                "description": "Specify the value that you want to delete from the reference set.",
                 "editable": true,
                 "visible": true,
                 "type": "text",
@@ -744,8 +748,8 @@
     },
     {
       "operation": "get_assets_properties",
-      "title": "Get Assets Properties",
-      "description": "Retrieves a detailed list of available asset properties or specific available asset properties from QRadar based on input parameters specified.",
+      "title": "Get Asset Properties",
+      "description": "Retrieves a list of all available asset properties, or specific asset properties, from QRadar based on the input parameters that you have specified.",
       "category": "investigation",
       "annotation": "get_assets_properties",
       "output_schema": [
@@ -762,8 +766,8 @@
       "parameters": [
         {
           "title": "Limit",
-          "description": "Specify the maximum count of asset properties to be returned by this operation in the response. Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
-          "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "description": "(Optional) Specify the maximum number of asset properties that this operation should return. By default, this is set to 100.",
+          "tooltip": "(Optional) Specify the maximum number of asset properties that this operation should return. By default, this is set to 100.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -773,8 +777,8 @@
         },
         {
           "title": "Filter",
-          "description": "Specify the parameters to be used to filter (restrict) the list of asset properties to be returned by this operation in the response.",
-          "tooltip": "This parameter is used to restrict the list of asset properties in the response based on the filter query specified.",
+          "description": "(Optional) Specify the filter to restrict the list of asset properties that this operation returns.",
+          "tooltip": "(Optional) Specify the filter to restrict the list of asset properties that this operation returns.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -785,8 +789,8 @@
         },
         {
           "title": "Fields",
-          "description": "Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
-          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
+          "tooltip": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -800,7 +804,7 @@
     {
       "operation": "get_assets",
       "title": "Get Assets",
-      "description": "Retrieves a detailed list of all available assets or specific available assets from QRadar based on input parameters specified.",
+      "description": "Retrieves a list of all available assets, or specific assets, from QRadar based on the input parameters that you have specified.",
       "category": "investigation",
       "annotation": "get_assets",
       "output_schema": [
@@ -852,8 +856,8 @@
       "parameters": [
         {
           "title": "Filter",
-          "description": "Specify the parameters to be used to filter (restrict) the list of assets to be returned by this operation in the response.",
-          "tooltip": "This parameter is used to restrict the list of assets in the response based on the filter query specified.",
+          "description": "(Optional) Specify the filter to restrict the list of assets that this operation returns.",
+          "tooltip": "(Optional) Specify the filter to restrict the list of assets that this operation returns.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -864,8 +868,8 @@
         },
         {
           "title": "Limit",
-          "description": "Specify the maximum count of assets to be returned by this operation in the response. Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
-          "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "description": "(Optional) Specify the maximum number of assets that this operation should return. By default, this is set to 100.",
+          "tooltip": "(Optional) Specify the maximum number of assets that this operation should return. By default, this is set to 100.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -875,8 +879,8 @@
         },
         {
           "title": "Fields",
-          "description": "Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
-          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
+          "tooltip": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -887,8 +891,8 @@
         },
         {
           "title": "Sort",
-          "description": "Specify the fields using which you want to sort the response. Specify the negative (-) sign to sort the results in descending order and the positive sign (+) to sort in ascending order.",
-          "tooltip": "Use this parameter to specify on which field you would like to sort the response. Specify negative sign to sort in descending order and positive sign to sort in ascending order.",
+          "description": "(Optional) Specify the fields by which you want to sort the response. Prefix a field with - to sort in descending order, or with + to sort in ascending order.",
+          "tooltip": "(Optional) Specify the fields by which you want to sort the response. Prefix a field with - to sort in descending order, or with + to sort in ascending order.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -902,8 +906,8 @@
     {
       "operation": "update_asset",
       "title": "Update Asset",
-      "description": "Updates the attributes of a specific asset on the QRadar server based on the asset ID and asset properties you have specified. Note: You can retrieve the list of asset properties using the 'Get Assets Properties' operation.",
-      "category": "investigation",
+      "description": "Updates the properties of an asset on QRadar based on the asset ID and asset properties that you have specified. To retrieve the list of asset properties, use the Get Asset Properties action.",
+      "category": "remediation",
       "annotation": "update_asset",
       "output_schema": "",
       "enabled": true,
@@ -911,7 +915,7 @@
         {
           "title": "Asset ID",
           "description": "Specify the ID of the asset whose properties you want to update on QRadar.",
-          "tooltip": "Specify the ID of the asset to update on Qradar",
+          "tooltip": "Specify the ID of the asset whose properties you want to update on QRadar.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -922,8 +926,8 @@
         },
         {
           "title": "Asset Properties",
-          "description": "Specify a JSON dictionary with the asset properties that you want to update in the specified asset you want to update on QRadar",
-          "tooltip": "Specify a JSON dictionary with the asset properties to update on Qradar",
+          "description": "Specify the asset properties that you want to update, as a JSON dictionary. For example, {\"properties\": [{\"type_id\": 1011, \"value\": \"testing\"}]}. To retrieve the list of asset properties, use the Get Asset Properties action.",
+          "tooltip": "Specify the asset properties that you want to update, as a JSON dictionary. For example, {\"properties\": [{\"type_id\": 1011, \"value\": \"testing\"}]}. To retrieve the list of asset properties, use the Get Asset Properties action.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -954,7 +958,7 @@
     {
       "operation": "get_cases",
       "title": "Get Cases",
-      "description": "Retrieves a detailed list of all cases or specific cases from QRadar based on input parameters specified. Note: This action is supported on QRadar API version 7.0 and later.",
+      "description": "Retrieves a list of all cases, or specific cases, from QRadar based on the input parameters that you have specified. This action is supported on QRadar API version 7.0 and later.",
       "category": "investigation",
       "annotation": "get_cases",
       "output_schema": [
@@ -968,8 +972,8 @@
       "parameters": [
         {
           "title": "Fields",
-          "description": "Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
-          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
+          "tooltip": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -980,8 +984,8 @@
         },
         {
           "title": "Filter",
-          "description": "Specify the parameters to be used to filter (restrict) the list of cases to be returned by this operation in the response.",
-          "tooltip": "This parameter is used to restrict the list of cases in the response based on the filter query specified.",
+          "description": "(Optional) Specify the filter to restrict the list of cases that this operation returns.",
+          "tooltip": "(Optional) Specify the filter to restrict the list of cases that this operation returns.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -992,8 +996,8 @@
         },
         {
           "title": "Limit",
-          "description": "Specify the maximum count of cases to be returned by this operation in the response. Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
-          "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "description": "(Optional) Specify the maximum number of cases that this operation should return. By default, this is set to 100.",
+          "tooltip": "(Optional) Specify the maximum number of cases that this operation should return. By default, this is set to 100.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1006,8 +1010,8 @@
     {
       "operation": "create_case",
       "title": "Create Case",
-      "description": "Creates a new case on QRadar based on the case properties you have specified. Note: This action is supported on QRadar API version 7.0 and later.",
-      "category": "investigation",
+      "description": "Creates a case on QRadar based on the case properties that you have specified. This action is supported on QRadar API version 7.0 and later.",
+      "category": "remediation",
       "annotation": "create_case",
       "output_schema": {
         "case_id": "",
@@ -1020,8 +1024,8 @@
       "parameters": [
         {
           "title": "Case Properties",
-          "description": "Specify a JSON dictionary with the case properties using which you want to create the case on QRadar.",
-          "tooltip": "Specify a JSON dictionary with the case properties to create a case on Qradar",
+          "description": "Specify the properties of the case that you want to create on QRadar, as a JSON dictionary. For example, {\"assigned_to\": [\"admin\"], \"name\": \"case1\"}.",
+          "tooltip": "Specify the properties of the case that you want to create on QRadar, as a JSON dictionary. For example, {\"assigned_to\": [\"admin\"], \"name\": \"case1\"}.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1050,7 +1054,7 @@
     {
       "operation": "get_reference_tables",
       "title": "Get Reference Tables",
-      "description": "Retrieves a detailed list of all reference tables or specific reference tables from QRadar based on input parameters specified.",
+      "description": "Retrieves a list of all reference tables, or specific reference tables, from QRadar based on the input parameters that you have specified.",
       "category": "investigation",
       "annotation": "get_reference_tables",
       "output_schema": [
@@ -1071,8 +1075,8 @@
       "parameters": [
         {
           "title": "Filter",
-          "description": "Specify the parameters to be used to filter (restrict) the list of reference tables to be returned by this operation in the response.",
-          "tooltip": "This parameter is used to restrict the list of reference tables in the response based on the filter query specified.",
+          "description": "(Optional) Specify the filter to restrict the list of reference tables that this operation returns. ",
+          "tooltip": "(Optional) Specify the filter to restrict the list of reference tables that this operation returns.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1083,8 +1087,8 @@
         },
         {
           "title": "Limit",
-          "description": "Specify the maximum count of reference tables to be returned by this operation in the response. Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
-          "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "description": "(Optional) Specify the maximum number of reference tables that this operation should return. By default, this is set to 100.",
+          "tooltip": "(Optional) Specify the maximum number of reference tables that this operation should return. By default, this is set to 100.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1094,8 +1098,8 @@
         },
         {
           "title": "Fields",
-          "description": "Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
-          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
+          "tooltip": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1109,8 +1113,8 @@
     {
       "operation": "delete_reference_table",
       "title": "Delete or Purge Reference Table",
-      "description": "Deletes a specific reference table and optionally purges its content from QRadar based on the reference table name you have specified. Note: You can retrieve names and details of reference tables using the 'Get Reference Tables' operation.",
-      "category": "investigation",
+      "description": "Deletes a reference table from QRadar, or purges only its content, based on the reference table name and other input parameters that you have specified. To retrieve the names and details of reference tables, use the Get Reference Tables action.",
+      "category": "remediation",
       "annotation": "delete_reference_table",
       "output_schema": {
         "created_by": "",
@@ -1127,8 +1131,8 @@
       "parameters": [
         {
           "title": "Reference Table Name",
-          "description": "Specify the name of the reference table that you want to delete from QRadar.",
-          "tooltip": "The name of the reference table to delete or purge",
+          "description": "Specify the name of the reference table that you want to delete or purge on QRadar.",
+          "tooltip": "Specify the name of the reference table that you want to delete or purge on QRadar.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1153,8 +1157,8 @@
         },
         {
           "title": "Fields",
-          "description": "(Optional) Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
-          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
+          "tooltip": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1165,8 +1169,8 @@
         },
         {
           "title": "Namespace",
-          "description": "(Optional) Specify the namespace of the reference table that you want to delete from QRadar. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users.",
-          "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "description": "(Optional) Specify the namespace of the reference table that you want to delete or purge. By default, this is SHARED for admin users and TENANT for tenant users. If you set Purge Table to true, the default is SHARED for all users.",
+          "tooltip": "(Optional) Specify the namespace of the reference table that you want to delete or purge. By default, this is SHARED for admin users and TENANT for tenant users. If you set Purge Table to true, the default is SHARED for all users.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1179,7 +1183,7 @@
     {
       "operation": "get_table_elements",
       "title": "Get Table Elements",
-      "description": "Retrieves the record details (elements) of a specific reference table based on the reference table name you have specified. Note: You can retrieve names and details of reference tables using the 'Get Reference Tables' operation.",
+      "description": "Retrieves the elements (record details) of a reference table from QRadar based on the reference table name that you have specified. To retrieve the names and details of reference tables, use the Get Reference Tables action.",
       "category": "investigation",
       "annotation": "get_table_elements",
       "output_schema": {
@@ -1204,8 +1208,8 @@
       "parameters": [
         {
           "title": "Reference Table Name",
-          "description": "Specify the name of the reference table whose record details (elements) you want to retrieve from QRadar.",
-          "tooltip": "Specify the name of the reference table to fetch from Qradar",
+          "description": "Specify the name of the reference table whose elements you want to retrieve from QRadar.",
+          "tooltip": "Specify the name of the reference table whose elements you want to retrieve from QRadar.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1215,8 +1219,8 @@
         },
         {
           "title": "Limit",
-          "description": "(Optional) Specify the maximum count of table elements to be returned by this operation in the response. Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
-          "tooltip": "Use this parameter to restrict the number of elements that are returned in the list to a specified range. The list is indexed starting at zero.",
+          "description": "(Optional) Specify the maximum number of table elements that this operation should return. By default, this is set to 100.",
+          "tooltip": "(Optional) Specify the maximum number of table elements that this operation should return. By default, this is set to 100.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1226,8 +1230,8 @@
         },
         {
           "title": "Fields",
-          "description": "(Optional) Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
-          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
+          "tooltip": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1238,8 +1242,8 @@
         },
         {
           "title": "Namespace",
-          "description": "(Optional) Specify the namespace of the reference table whose record details (elements) you want to retrieve from QRadar. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users.",
-          "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "description": "(Optional) Specify the namespace of the reference table whose elements you want to retrieve. By default, this is SHARED for admin users and TENANT for tenant users.",
+          "tooltip": "(Optional) Specify the namespace of the reference table whose elements you want to retrieve. By default, this is SHARED for admin users and TENANT for tenant users.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1252,8 +1256,8 @@
     {
       "operation": "add_table_element",
       "title": "Add or Update Table Element",
-      "description": "Adds or updates an element in the specified reference table based on the reference table name, outer key, inner key, and other input parameters you have specified.",
-      "category": "investigation",
+      "description": "Adds or updates an element in a reference table on QRadar based on the reference table name, outer key, inner key, value, and other input parameters that you have specified.",
+      "category": "containment",
       "annotation": "add_table_element",
       "output_schema": {
         "timeout_type": "",
@@ -1267,8 +1271,8 @@
       "parameters": [
         {
           "title": "Reference Table Name",
-          "description": "Specify the name of the reference table in which you want to add or update the specified element.",
-          "tooltip": "Specify the name of the reference table to add or update an element in.",
+          "description": "Specify the name of the reference table in which you want to add or update the element.",
+          "tooltip": "Specify the name of the reference table in which you want to add or update the element.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1279,8 +1283,8 @@
         },
         {
           "title": "Outer Key",
-          "description": "Specify the outer key in which you want to add or update the specified element.",
-          "tooltip": "Specify the outer key in which you want to add or update the element.",
+          "description": "Specify the outer key of the element that you want to add or update.",
+          "tooltip": "Specify the outer key of the element that you want to add or update.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1291,8 +1295,8 @@
         },
         {
           "title": "Inner Key",
-          "description": "Specify the inner key in which you want to add or update the specified element.",
-          "tooltip": "Specify the inner key in which you want to add or update the element.",
+          "description": "Specify the inner key of the element that you want to add or update.",
+          "tooltip": "Specify the inner key of the element that you want to add or update.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1303,8 +1307,8 @@
         },
         {
           "title": "Value",
-          "description": "Specify the value of the element that you want to add or update in the specified reference table. Note: Date values must be represented in Unix Epoch milliseconds.",
-          "tooltip": "Specify the value of the element to add or update in the reference table. Note: Date values must be represented in Unix Epoch milliseconds, eg: 1671706076483",
+          "description": "Specify the value of the element that you want to add or update. Specify date values in Unix epoch milliseconds.",
+          "tooltip": "Specify the value of the element that you want to add or update. Specify date values in Unix epoch milliseconds.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1315,8 +1319,8 @@
         },
         {
           "title": "Domain ID",
-          "description": "(Optional) In the case of MSSP setups, you can specify the domain ID to be set for the 'value' you have specified in the 'Value' field. If the 'Domain ID' field is null, then the shared domain is used.",
-          "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
+          "description": "(Optional) In MSSP environments, specify the ID of the domain to set for the value that you have specified in the Value field. If you leave this field empty, the shared domain is used.",
+          "tooltip": "(Optional) In MSSP environments, specify the ID of the domain to set for the value that you have specified in the Value field. If you leave this field empty, the shared domain is used.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1326,8 +1330,8 @@
         },
         {
           "title": "Element Source",
-          "description": "(Optional) Specify the source of the specified element that you want to add or update in the specified table. By default, this is set to 'FortiSOAR'.",
-          "tooltip": "An indication of where the data originated. The default value is 'FortiSOAR'",
+          "description": "(Optional) Specify the source of the element. By default, this is set to FortiSOAR.",
+          "tooltip": "(Optional) Specify the source of the element. By default, this is set to FortiSOAR.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1337,8 +1341,8 @@
         },
         {
           "title": "Fields",
-          "description": "(Optional) Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
-          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
+          "tooltip": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1349,8 +1353,8 @@
         },
         {
           "title": "Namespace",
-          "description": "(Optional) Specify the namespace of the reference table in which you want to add or update the specified element. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users",
-          "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "description": "(Optional) Specify the namespace of the reference table in which you want to add or update the element. By default, this is SHARED for admin users and TENANT for tenant users.",
+          "tooltip": "(Optional) Specify the namespace of the reference table in which you want to add or update the element. By default, this is SHARED for admin users and TENANT for tenant users.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1363,8 +1367,8 @@
     {
       "operation": "delete_table_element",
       "title": "Delete Table Element",
-      "description": "Specify the element to be deleted from a reference table on Qradar based on the input parameters specified.",
-      "category": "investigation",
+      "description": "Deletes an element from a reference table on QRadar based on the reference table name, outer key, inner key, value, and other input parameters that you have specified.",
+      "category": "remediation",
       "annotation": "delete_table_element",
       "output_schema": {
         "timeout_type": "",
@@ -1378,8 +1382,8 @@
       "parameters": [
         {
           "title": "Reference Table Name",
-          "description": "Specify the name of the reference table from which you want to delete the specified element.",
-          "tooltip": "Specify the name of the reference table to remove element from.",
+          "description": "Specify the name of the reference table from which you want to delete the element.",
+          "tooltip": "Specify the name of the reference table from which you want to delete the element.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1390,8 +1394,8 @@
         },
         {
           "title": "Outer Key",
-          "description": "Specify the outer key from which you want to delete the specified element.",
-          "tooltip": "Specify the outer key in which you want to delete the element.",
+          "description": "Specify the outer key of the element that you want to delete.",
+          "tooltip": "Specify the outer key of the element that you want to delete.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1402,8 +1406,8 @@
         },
         {
           "title": "Inner Key",
-          "description": "Specify the inner key from which you want to delete the specified element.",
-          "tooltip": "Specify the inner key from which you want to delete the element.",
+          "description": "Specify the inner key of the element that you want to delete.",
+          "tooltip": "Specify the inner key of the element that you want to delete.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1413,9 +1417,9 @@
           "value": ""
         },
         {
-          "title": "value",
-          "description": "Specify the value of the element that you want to delete from the specified reference table. Note: Date values must be represented in Epoch milliseconds.",
-          "tooltip": "Specify the value of the element to delete. Note: Date values must be represented in Epoch milliseconds",
+          "title": "Value",
+          "description": "Specify the value of the element that you want to delete. Specify date values in Unix epoch milliseconds.",
+          "tooltip": "Specify the value of the element that you want to delete. Specify date values in Unix epoch milliseconds.",
           "required": true,
           "editable": true,
           "visible": true,
@@ -1426,8 +1430,8 @@
         },
         {
           "title": "Domain ID",
-          "description": "(Optional) In the case of MSSP setups, you can specify the domain ID to be set for the 'value' you have specified in the 'Value' field. If the 'Domain ID' field is null, then the shared domain is used.",
-          "tooltip": "For MSSP setups, it sets the domain id for the value to be specified. If null, the shared domain will be used.",
+          "description": "(Optional) In MSSP environments, specify the ID of the domain set for the value that you have specified in the Value field. If you leave this field empty, the shared domain is used.",
+          "tooltip": "(Optional) In MSSP environments, specify the ID of the domain set for the value that you have specified in the Value field. If you leave this field empty, the shared domain is used.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1437,8 +1441,8 @@
         },
         {
           "title": "Fields",
-          "description": "(Optional) Specify the fields to be returned in the response. Fields that are not named are excluded. Specify subfields in brackets, and multiple fields in the same object are separated by commas.",
-          "tooltip": "Use this parameter to specify which fields you would like to get back in the response. Fields that are not named are excluded. Specify subfields in brackets and multiple fields in the same object are separated by commas.",
+          "description": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
+          "tooltip": "(Optional) Specify the fields to include in the response. Fields that you do not specify are excluded. Specify subfields in brackets, and separate multiple fields in the same object with commas.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1449,8 +1453,8 @@
         },
         {
           "title": "Namespace",
-          "description": "(Optional) Specify the namespace of the reference table from which you want to delete the specified element. By default, it is 'SHARED' for 'admin' users and 'TENANT' for 'tenant' users. Note: If you select true from the Purge Table drop-down list, i.e., purge_only is set to true, then the default is 'SHARED' for all users",
-          "tooltip": "Specify the namespace, Default is SHARED for admin users and TENANT for tenant users. If purge_only is true, the default is SHARED for all users.",
+          "description": "(Optional) Specify the namespace of the reference table from which you want to delete the element. By default, this is SHARED for admin users and TENANT for tenant users.",
+          "tooltip": "(Optional) Specify the namespace of the reference table from which you want to delete the element. By default, this is SHARED for admin users and TENANT for tenant users.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -1463,7 +1467,7 @@
     {
       "operation": "fetch_offenses",
       "title": "Fetch Offenses from QRadar",
-      "description": "Retrieves a list of offenses from the QRadar server based on the filter string and start datetime that you have specified.",
+      "description": "Retrieves a list of offenses from the QRadar server based on the filter string and creation time that you have specified.",
       "category": "investigation",
       "annotation": "fetch_offenses",
       "output_schema": [
@@ -1540,33 +1544,33 @@
       "parameters": [
         {
           "title": "Filter String",
-          "description": "Specify the filter string based on which to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\".",
+          "description": "Specify the filter string based on which you want to retrieve offenses from QRadar. For example, assigned_to=\"admin\". By default, this is set to status=\"OPEN\".",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "filter_string",
           "value": "status=\"OPEN\"",
-          "tooltip": "Specify the filter string based on which to retrieve the list of offenses from QRadar. For example, assigned_to=\"admin\"."
+          "tooltip": "Specify the filter string based on which you want to retrieve offenses from QRadar. For example, assigned_to=\"admin\". By default, this is set to status=\"OPEN\"."
         },
         {
           "title": "Created After",
-          "description": "Select the date and time using which to filter the result set to only include items that have been created after the specified timestamp.",
+          "description": "Select the date and time after which the offenses that you want to retrieve were created.",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "datetime",
           "name": "start_time",
-          "tooltip": "Select the date and time using which to filter the result set to only include items that have been created after the specified timestamp."
+          "tooltip": "Select the date and time after which the offenses that you want to retrieve were created."
         }
       ]
     },
     {
       "annotation": "get_mitre_mapping_related_to_an_offense",
       "category": "investigation",
-      "title": "Get Mitre Mapping Related To Offense",
+      "title": "Get MITRE Mapping Related to an Offense",
       "visible": true,
-      "description": "Retrieves the MITRE mapping details associated with a QRadar offense from the QRadar server, based on the specified Offense ID.",
+      "description": "Retrieves the MITRE mapping details associated with an offense from the QRadar server based on the offense ID that you have specified.",
       "enabled": true,
       "is_config_required": true,
       "operation": "get_mitre_mapping_related_to_an_offense",
@@ -1600,14 +1604,14 @@
       ],
       "parameters": [
         {
-          "description": "Specify the Offense ID based on which you want to retrieve mitre mapping from QRadar.",
+          "description": "Specify the ID of the offense whose MITRE mapping details you want to retrieve from QRadar.",
           "editable": true,
           "isOnChange": false,
           "name": "offense_id",
           "onchange": {},
           "required": true,
           "title": "QRadar Offense ID",
-          "tooltip": "Specify the QRadar Offense ID to retrieve the associated MITRE ATT&CK mapping.",
+          "tooltip": "Specify the ID of the offense whose MITRE mapping details you want to retrieve from QRadar.",
           "type": "text",
           "visible": true
         }
